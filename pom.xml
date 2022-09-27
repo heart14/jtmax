@@ -4,13 +4,111 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.1.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>sadli.xyz</groupId>
     <artifactId>jtmax</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>common</module>
+        <module>bean</module>
+        <module>dao</module>
+        <module>service</module>
+        <module>dashboard-service</module>
+        <module>site-service</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+
+        <!--  maven依赖版本统一管理  -->
+        <springboot.version>2.3.1.RELEASE</springboot.version>
+
+        <swagger.version>3.0.0</swagger.version>
+        <mysql.version>8.0.20</mysql.version>
+        <mybatis-generator.version>1.3.7</mybatis-generator.version>
+        <mybatis.version>2.1.2</mybatis.version>
+        <fastjson.version>1.2.83</fastjson.version>
+<!--        <slf4j.version>1.7.30</slf4j.version>-->
+
     </properties>
+
+    <!--  maven依赖统一管理  -->
+    <dependencyManagement>
+        <dependencies>
+
+            <!--Spring Boot web-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${springboot.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!--Spring Boot aop-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+
+            <!--Swagger3,Swagger3要求Spring-web版本必须不低于5.1.4，否则启动会报错，所以Spring Boot版本要不低于2.2.0-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <!--mybatis-->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+
+            <!--mysql驱动-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <scope>runtime</scope>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!--mybatis generator-->
+            <dependency>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-core</artifactId>
+                <version>${mybatis-generator.version}</version>
+            </dependency>
+
+            <!--fastjson-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+<!--            <dependency>-->
+<!--                <groupId>org.slf4j</groupId>-->
+<!--                <artifactId>slf4j-api</artifactId>-->
+<!--                <version>${slf4j.version}</version>-->
+<!--            </dependency>-->
+
+        </dependencies>
+    </dependencyManagement>
 
 </project>
