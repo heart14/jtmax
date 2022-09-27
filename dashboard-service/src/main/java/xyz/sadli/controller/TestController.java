@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import xyz.sadli.common.SysProperties;
 import xyz.sadli.entity.Photo;
 import xyz.sadli.service.test.PhotoService;
+import xyz.sadli.thread.pool.SysThreadPoolTaskExecutor;
 import xyz.sadli.util.SysResponseUtils;
 import xyz.sadli.vo.SysRequest;
 import xyz.sadli.vo.SysResponse;
@@ -29,9 +30,11 @@ public class TestController {
     private static final Logger log = LoggerFactory.getLogger(TestController.class);
 
     private final PhotoService photoService;
+    private final SysThreadPoolTaskExecutor threadExecutor;
 
-    public TestController(PhotoService photoService) {
+    public TestController(PhotoService photoService, SysThreadPoolTaskExecutor threadExecutor) {
         this.photoService = photoService;
+        this.threadExecutor = threadExecutor;
     }
 
     @RequestMapping(value = "/db", method = RequestMethod.POST)
@@ -44,9 +47,15 @@ public class TestController {
     }
 
 
-    @RequestMapping(value = "/p",method = RequestMethod.GET)
+    @RequestMapping(value = "/p", method = RequestMethod.GET)
     public SysResponse property() {
         String bucketUrl = SysProperties.BUCKET_URL;
         return SysResponseUtils.success(bucketUrl);
+    }
+
+    @RequestMapping(value = "/t", method = RequestMethod.GET)
+    public SysResponse thread() {
+        threadExecutor.execute(() -> log.info("this is a child thread from sys threadPool. and its traceId should be the same to parent"));
+        return SysResponseUtils.success();
     }
 }
