@@ -20,7 +20,7 @@ public class SysRequest implements Serializable {
 
     private String cmd;
 
-    private Object biz;
+    private String biz;
 
     public SysRequest() {
     }
@@ -57,11 +57,11 @@ public class SysRequest implements Serializable {
         this.cmd = cmd;
     }
 
-    public Object getBiz() {
+    public String getBiz() {
         return biz;
     }
 
-    public void setBiz(Object biz) {
+    public void setBiz(String biz) {
         this.biz = biz;
     }
 

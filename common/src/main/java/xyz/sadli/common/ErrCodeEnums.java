@@ -42,7 +42,7 @@ public enum ErrCodeEnums {
      */
     HTTP_EXCEPTION(9006, "网络请求异常"),
 
-    UNSUPPORT_MEDIA_TYPE(9007,"不支持的媒体类型");
+    UNSUPPORT_MEDIA_TYPE(9007, "不支持的媒体类型");
 
     private Integer code;
 
@@ -50,22 +50,6 @@ public enum ErrCodeEnums {
 
     ErrCodeEnums(Integer code, String msg) {
         this.code = code;
-        this.msg = msg;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
         this.msg = msg;
     }
 
@@ -97,5 +81,21 @@ public enum ErrCodeEnums {
             }
         }
         return null;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

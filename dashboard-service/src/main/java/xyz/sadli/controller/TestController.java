@@ -1,6 +1,8 @@
 package xyz.sadli.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +25,8 @@ import java.util.List;
 @RequestMapping("/test")
 public class TestController {
 
+    private static final Logger log = LoggerFactory.getLogger(TestController.class);
+
     private final PhotoService photoService;
 
     public TestController(PhotoService photoService) {
@@ -31,8 +35,9 @@ public class TestController {
 
     @RequestMapping(value = "/db", method = RequestMethod.POST)
     public SysResponse db(@RequestBody SysRequest sysRequest) {
-        Object biz = sysRequest.getBiz();
-        int photoStatus = JSONObject.parseObject((String) biz).getIntValue("photoStatus");
+        log.info("test db :{}", sysRequest);
+        String biz = sysRequest.getBiz();
+        int photoStatus = JSONObject.parseObject(biz).getIntValue("photoStatus");
         List<Photo> photos = photoService.dbTest(photoStatus);
         return SysResponseUtils.success(photos);
     }

@@ -18,16 +18,11 @@ import java.util.Set;
 public class SysPropertyLoader {
 
     private static final Logger log = LoggerFactory.getLogger(SysPropertyLoader.class);
-
-    private static SysPropertyLoader instance;
-
-    private Properties properties;
-
     private static final String PROPERTIES_FILE_NAME = "system.properties";
-
-    private static File persistence;
-
     private static final String PERSISTENCE_PATH = "cache/persistence/";
+    private static SysPropertyLoader instance;
+    private static File persistence;
+    private Properties properties;
 
     /**
      * 构造方法私有化，防止私自构造对象
