@@ -44,6 +44,12 @@
             <scope>test</scope>
         </dependency>
 
+        <!--Swagger3,Swagger3要求Spring-web版本必须不低于5.1.4，否则启动会报错，所以Spring Boot版本要不低于2.2.0-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+        </dependency>
+
         <!--fastjson-->
         <dependency>
             <groupId>com.alibaba</groupId>
