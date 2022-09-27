@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import xyz.sadli.common.SysProperties;
 import xyz.sadli.entity.Photo;
 import xyz.sadli.service.test.PhotoService;
 import xyz.sadli.util.SysResponseUtils;
@@ -40,5 +41,12 @@ public class TestController {
         int photoStatus = JSONObject.parseObject(biz).getIntValue("photoStatus");
         List<Photo> photos = photoService.dbTest(photoStatus);
         return SysResponseUtils.success(photos);
+    }
+
+
+    @RequestMapping(value = "/p",method = RequestMethod.GET)
+    public SysResponse property() {
+        String bucketUrl = SysProperties.BUCKET_URL;
+        return SysResponseUtils.success(bucketUrl);
     }
 }
