@@ -12,11 +12,14 @@ import xyz.sadli.entity.Photo;
 import xyz.sadli.service.test.PhotoService;
 import xyz.sadli.thread.pool.SysThreadPoolTaskExecutor;
 import xyz.sadli.util.IdWorker;
+import xyz.sadli.util.StringUtils;
 import xyz.sadli.util.SysResponseUtils;
 import xyz.sadli.vo.SysRequest;
 import xyz.sadli.vo.SysResponse;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * About:
@@ -63,5 +66,14 @@ public class TestController {
     @RequestMapping(value = "/s", method = RequestMethod.GET)
     public SysResponse snowflake() {
         return SysResponseUtils.success(IdWorker.nextIdStr());
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public SysResponse login(@RequestBody SysRequest sysRequest) {
+        log.info("test login :{}", sysRequest);
+        Map<String, String> map = new HashMap<>();
+        map.put("access_token", StringUtils.UuidLowerCase());
+        map.put("refresh_token", StringUtils.UuidLowerCase());
+        return SysResponseUtils.success(map);
     }
 }
