@@ -1,5 +1,6 @@
 package xyz.sadli.util;
 
+import org.slf4j.MDC;
 import xyz.sadli.common.Constants;
 import xyz.sadli.common.ErrCodeEnums;
 import xyz.sadli.vo.SysResponse;
@@ -21,7 +22,7 @@ public class SysResponseUtils {
     }
 
     public static SysResponse success(int code, String msg, Object data) {
-        return new SysResponse(Constants.STATE_SUCCESS, code, msg, data);
+        return new SysResponse(Constants.STATE_SUCCESS, code, msg, data, MDC.get(Constants.FIELD_MDC_TRACE_ID));
     }
 
     public static SysResponse fail() {
@@ -33,6 +34,6 @@ public class SysResponseUtils {
     }
 
     public static SysResponse fail(int code, String msg, Object data) {
-        return new SysResponse(Constants.STATE_FAIL, code, msg, data);
+        return new SysResponse(Constants.STATE_FAIL, code, msg, data, MDC.get(Constants.FIELD_MDC_TRACE_ID));
     }
 }

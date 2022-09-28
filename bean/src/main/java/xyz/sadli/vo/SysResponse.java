@@ -21,16 +21,19 @@ public class SysResponse implements Serializable {
 
     private String msg;
 
+    private String traceId;
+
     private Object data;
 
     public SysResponse() {
     }
 
-    public SysResponse(String state, Integer code, String msg, Object data) {
+    public SysResponse(String state, Integer code, String msg, Object data, String traceId) {
         this.state = state;
         this.code = code;
         this.msg = msg;
         this.data = data;
+        this.traceId = traceId;
     }
 
     public String getState() {
@@ -57,6 +60,14 @@ public class SysResponse implements Serializable {
         this.msg = msg;
     }
 
+    public String getTraceId() {
+        return traceId;
+    }
+
+    public void setTraceId(String traceId) {
+        this.traceId = traceId;
+    }
+
     public Object getData() {
         return data;
     }
@@ -68,9 +79,10 @@ public class SysResponse implements Serializable {
     @Override
     public String toString() {
         return "SysResponse{" +
-                "state=" + state +
+                "state='" + state + '\'' +
                 ", code=" + code +
                 ", msg='" + msg + '\'' +
+                ", traceId='" + traceId + '\'' +
                 ", data=" + data +
                 '}';
     }
