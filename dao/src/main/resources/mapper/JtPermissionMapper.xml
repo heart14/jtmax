@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.sadli.dao.JtPermissionMapper">
+    <resultMap id="BaseResultMap" type="xyz.sadli.entity.JtPermission">
+        <id column="perm_id" jdbcType="VARCHAR" property="permId"/>
+        <result column="perm_name" jdbcType="VARCHAR" property="permName"/>
+        <result column="perm_desc" jdbcType="VARCHAR" property="permDesc"/>
+        <result column="perm_type" jdbcType="VARCHAR" property="permType"/>
+        <result column="perm_route" jdbcType="VARCHAR" property="permRoute"/>
+        <result column="perm_index" jdbcType="VARCHAR" property="permIndex"/>
+        <result column="perm_key" jdbcType="VARCHAR" property="permKey"/>
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        perm_id
+        , perm_name, perm_desc, perm_type, perm_route, perm_index, perm_key, parent_id,
+    status, create_time, update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jt_permission
+        where perm_id = #{permId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from jt_permission
+        where perm_id = #{permId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="xyz.sadli.entity.JtPermission">
+        insert into jt_permission (perm_id, perm_name, perm_desc,
+                                   perm_type, perm_route, perm_index,
+                                   perm_key, parent_id, status,
+                                   create_time, update_time)
+        values (#{permId,jdbcType=VARCHAR}, #{permName,jdbcType=VARCHAR}, #{permDesc,jdbcType=VARCHAR},
+                #{permType,jdbcType=VARCHAR}, #{permRoute,jdbcType=VARCHAR}, #{permIndex,jdbcType=VARCHAR},
+                #{permKey,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+                #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="xyz.sadli.entity.JtPermission">
+        insert into jt_permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="permId != null">
+                perm_id,
+            </if>
+            <if test="permName != null">
+                perm_name,
+            </if>
+            <if test="permDesc != null">
+                perm_desc,
+            </if>
+            <if test="permType != null">
+                perm_type,
+            </if>
+            <if test="permRoute != null">
+                perm_route,
+            </if>
+            <if test="permIndex != null">
+                perm_index,
+            </if>
+            <if test="permKey != null">
+                perm_key,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="permId != null">
+                #{permId,jdbcType=VARCHAR},
+            </if>
+            <if test="permName != null">
+                #{permName,jdbcType=VARCHAR},
+            </if>
+            <if test="permDesc != null">
+                #{permDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="permType != null">
+                #{permType,jdbcType=VARCHAR},
+            </if>
+            <if test="permRoute != null">
+                #{permRoute,jdbcType=VARCHAR},
+            </if>
+            <if test="permIndex != null">
+                #{permIndex,jdbcType=VARCHAR},
+            </if>
+            <if test="permKey != null">
+                #{permKey,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="xyz.sadli.entity.JtPermission">
+        update jt_permission
+        <set>
+            <if test="permName != null">
+                perm_name = #{permName,jdbcType=VARCHAR},
+            </if>
+            <if test="permDesc != null">
+                perm_desc = #{permDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="permType != null">
+                perm_type = #{permType,jdbcType=VARCHAR},
+            </if>
+            <if test="permRoute != null">
+                perm_route = #{permRoute,jdbcType=VARCHAR},
+            </if>
+            <if test="permIndex != null">
+                perm_index = #{permIndex,jdbcType=VARCHAR},
+            </if>
+            <if test="permKey != null">
+                perm_key = #{permKey,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where perm_id = #{permId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="xyz.sadli.entity.JtPermission">
+        update jt_permission
+        set perm_name   = #{permName,jdbcType=VARCHAR},
+            perm_desc   = #{permDesc,jdbcType=VARCHAR},
+            perm_type   = #{permType,jdbcType=VARCHAR},
+            perm_route  = #{permRoute,jdbcType=VARCHAR},
+            perm_index  = #{permIndex,jdbcType=VARCHAR},
+            perm_key    = #{permKey,jdbcType=VARCHAR},
+            parent_id   = #{parentId,jdbcType=VARCHAR},
+            status      = #{status,jdbcType=INTEGER},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where perm_id = #{permId,jdbcType=VARCHAR}
+    </update>
+</mapper>

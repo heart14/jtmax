@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.sadli.dao.JtPlayerMapper">
+    <resultMap id="BaseResultMap" type="xyz.sadli.entity.JtPlayer">
+        <id column="uid" jdbcType="VARCHAR" property="uid"/>
+        <result column="jtmax_number" jdbcType="VARCHAR" property="jtmaxNumber"/>
+        <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="salt" jdbcType="VARCHAR" property="salt"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="real_name" jdbcType="VARCHAR" property="realName"/>
+        <result column="gender" jdbcType="VARCHAR" property="gender"/>
+        <result column="sport_id" jdbcType="VARCHAR" property="sportId"/>
+        <result column="level_id" jdbcType="VARCHAR" property="levelId"/>
+        <result column="play_time" jdbcType="TIMESTAMP" property="playTime"/>
+        <result column="join_time" jdbcType="TIMESTAMP" property="joinTime"/>
+        <result column="reg_time" jdbcType="TIMESTAMP" property="regTime"/>
+        <result column="title_id" jdbcType="VARCHAR" property="titleId"/>
+        <result column="group" jdbcType="VARCHAR" property="group"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        uid
+        , jtmax_number, phone_number, password, salt, nickname, avatar, real_name, gender,
+    sport_id, level_id, play_time, join_time, reg_time, title_id, group, introduction, 
+    status, create_time, update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jt_player
+        where uid = #{uid,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from jt_player
+        where uid = #{uid,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="xyz.sadli.entity.JtPlayer">
+        insert into jt_player (uid, jtmax_number, phone_number,
+                               password, salt, nickname,
+                               avatar, real_name, gender,
+                               sport_id, level_id, play_time,
+                               join_time, reg_time, title_id,
+                               group, introduction, status,
+                               create_time, update_time)
+        values (#{uid,jdbcType=VARCHAR}, #{jtmaxNumber,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR},
+                #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR},
+                #{avatar,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR},
+                #{sportId,jdbcType=VARCHAR}, #{levelId,jdbcType=VARCHAR}, #{playTime,jdbcType=TIMESTAMP},
+                #{joinTime,jdbcType=TIMESTAMP}, #{regTime,jdbcType=TIMESTAMP}, #{titleId,jdbcType=VARCHAR},
+                #{group,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+                #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="xyz.sadli.entity.JtPlayer">
+        insert into jt_player
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="jtmaxNumber != null">
+                jtmax_number,
+            </if>
+            <if test="phoneNumber != null">
+                phone_number,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="salt != null">
+                salt,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="avatar != null">
+                avatar,
+            </if>
+            <if test="realName != null">
+                real_name,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="sportId != null">
+                sport_id,
+            </if>
+            <if test="levelId != null">
+                level_id,
+            </if>
+            <if test="playTime != null">
+                play_time,
+            </if>
+            <if test="joinTime != null">
+                join_time,
+            </if>
+            <if test="regTime != null">
+                reg_time,
+            </if>
+            <if test="titleId != null">
+                title_id,
+            </if>
+            <if test="group != null">
+                group,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid,jdbcType=VARCHAR},
+            </if>
+            <if test="jtmaxNumber != null">
+                #{jtmaxNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null">
+                #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="avatar != null">
+                #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="sportId != null">
+                #{sportId,jdbcType=VARCHAR},
+            </if>
+            <if test="levelId != null">
+                #{levelId,jdbcType=VARCHAR},
+            </if>
+            <if test="playTime != null">
+                #{playTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="joinTime != null">
+                #{joinTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="regTime != null">
+                #{regTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="titleId != null">
+                #{titleId,jdbcType=VARCHAR},
+            </if>
+            <if test="group != null">
+                #{group,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null">
+                #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="xyz.sadli.entity.JtPlayer">
+        update jt_player
+        <set>
+            <if test="jtmaxNumber != null">
+                jtmax_number = #{jtmaxNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                phone_number = #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null">
+                salt = #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="sportId != null">
+                sport_id = #{sportId,jdbcType=VARCHAR},
+            </if>
+            <if test="levelId != null">
+                level_id = #{levelId,jdbcType=VARCHAR},
+            </if>
+            <if test="playTime != null">
+                play_time = #{playTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="joinTime != null">
+                join_time = #{joinTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="regTime != null">
+                reg_time = #{regTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="titleId != null">
+                title_id = #{titleId,jdbcType=VARCHAR},
+            </if>
+            <if test="group != null">
+                group = #{group,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where uid = #{uid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="xyz.sadli.entity.JtPlayer">
+        update jt_player
+        set jtmax_number = #{jtmaxNumber,jdbcType=VARCHAR},
+            phone_number = #{phoneNumber,jdbcType=VARCHAR},
+            password     = #{password,jdbcType=VARCHAR},
+            salt         = #{salt,jdbcType=VARCHAR},
+            nickname     = #{nickname,jdbcType=VARCHAR},
+            avatar       = #{avatar,jdbcType=VARCHAR},
+            real_name    = #{realName,jdbcType=VARCHAR},
+            gender       = #{gender,jdbcType=VARCHAR},
+            sport_id     = #{sportId,jdbcType=VARCHAR},
+            level_id     = #{levelId,jdbcType=VARCHAR},
+            play_time    = #{playTime,jdbcType=TIMESTAMP},
+            join_time    = #{joinTime,jdbcType=TIMESTAMP},
+            reg_time     = #{regTime,jdbcType=TIMESTAMP},
+            title_id     = #{titleId,jdbcType=VARCHAR},
+            group        = #{group,jdbcType=VARCHAR},
+            introduction = #{introduction,jdbcType=VARCHAR},
+            status       = #{status,jdbcType=INTEGER},
+            create_time  = #{createTime,jdbcType=TIMESTAMP},
+            update_time  = #{updateTime,jdbcType=TIMESTAMP}
+        where uid = #{uid,jdbcType=VARCHAR}
+    </update>
+</mapper>
