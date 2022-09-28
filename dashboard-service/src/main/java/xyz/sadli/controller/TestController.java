@@ -11,6 +11,7 @@ import xyz.sadli.common.SysProperties;
 import xyz.sadli.entity.Photo;
 import xyz.sadli.service.test.PhotoService;
 import xyz.sadli.thread.pool.SysThreadPoolTaskExecutor;
+import xyz.sadli.util.IdWorker;
 import xyz.sadli.util.SysResponseUtils;
 import xyz.sadli.vo.SysRequest;
 import xyz.sadli.vo.SysResponse;
@@ -57,5 +58,10 @@ public class TestController {
     public SysResponse thread() {
         threadExecutor.execute(() -> log.info("this is a child thread from sys threadPool. and its traceId should be the same to parent"));
         return SysResponseUtils.success();
+    }
+
+    @RequestMapping(value = "/s", method = RequestMethod.GET)
+    public SysResponse snowflake() {
+        return SysResponseUtils.success(IdWorker.nextIdStr());
     }
 }
