@@ -43,14 +43,15 @@ public class LogAspect {
      * @return
      * @throws Throwable
      */
-    @Around("controllerLog()")
-    public Object around(ProceedingJoinPoint point) throws Throwable {
-        String uuid = StringUtils.UuidLowerCase();
-        MDC.put(Constants.FIELD_MDC_TRACE_ID, uuid);
-        Object proceed = point.proceed();
-        MDC.remove(Constants.FIELD_MDC_TRACE_ID);
-        return proceed;
-    }
+//    将mdc.traceId改为在过滤器中添加了
+//    @Around("controllerLog()")
+//    public Object around(ProceedingJoinPoint point) throws Throwable {
+//        String uuid = StringUtils.UuidLowerCase();
+//        MDC.put(Constants.FIELD_MDC_TRACE_ID, uuid);
+//        Object proceed = point.proceed();
+//        MDC.remove(Constants.FIELD_MDC_TRACE_ID);
+//        return proceed;
+//    }
 
     /**
      * 方法调用之前执行
