@@ -12,6 +12,7 @@ import xyz.sadli.entity.Photo;
 import xyz.sadli.service.test.PhotoService;
 import xyz.sadli.thread.pool.SysThreadPoolTaskExecutor;
 import xyz.sadli.util.IdWorker;
+import xyz.sadli.util.JwtUtils;
 import xyz.sadli.util.StringUtils;
 import xyz.sadli.util.SysResponseUtils;
 import xyz.sadli.vo.SysRequest;
@@ -68,12 +69,51 @@ public class TestController {
         return SysResponseUtils.success(IdWorker.nextIdStr());
     }
 
+    @RequestMapping(value = "/jwt", method = RequestMethod.GET)
+    public SysResponse jwt() {
+
+        String uid = "0x001";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("nickname", "小飞");
+        map.put("role", "群主");
+
+        String jwtToken = JwtUtils.createJwtToken(uid, map);
+        log.info("create jwtToken :{}", jwtToken);
+
+        Map<String, Object> claims = JwtUtils.parseJwtToken(jwtToken);
+        claims.forEach((key, value) -> log.info("verify jwtToken :{} = {}", key, value));
+
+        log.info("verify jwtToken :{}", JwtUtils.verify(jwtToken));
+
+        threadExecutor.execute(() -> {
+            try {
+                log.info("create a new thread and sleep 35000ms");
+                Thread.sleep(35000L);
+                log.info("verify jwtToken after ttl :{}", JwtUtils.verify(jwtToken));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        return SysResponseUtils.success(jwtToken);
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public SysResponse login(@RequestBody SysRequest sysRequest) {
         log.info("test login :{}", sysRequest);
-        Map<String, String> map = new HashMap<>();
-        map.put("access_token", StringUtils.UuidLowerCase());
-        map.put("refresh_token", StringUtils.UuidLowerCase());
-        return SysResponseUtils.success(map);
+
+        String uid = "0x001";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("phoneNumber", JSONObject.parseObject(sysRequest.getBiz()).getString("phoneNumber"));
+        map.put("password", JSONObject.parseObject(sysRequest.getBiz()).getString("password"));
+
+        String jwtToken = JwtUtils.createJwtToken(uid, map);
+
+        Map<String, String> result = new HashMap<>();
+        result.put("access_token", jwtToken);
+        result.put("refresh_token", StringUtils.UuidLowerCase());
+        return SysResponseUtils.success(result);
     }
 }

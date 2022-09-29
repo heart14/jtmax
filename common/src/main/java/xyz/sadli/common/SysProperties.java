@@ -10,12 +10,23 @@ import xyz.sadli.config.SysPropertyLoader;
  */
 public class SysProperties {
 
-    public static final String BUCKET_PATH = SysPropertyLoader.getInstance().getSysProperty("bucket.path");
-    public static final String BUCKET_URL = SysPropertyLoader.getInstance().getSysProperty("bucket.url");
+    private static final SysPropertyLoader propertyLoader;
+
+    static {
+        propertyLoader = SysPropertyLoader.getInstance();
+    }
+
+    public static final String BUCKET_PATH = propertyLoader.getSysProperty("bucket.path");
+    public static final String BUCKET_URL = propertyLoader.getSysProperty("bucket.url");
+    public static final String JWT_SECRET = propertyLoader.getSysProperty("jwt.secret");
+    public static final Long JWT_TTL = Long.valueOf(propertyLoader.getSysProperty("jwt.ttl"));
+
 
     public static void main(String[] args) {
         System.out.println(BUCKET_PATH);
         System.out.println(BUCKET_URL);
+        System.out.println(JWT_SECRET);
+        System.out.println(JWT_TTL);
     }
 
 }

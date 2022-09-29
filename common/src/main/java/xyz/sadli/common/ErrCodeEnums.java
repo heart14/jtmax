@@ -13,36 +13,49 @@ public enum ErrCodeEnums {
     SUCCESS(9999, "请求成功"),
 
     /**
-     * 系统异常，ErrorCode :9001
+     * 系统异常
      */
     UNKNOWN_EXCEPTION(9001, "未知异常"),
 
     /**
-     * 未知异常，ErrorCode :9002
+     * 认证异常
      */
-    SYSTEM_EXCEPTION(9002, "系统异常"),
+    AUTHENTICATION_EXCEPTION(9002, "认证异常"),
 
     /**
-     * 参数异常，ErrorCode :9003
+     * 授权异常
      */
-    PARAMS_EXCEPTION(9003, "参数异常"),
+    AUTHORIZATION_EXCEPTION(9003, "授权异常"),
 
     /**
-     * 结果集异常，ErrorCode :9004
+     * 未知异常
      */
-    RESULT_EXCEPTION(9004, "查询异常"),
+    SYSTEM_EXCEPTION(9004, "系统异常"),
 
     /**
-     * 字符集异常，ErrorCode :9005
+     * 参数异常
      */
-    CHARSET_EXCEPTION(9005, "字符集异常"),
+    PARAMS_EXCEPTION(9005, "参数异常"),
 
     /**
-     * 网络请求异常，ErrorCode :9006
+     * 结果集异常
      */
-    HTTP_EXCEPTION(9006, "网络请求异常"),
+    RESULT_EXCEPTION(9006, "查询异常"),
 
-    UNSUPPORT_MEDIA_TYPE(9007, "不支持的媒体类型");
+    /**
+     * 字符集异常
+     */
+    CHARSET_EXCEPTION(9007, "字符集异常"),
+
+    /**
+     * 网络请求异常
+     */
+    HTTP_EXCEPTION(9008, "网络请求异常"),
+
+    /**
+     * 不支持的媒体类型
+     */
+    UNSUPPORT_MEDIA_TYPE(9009, "不支持的媒体类型");
 
     private Integer code;
 

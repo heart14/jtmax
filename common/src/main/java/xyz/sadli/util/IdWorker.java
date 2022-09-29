@@ -99,7 +99,6 @@ public class IdWorker {
         return System.currentTimeMillis();
     }
 
-
     /**
      * 静态方法
      */
