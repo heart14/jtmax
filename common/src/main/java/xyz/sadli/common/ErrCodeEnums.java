@@ -15,22 +15,27 @@ public enum ErrCodeEnums {
     /**
      * 系统异常
      */
+    SYSTEM_EXCEPTION(9000, "系统异常"),
+
+    /**
+     * 系统异常
+     */
     UNKNOWN_EXCEPTION(9001, "未知异常"),
+
+    /**
+     * 登陆失败
+     */
+    LOGIN_EXCEPTION(9002, "登陆失败"),
 
     /**
      * 认证异常
      */
-    AUTHENTICATION_EXCEPTION(9002, "认证异常"),
+    AUTHENTICATION_EXCEPTION(9003, "认证异常"),
 
     /**
      * 授权异常
      */
-    AUTHORIZATION_EXCEPTION(9003, "授权异常"),
-
-    /**
-     * 未知异常
-     */
-    SYSTEM_EXCEPTION(9004, "系统异常"),
+    AUTHORIZATION_EXCEPTION(9004, "授权异常"),
 
     /**
      * 参数异常
