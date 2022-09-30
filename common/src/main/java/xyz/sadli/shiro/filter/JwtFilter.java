@@ -32,11 +32,6 @@ public class JwtFilter extends AccessControlFilter {
     public static final Logger log = LoggerFactory.getLogger(JwtFilter.class);
 
     /**
-     * 约定http请求头中token字段名为Authorization
-     */
-    public static final String FIELD_TOKEN = "Authorization";
-
-    /**
      * 当
      *
      * @param servletRequest
@@ -58,7 +53,7 @@ public class JwtFilter extends AccessControlFilter {
 
         //从请求头中获取authorization
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        String authorization = request.getHeader(FIELD_TOKEN);
+        String authorization = request.getHeader(Constants.FIELD_JWT_TOKEN);
 
         JwtToken jwtToken = new JwtToken(authorization);
 

@@ -87,7 +87,7 @@ public class ShiroConfig {
         //设置shiro拦截器，指定路由拦截规则
         Map<String, String> filterChainMap = new LinkedHashMap<>();
         filterChainMap.put("/test/login", "anon");
-        filterChainMap.put("/test/logout", "logout");
+        filterChainMap.put("/test/logout", "anon");//https://blog.csdn.net/ght521/article/details/52355663
         filterChainMap.put("/**", "jwt");
         shiroFilter.setFilterChainDefinitionMap(filterChainMap);
 

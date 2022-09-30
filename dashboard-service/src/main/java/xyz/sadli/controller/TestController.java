@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import xyz.sadli.common.Constants;
 import xyz.sadli.common.SysProperties;
 import xyz.sadli.entity.JtPlayer;
 import xyz.sadli.service.test.JtPlayerService;
@@ -21,6 +22,7 @@ import xyz.sadli.util.SysResponseUtils;
 import xyz.sadli.vo.SysRequest;
 import xyz.sadli.vo.SysResponse;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +40,7 @@ public class TestController {
 
     private final SysThreadPoolTaskExecutor threadExecutor;
 
-    public TestController( SysThreadPoolTaskExecutor threadExecutor) {
+    public TestController(SysThreadPoolTaskExecutor threadExecutor) {
         this.threadExecutor = threadExecutor;
     }
 
@@ -119,18 +121,24 @@ public class TestController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public SysResponse logout() {
+    public SysResponse logout(HttpServletRequest request) {
+        String jwtToken = request.getHeader(Constants.FIELD_JWT_TOKEN);
+        if (JwtUtils.verify(jwtToken)) {
+            String uid = (String) JwtUtils.parseJwtToken(jwtToken).get("uid");
+            log.info("test logout :uid = {}", uid);
+            //TODO 使token失效
+        }
         return SysResponseUtils.success();
     }
 
     @RequiresRoles("admin")
-    @RequestMapping(value = "/role",method = RequestMethod.GET)
+    @RequestMapping(value = "/role", method = RequestMethod.GET)
     public SysResponse shiroRole() {
         return SysResponseUtils.success("role admin ok");
     }
 
     @RequiresPermissions("system:player:query")
-    @RequestMapping(value = "/perm",method = RequestMethod.GET)
+    @RequestMapping(value = "/perm", method = RequestMethod.GET)
     public SysResponse shiroPerm() {
         return SysResponseUtils.success("perms ok");
     }

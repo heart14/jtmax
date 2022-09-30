@@ -25,4 +25,9 @@ public class Constants {
      */
     public static final String FIELD_MDC_TRACE_ID = "traceId";
 
+    /**
+     * 约定http请求头中token字段名为Authorization
+     */
+    public static final String FIELD_JWT_TOKEN = "Authorization";
+
 }
