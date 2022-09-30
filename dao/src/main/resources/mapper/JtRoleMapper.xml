@@ -12,9 +12,21 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-        role_id
-        , role_name, role_desc, role_key, role_index, status, create_time, update_time
+        role_id, role_name, role_desc, role_key, role_index, status, create_time, update_time
     </sql>
+
+    <select id="selectRolesByUid" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+            r.role_id, r.role_name, r.role_desc, r.role_key, r.role_index, r.status, r.create_time, r.update_time
+        from jt_player_role pr ,jt_role r
+        where r.role_id = pr.role_id
+              and pr.uid = #{uid,jdbcType=VARCHAR}
+    </select>
+
+
+
+
+
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>

@@ -40,7 +40,7 @@ public class JtPlayer {
 
     private String titleId;
 
-    private String group;
+    private String chatGroup;
 
     private String introduction;
 
@@ -170,12 +170,12 @@ public class JtPlayer {
         this.titleId = titleId == null ? null : titleId.trim();
     }
 
-    public String getGroup() {
-        return group;
+    public String getChatGroup() {
+        return chatGroup;
     }
 
-    public void setGroup(String group) {
-        this.group = group == null ? null : group.trim();
+    public void setChatGroup(String chatGroup) {
+        this.chatGroup = chatGroup == null ? null : chatGroup.trim();
     }
 
     public String getIntroduction() {

@@ -15,10 +15,19 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-        perm_id
-        , perm_name, perm_desc, perm_type, perm_route, perm_index, perm_key, parent_id,
-    status, create_time, update_time
+        perm_id, perm_name, perm_desc, perm_type, perm_route, perm_index, perm_key, parent_id, status, create_time, update_time
     </sql>
+
+    <select id="selectPermByRoleId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+            p.perm_id, p.perm_name, p.perm_desc, p.perm_type, p.perm_route, p.perm_index, p.perm_key, p.parent_id, p.status, p.create_time, p.update_time
+        from jt_role_permission rp, jt_permission p
+        where rp.perm_id = p.perm_id
+              and rp.role_id = #{roleId,jdbcType=VARCHAR}
+    </select>
+
+
+
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>

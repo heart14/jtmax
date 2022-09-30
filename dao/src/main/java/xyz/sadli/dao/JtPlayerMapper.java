@@ -16,4 +16,12 @@ public interface JtPlayerMapper {
     int updateByPrimaryKeySelective(JtPlayer record);
 
     int updateByPrimaryKey(JtPlayer record);
+
+    /**
+     * 根据phoneNumber password查询player,用于登录验证
+     * @param phoneNumber
+     * @param password
+     * @return
+     */
+    JtPlayer selectPlayerByPhoneNumberAndPassword(String phoneNumber, String password);
 }

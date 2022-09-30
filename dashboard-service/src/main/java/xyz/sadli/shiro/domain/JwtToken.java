@@ -13,7 +13,6 @@ public class JwtToken implements AuthenticationToken {
     private String jwt;
 
     public JwtToken() {
-
     }
 
     public JwtToken(String jwt) {

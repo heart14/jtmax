@@ -3,8 +3,11 @@ package xyz.sadli.dao;
 import org.apache.ibatis.annotations.Mapper;
 import xyz.sadli.entity.JtPlayerRole;
 
+import java.util.List;
+
 @Mapper
-public interface JJtPlayerRoleMapper {
+public interface JtPlayerRoleMapper {
+
     int deleteByPrimaryKey(String uid);
 
     int insert(JtPlayerRole record);
@@ -16,4 +19,5 @@ public interface JJtPlayerRoleMapper {
     int updateByPrimaryKeySelective(JtPlayerRole record);
 
     int updateByPrimaryKey(JtPlayerRole record);
+
 }

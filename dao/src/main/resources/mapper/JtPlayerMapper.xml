@@ -17,7 +17,7 @@
         <result column="join_time" jdbcType="TIMESTAMP" property="joinTime"/>
         <result column="reg_time" jdbcType="TIMESTAMP" property="regTime"/>
         <result column="title_id" jdbcType="VARCHAR" property="titleId"/>
-        <result column="group" jdbcType="VARCHAR" property="group"/>
+        <result column="chat_group" jdbcType="VARCHAR" property="chatGroup"/>
         <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
@@ -26,9 +26,23 @@
     <sql id="Base_Column_List">
         uid
         , jtmax_number, phone_number, password, salt, nickname, avatar, real_name, gender,
-    sport_id, level_id, play_time, join_time, reg_time, title_id, group, introduction, 
+    sport_id, level_id, play_time, join_time, reg_time, title_id, chat_group, introduction,
     status, create_time, update_time
     </sql>
+
+
+    <select id="selectPlayerByPhoneNumberAndPassword" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jt_player
+        where status = 0
+            and phone_number = #{phoneNumber,jdbcType=VARCHAR}
+            and password = #{password,jdbcType=VARCHAR}
+    </select>
+
+
+
+
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -46,14 +60,14 @@
                                avatar, real_name, gender,
                                sport_id, level_id, play_time,
                                join_time, reg_time, title_id,
-                               group, introduction, status,
+                               chat_group, introduction, status,
                                create_time, update_time)
         values (#{uid,jdbcType=VARCHAR}, #{jtmaxNumber,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR},
                 #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR},
                 #{avatar,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR},
                 #{sportId,jdbcType=VARCHAR}, #{levelId,jdbcType=VARCHAR}, #{playTime,jdbcType=TIMESTAMP},
                 #{joinTime,jdbcType=TIMESTAMP}, #{regTime,jdbcType=TIMESTAMP}, #{titleId,jdbcType=VARCHAR},
-                #{group,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+                #{chatGroup,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
                 #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
     </insert>
     <insert id="insertSelective" parameterType="xyz.sadli.entity.JtPlayer">
@@ -104,8 +118,8 @@
             <if test="titleId != null">
                 title_id,
             </if>
-            <if test="group != null">
-                group,
+            <if test="chatGroup != null">
+                chat_group,
             </if>
             <if test="introduction != null">
                 introduction,
@@ -166,8 +180,8 @@
             <if test="titleId != null">
                 #{titleId,jdbcType=VARCHAR},
             </if>
-            <if test="group != null">
-                #{group,jdbcType=VARCHAR},
+            <if test="chatGroup != null">
+                #{chatGroup,jdbcType=VARCHAR},
             </if>
             <if test="introduction != null">
                 #{introduction,jdbcType=VARCHAR},
@@ -228,8 +242,8 @@
             <if test="titleId != null">
                 title_id = #{titleId,jdbcType=VARCHAR},
             </if>
-            <if test="group != null">
-                group = #{group,jdbcType=VARCHAR},
+            <if test="chatGroup != null">
+                chat_group = #{chatGroup,jdbcType=VARCHAR},
             </if>
             <if test="introduction != null">
                 introduction = #{introduction,jdbcType=VARCHAR},
@@ -262,7 +276,7 @@
             join_time    = #{joinTime,jdbcType=TIMESTAMP},
             reg_time     = #{regTime,jdbcType=TIMESTAMP},
             title_id     = #{titleId,jdbcType=VARCHAR},
-            group        = #{group,jdbcType=VARCHAR},
+            chat_group   = #{chatGroup,jdbcType=VARCHAR},
             introduction = #{introduction,jdbcType=VARCHAR},
             status       = #{status,jdbcType=INTEGER},
             create_time  = #{createTime,jdbcType=TIMESTAMP},
