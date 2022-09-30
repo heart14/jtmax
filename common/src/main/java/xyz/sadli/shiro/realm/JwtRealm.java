@@ -14,13 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import xyz.sadli.common.ErrCodeEnums;
 import xyz.sadli.dao.JtPermissionMapper;
-import xyz.sadli.dao.JtPlayerRoleMapper;
 import xyz.sadli.dao.JtRoleMapper;
 import xyz.sadli.entity.JtPermission;
 import xyz.sadli.entity.JtRole;
 import xyz.sadli.exception.SysException;
 import xyz.sadli.shiro.domain.JwtToken;
-import xyz.sadli.shiro.filter.JwtFilter;
 import xyz.sadli.util.JwtUtils;
 
 import java.util.List;
