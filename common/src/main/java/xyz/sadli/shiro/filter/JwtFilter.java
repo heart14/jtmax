@@ -67,7 +67,7 @@ public class JwtFilter extends AccessControlFilter {
             getSubject(servletRequest, servletResponse).login(jwtToken);
         } catch (AuthenticationException e) {
             //抛出异常说明认证失败
-            //e.printStackTrace();
+            log.error("Shiro鉴权异常 :{}",e.getMessage(),e);
             onLoginFail(servletResponse);
             return false;
         }

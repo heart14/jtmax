@@ -86,13 +86,15 @@ public class JwtRealm extends AuthorizingRealm {
         log.info("JwtRealm.doGetAuthenticationInfo() execute");
         JwtToken jwtToken = (JwtToken) authenticationToken;
         if (jwtToken.getPrincipal() == null) {
-            throw new SysException(ErrCodeEnums.AUTHENTICATION_EXCEPTION.getCode(), ErrCodeEnums.AUTHENTICATION_EXCEPTION.getMsg());
+//            throw new SysException(ErrCodeEnums.AUTHENTICATION_EXCEPTION.getCode(), ErrCodeEnums.AUTHENTICATION_EXCEPTION.getMsg());
+            throw new AuthenticationException("jwtToken does not exist");
         }
         //验证jwtToken有效性
         String jwt = (String) jwtToken.getPrincipal();
         boolean verify = JwtUtils.verify(String.valueOf(jwt));
         if (!verify) {
-            throw new SysException(ErrCodeEnums.AUTHENTICATION_EXCEPTION.getCode(), ErrCodeEnums.AUTHENTICATION_EXCEPTION.getMsg());
+//            throw new SysException(ErrCodeEnums.AUTHENTICATION_EXCEPTION.getCode(), ErrCodeEnums.AUTHENTICATION_EXCEPTION.getMsg());
+            throw new AuthenticationException("jwtToken already expired");
         }
         /**
          * TODO jwtToken的刷新与过期
