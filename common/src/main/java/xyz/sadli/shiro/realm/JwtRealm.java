@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import xyz.sadli.dao.JtPermissionMapper;
 import xyz.sadli.dao.JtRoleMapper;
@@ -43,7 +44,7 @@ public class JwtRealm extends AuthorizingRealm {
     private JtPermissionMapper permissionMapper;
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private StringRedisTemplate redisTemplate;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -117,7 +118,7 @@ public class JwtRealm extends AuthorizingRealm {
          *
          * 当用户每次在这个方法里验证JwtToken的有效性时，除了使用jwtUtils.verify()之外，还要查询redis，确认键值存在，才算成功，否则认证失败
          */
-        Object redisToken = redisTemplate.opsForValue().get(ACCESS_TOKEN_PREFIX + REDIS_KEY_SEPARATOR + JwtUtils.parseJwtToken(jwt).get("uid"));
+        String redisToken = redisTemplate.opsForValue().get(ACCESS_TOKEN_PREFIX + REDIS_KEY_SEPARATOR + JwtUtils.parseJwtToken(jwt).get("uid"));
         if (redisToken == null) {
             throw new AuthenticationException("user already logout: uid=" + JwtUtils.parseJwtToken(jwt).get("uid"));
         }

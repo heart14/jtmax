@@ -6,14 +6,16 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.sadli.common.Constants;
 import xyz.sadli.common.SysProperties;
+import xyz.sadli.entity.JtLog;
 import xyz.sadli.entity.JtPlayer;
+import xyz.sadli.service.log.JtLogService;
 import xyz.sadli.service.test.JtPlayerService;
 import xyz.sadli.thread.pool.SysThreadPoolTaskExecutor;
 import xyz.sadli.util.IdWorker;
@@ -25,6 +27,7 @@ import xyz.sadli.vo.SysResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -42,15 +45,19 @@ public class TestController {
 
     private final SysThreadPoolTaskExecutor threadExecutor;
 
-    public TestController(SysThreadPoolTaskExecutor threadExecutor) {
+    private final JtLogService logService;
+
+    public TestController(SysThreadPoolTaskExecutor threadExecutor, JtLogService logService) {
         this.threadExecutor = threadExecutor;
+        this.logService = logService;
     }
 
     @RequestMapping(value = "/db", method = RequestMethod.POST)
     public SysResponse db(@RequestBody SysRequest sysRequest) {
         log.info("test db :{}", sysRequest);
-        String biz = sysRequest.getBiz();
-        return SysResponseUtils.success(biz);
+        String uid = JSONObject.parseObject(sysRequest.getBiz()).getString("uid");
+        List<JtLog> jtLogs = logService.queryJtLogListByUid(uid);
+        return SysResponseUtils.success(jtLogs);
     }
 
 
@@ -109,7 +116,7 @@ public class TestController {
     private JtPlayerService playerService;
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private StringRedisTemplate redisTemplate;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public SysResponse login(@RequestBody SysRequest sysRequest) {
