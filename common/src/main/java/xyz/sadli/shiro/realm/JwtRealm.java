@@ -11,17 +11,19 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import xyz.sadli.common.ErrCodeEnums;
 import xyz.sadli.dao.JtPermissionMapper;
 import xyz.sadli.dao.JtRoleMapper;
 import xyz.sadli.entity.JtPermission;
 import xyz.sadli.entity.JtRole;
-import xyz.sadli.exception.SysException;
 import xyz.sadli.shiro.domain.JwtToken;
 import xyz.sadli.util.JwtUtils;
 
 import java.util.List;
+
+import static xyz.sadli.common.Constants.ACCESS_TOKEN_PREFIX;
+import static xyz.sadli.common.Constants.REDIS_KEY_SEPARATOR;
 
 /**
  * About:
@@ -39,6 +41,9 @@ public class JwtRealm extends AuthorizingRealm {
 
     @Autowired
     private JtPermissionMapper permissionMapper;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -59,12 +64,12 @@ public class JwtRealm extends AuthorizingRealm {
         String uid = (String) JwtUtils.parseJwtToken(jwtToken).get("uid");
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         List<JtRole> jtRoles = roleMapper.selectRolesByUid(uid);
-        if (jtRoles != null&&jtRoles.size()>0) {
+        if (jtRoles != null && jtRoles.size() > 0) {
             for (JtRole jtRole : jtRoles) {
                 authorizationInfo.addRole(jtRole.getRoleKey());
 
                 List<JtPermission> jtPermissions = permissionMapper.selectPermByRoleId(jtRole.getRoleId());
-                if (jtPermissions != null&&jtPermissions.size()>0) {
+                if (jtPermissions != null && jtPermissions.size() > 0) {
                     for (JtPermission jtPermission : jtPermissions) {
                         authorizationInfo.addStringPermission(jtPermission.getPermKey());
                     }
@@ -112,6 +117,11 @@ public class JwtRealm extends AuthorizingRealm {
          *
          * 当用户每次在这个方法里验证JwtToken的有效性时，除了使用jwtUtils.verify()之外，还要查询redis，确认键值存在，才算成功，否则认证失败
          */
+        Object redisToken = redisTemplate.opsForValue().get(ACCESS_TOKEN_PREFIX + REDIS_KEY_SEPARATOR + JwtUtils.parseJwtToken(jwt).get("uid"));
+        if (redisToken == null) {
+            throw new AuthenticationException("user already logout: uid=" + JwtUtils.parseJwtToken(jwt).get("uid"));
+        }
+        log.info("find in redis: uid = {}, token = {}", JwtUtils.parseJwtToken(jwt).get("uid"), redisToken);
         return new SimpleAuthenticationInfo(jwt, jwt, getName());
     }
 }
