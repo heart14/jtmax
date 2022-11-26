@@ -30,4 +30,21 @@ public class Constants {
      */
     public static final String FIELD_JWT_TOKEN = "Authorization";
 
+    /**
+     * Redis常量
+     */
+    public static final String ACCESS_TOKEN_PREFIX = "accesstoken";
+
+    public static final String REFRESH_TOKEN_PREFIX = "refreshtoken";
+
+    public static final String REDIS_KEY_SEPARATOR = ":";
+
+    /**
+     * access_token过期时间 10分钟(与配置文件中配置的JWT token过期时间保持一致)
+     */
+    public static final long REDIS_ACCESS_TOKEN_TTL = 10 * 60 * 1000;
+    /**
+     * refresh_token过期时间 30分钟
+     */
+    public static final long REDIS_REFRESH_TOKEN_TTL = 30 * 60 * 1000;
 }
