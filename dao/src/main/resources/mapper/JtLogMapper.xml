@@ -16,6 +16,23 @@
         log_id
         , uid, trace_id, ip, method, path, resource, params, log_time
     </sql>
+
+    <select id="selectAllJtLog" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jt_log
+    </select>
+
+    <select id="selectJtLogListByUid" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jt_log
+        where uid = #{uid,jdbcType=VARCHAR}
+    </select>
+
+
+
+
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>

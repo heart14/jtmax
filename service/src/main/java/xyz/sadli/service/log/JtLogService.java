@@ -2,6 +2,8 @@ package xyz.sadli.service.log;
 
 import xyz.sadli.entity.JtLog;
 
+import java.util.List;
+
 /**
  * About:
  * Other:
@@ -15,4 +17,24 @@ public interface JtLogService {
      * @param record
      */
     void saveJtLog(JtLog record);
+
+    /**
+     * 查询所有操作日志
+     * @return
+     */
+    List<JtLog> queryAllJtLog();
+
+    /**
+     * 根据uid查询操作日志
+     * @param uid
+     * @return
+     */
+    List<JtLog> queryJtLogListByUid(String uid);
+
+    /**
+     * 根据日志id查询操作日志
+     * @param logId
+     * @return
+     */
+    JtLog queryJtLogById(String logId);
 }

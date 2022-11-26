@@ -7,6 +7,8 @@ import xyz.sadli.dao.JtLogMapper;
 import xyz.sadli.entity.JtLog;
 import xyz.sadli.service.log.JtLogService;
 
+import java.util.List;
+
 /**
  * About:
  * Other:
@@ -30,5 +32,20 @@ public class JtLogServiceImpl implements JtLogService {
             jtLogMapper.insertSelective(record);
             log.info("操作日志保存成功 :record={}", record);
         }
+    }
+
+    @Override
+    public List<JtLog> queryAllJtLog() {
+        return jtLogMapper.selectAllJtLog();
+    }
+
+    @Override
+    public List<JtLog> queryJtLogListByUid(String uid) {
+        return jtLogMapper.selectJtLogListByUid(uid);
+    }
+
+    @Override
+    public JtLog queryJtLogById(String logId) {
+        return jtLogMapper.selectByPrimaryKey(logId);
     }
 }
