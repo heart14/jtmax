@@ -6,6 +6,7 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +26,7 @@ import xyz.sadli.vo.SysResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * About:
@@ -54,23 +56,27 @@ public class TestController {
 
     @RequestMapping(value = "/p", method = RequestMethod.GET)
     public SysResponse property() {
+        log.info("test property");
         String bucketUrl = SysProperties.BUCKET_URL;
         return SysResponseUtils.success(bucketUrl);
     }
 
     @RequestMapping(value = "/t", method = RequestMethod.GET)
     public SysResponse thread() {
+        log.info("test thread");
         threadExecutor.execute(() -> log.info("this is a child thread from sys threadPool. and its traceId should be the same to parent"));
         return SysResponseUtils.success();
     }
 
     @RequestMapping(value = "/s", method = RequestMethod.GET)
     public SysResponse snowflake() {
+        log.info("test snowflake");
         return SysResponseUtils.success(IdWorker.nextIdStr());
     }
 
     @RequestMapping(value = "/jwt", method = RequestMethod.GET)
     public SysResponse jwt() {
+        log.info("test jwt");
 
         String uid = "0x001";
 
@@ -102,6 +108,9 @@ public class TestController {
     @Autowired
     private JtPlayerService playerService;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public SysResponse login(@RequestBody SysRequest sysRequest) {
         log.info("test login :{}", sysRequest);
@@ -116,7 +125,10 @@ public class TestController {
 
         Map<String, String> result = new HashMap<>();
         result.put("access_token", jwtToken);
-        result.put("refresh_token", StringUtils.UuidLowerCase());
+        String refreshToken = StringUtils.UuidLowerCase();
+        result.put("refresh_token", refreshToken);
+        redisTemplate.opsForValue().set(Constants.ACCESS_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + jtPlayer.getUid(), jwtToken, Constants.REDIS_ACCESS_TOKEN_TTL, TimeUnit.MILLISECONDS);
+        redisTemplate.opsForValue().set(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + jtPlayer.getUid(), refreshToken, Constants.REDIS_REFRESH_TOKEN_TTL, TimeUnit.MILLISECONDS);
         return SysResponseUtils.success(result);
     }
 
@@ -126,7 +138,9 @@ public class TestController {
         if (JwtUtils.verify(jwtToken)) {
             String uid = (String) JwtUtils.parseJwtToken(jwtToken).get("uid");
             log.info("test logout :uid = {}", uid);
-            //TODO 使token失效
+            //使token失效
+            redisTemplate.delete(Constants.ACCESS_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + uid);
+            redisTemplate.delete(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + uid);
         }
         return SysResponseUtils.success();
     }
@@ -134,12 +148,14 @@ public class TestController {
     @RequiresRoles("admin")
     @RequestMapping(value = "/role", method = RequestMethod.GET)
     public SysResponse shiroRole() {
+        log.info("test shiro requires roles");
         return SysResponseUtils.success("role admin ok");
     }
 
     @RequiresPermissions("system:player:query")
     @RequestMapping(value = "/perm", method = RequestMethod.GET)
     public SysResponse shiroPerm() {
+        log.info("test shiro requires permissions");
         return SysResponseUtils.success("perms ok");
     }
 }
