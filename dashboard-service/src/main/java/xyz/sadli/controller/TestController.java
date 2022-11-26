@@ -60,6 +60,14 @@ public class TestController {
         return SysResponseUtils.success(jtLogs);
     }
 
+    @RequestMapping(value = "/cache", method = RequestMethod.POST)
+    public SysResponse cache(@RequestBody SysRequest sysRequest) {
+        log.info("test cache :{}", sysRequest);
+        String logId = JSONObject.parseObject(sysRequest.getBiz()).getString("logId");
+        JtLog jtLog = logService.queryJtLogById(logId);
+        return SysResponseUtils.success(jtLog);
+    }
+
 
     @RequestMapping(value = "/p", method = RequestMethod.GET)
     public SysResponse property() {

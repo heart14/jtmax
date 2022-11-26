@@ -1,5 +1,9 @@
 package xyz.sadli.service.test.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import xyz.sadli.common.ErrCodeEnums;
@@ -15,7 +19,10 @@ import xyz.sadli.service.test.JtPlayerService;
  * Editored:
  */
 @Service
+@CacheConfig(cacheNames = "jtmax:user")
 public class JtPlayerServiceImpl implements JtPlayerService {
+
+    private static final Logger log = LoggerFactory.getLogger(JtPlayerServiceImpl.class);
 
     private final JtPlayerMapper playerMapper;
 
@@ -24,8 +31,9 @@ public class JtPlayerServiceImpl implements JtPlayerService {
     }
 
     @Override
+    @Cacheable(key = "#phoneNumber")
     public JtPlayer queryPlayerByPhoneNumberAndPassword(String phoneNumber, String password) {
-
+        log.info("根据手机号密码查询用户");
         Assert.hasLength(phoneNumber, "参数异常");
         Assert.hasLength(password, "参数异常");
 

@@ -1,15 +1,12 @@
 package xyz.sadli.redis;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -19,12 +16,12 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * Created: lwf14 on 2022/11/26 17:30.
  * Editored:
  */
-//@Configuration
+@Configuration
 public class RedisConfig {
 
 //    @Autowired
 //    private RedisConnectionFactory redisConnectionFactory;
-//
+
 //    @Bean
 //    public RedisTemplate<String, String> redisTemplate() {
 //        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
@@ -45,6 +42,29 @@ public class RedisConfig {
 //        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
 //
 //        redisTemplate.setConnectionFactory(redisConnectionFactory);
+//        return redisTemplate;
+//    }
+
+
+    @Bean
+    public RedisCacheManager redisCacheManager(LettuceConnectionFactory factory) {
+        RedisSerializer<String> redisSerializer = new StringRedisSerializer();
+        System.out.println("init redis cache config");
+        RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig()
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
+        return RedisCacheManager.builder(factory).cacheDefaults(configuration).build();
+    }
+
+
+//    @Bean
+//    public RedisTemplate<String,Object> redisTemplate(LettuceConnectionFactory factory){
+//        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+//        redisTemplate.setKeySerializer(new StringRedisSerializer());
+//        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+//        redisTemplate.setHashValueSerializer(new StringRedisSerializer());
+//        redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
+//        redisTemplate.setConnectionFactory(factory);
 //        return redisTemplate;
 //    }
 }

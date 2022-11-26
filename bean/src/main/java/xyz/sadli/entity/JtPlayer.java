@@ -1,5 +1,6 @@
 package xyz.sadli.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +9,9 @@ import java.util.Date;
  * Created: lwf14 on 2022/9/28 22:41.
  * Editored:
  */
-public class JtPlayer {
+public class JtPlayer implements Serializable {
+
+    private static final long serialVersionUID = -127965949861807867L;
 
     private String uid;
 

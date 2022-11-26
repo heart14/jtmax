@@ -33,9 +33,9 @@ public class Constants {
     /**
      * Redis常量
      */
-    public static final String ACCESS_TOKEN_PREFIX = "accesstoken";
+    public static final String ACCESS_TOKEN_PREFIX = "jtmax:accesstoken";
 
-    public static final String REFRESH_TOKEN_PREFIX = "refreshtoken";
+    public static final String REFRESH_TOKEN_PREFIX = "jtmax:refreshtoken";
 
     public static final String REDIS_KEY_SEPARATOR = ":";
 

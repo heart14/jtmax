@@ -2,6 +2,9 @@ package xyz.sadli.service.log.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import xyz.sadli.dao.JtLogMapper;
 import xyz.sadli.entity.JtLog;
@@ -16,6 +19,7 @@ import java.util.List;
  * Editored:
  */
 @Service
+@CacheConfig(cacheNames = "jtmax:log")
 public class JtLogServiceImpl implements JtLogService {
 
     public static final Logger log = LoggerFactory.getLogger(JtLogServiceImpl.class);
@@ -40,11 +44,13 @@ public class JtLogServiceImpl implements JtLogService {
     }
 
     @Override
+    @Cacheable(key = "#uid")//查询时先从redis查询缓存数据，有则直接返回，没有则执行方法内容，并将方法返回值存入redis缓存
     public List<JtLog> queryJtLogListByUid(String uid) {
         return jtLogMapper.selectJtLogListByUid(uid);
     }
 
     @Override
+    @Cacheable(key = "#logId")
     public JtLog queryJtLogById(String logId) {
         return jtLogMapper.selectByPrimaryKey(logId);
     }
