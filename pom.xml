@@ -41,6 +41,7 @@
         <java-jwt.version>3.11.0</java-jwt.version>
         <jjwt.version>0.9.1</jjwt.version>
         <shiro-spring.version>1.4.1</shiro-spring.version>
+        <commons-pools.version>2.11.1</commons-pools.version>
 
     </properties>
 
@@ -125,6 +126,17 @@
                 <version>${shiro-spring.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pools.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
