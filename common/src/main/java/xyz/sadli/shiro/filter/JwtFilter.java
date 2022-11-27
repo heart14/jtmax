@@ -32,8 +32,7 @@ public class JwtFilter extends AccessControlFilter {
     public static final Logger log = LoggerFactory.getLogger(JwtFilter.class);
 
     /**
-     * 当
-     *
+     * 过滤请求，设置traceId
      * @param servletRequest
      * @param servletResponse
      * @param o
@@ -42,15 +41,14 @@ public class JwtFilter extends AccessControlFilter {
      */
     @Override
     protected boolean isAccessAllowed(ServletRequest servletRequest, ServletResponse servletResponse, Object o) throws Exception {
-        String uuid = StringUtils.UuidLowerCase();
-        MDC.put(Constants.FIELD_MDC_TRACE_ID, uuid);
-        log.warn("isAccessAllowed check!");
+        if (MDC.get(Constants.FIELD_MDC_TRACE_ID) == null) {
+            MDC.put(Constants.FIELD_MDC_TRACE_ID,  StringUtils.UuidLowerCase());
+        }
         return false;
     }
 
     @Override
     protected boolean onAccessDenied(ServletRequest servletRequest, ServletResponse servletResponse) throws Exception {
-
         //从请求头中获取authorization
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String authorization = request.getHeader(Constants.FIELD_JWT_TOKEN);
