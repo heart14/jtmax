@@ -60,7 +60,12 @@ public enum ErrCodeEnums {
     /**
      * 不支持的媒体类型
      */
-    UNSUPPORT_MEDIA_TYPE(9009, "不支持的媒体类型");
+    UNSUPPORT_MEDIA_TYPE(9009, "不支持的媒体类型"),
+
+    /**
+     * 装载VO对象异常
+     */
+    BEAN2VO_EXCEPTION(9010,"装载VO对象异常");
 
     private Integer code;
 
