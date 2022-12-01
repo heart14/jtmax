@@ -31,15 +31,15 @@ public class BeanUtils {
         Class<?> srcClass = bean.getClass();
         //源Bean的全类名
         String className = srcClass.getName();
-        System.out.println("**" + className);
+        //System.out.println("**" + className);
 
         //组装对应VO类的全类名
         String targetClassName = VO_CLASS_PACKAGE + className.substring(className.lastIndexOf(".")) + "VO";
-        System.out.println("**" + targetClassName);
+        //System.out.println("**" + targetClassName);
         try {
             //获取目标VO的Class对象
             Class<?> targetClass = Class.forName(targetClassName);
-            System.out.println("**" + targetClass.getName());
+            //System.out.println("**" + targetClass.getName());
 
             //获取目标VO的实例对象
             Object o = targetClass.newInstance();
