@@ -1,4 +1,4 @@
-package xyz.sadli.service.test.impl;
+package xyz.sadli.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ import xyz.sadli.dao.JtRoleMapper;
 import xyz.sadli.entity.JtPlayer;
 import xyz.sadli.entity.JtRole;
 import xyz.sadli.exception.SysException;
-import xyz.sadli.service.test.JtPlayerService;
+import xyz.sadli.service.JtPlayerService;
 import xyz.sadli.util.BeanUtils;
 import xyz.sadli.vo.JtPlayerVO;
 
@@ -22,14 +22,14 @@ import java.util.List;
 /**
  * About:
  * Other:
- * Created: wfli on 2022/9/30 16:03.
+ * Created: lwf14 on 2022/12/2 15:01.
  * Editored:
  */
 @Service
 @CacheConfig(cacheNames = "jtmax:user")
 public class JtPlayerServiceImpl implements JtPlayerService {
 
-    private static final Logger log = LoggerFactory.getLogger(JtPlayerServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(xyz.sadli.service.impl.JtPlayerServiceImpl.class);
 
     private final JtPlayerMapper playerMapper;
     private final JtRoleMapper roleMapper;
@@ -75,3 +75,4 @@ public class JtPlayerServiceImpl implements JtPlayerService {
         return jtPlayerVO;
     }
 }
+

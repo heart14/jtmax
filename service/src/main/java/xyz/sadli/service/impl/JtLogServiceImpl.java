@@ -1,14 +1,13 @@
-package xyz.sadli.service.log.impl;
+package xyz.sadli.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import xyz.sadli.dao.JtLogMapper;
 import xyz.sadli.entity.JtLog;
-import xyz.sadli.service.log.JtLogService;
+import xyz.sadli.service.JtLogService;
 
 import java.util.List;
 

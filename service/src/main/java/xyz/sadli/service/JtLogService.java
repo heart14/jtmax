@@ -1,4 +1,4 @@
-package xyz.sadli.service.log;
+package xyz.sadli.service;
 
 import xyz.sadli.entity.JtLog;
 

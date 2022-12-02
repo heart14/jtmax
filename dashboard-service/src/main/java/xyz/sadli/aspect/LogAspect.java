@@ -13,7 +13,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import xyz.sadli.common.Constants;
 import xyz.sadli.entity.JtLog;
-import xyz.sadli.service.log.JtLogService;
+import xyz.sadli.service.JtLogService;
 import xyz.sadli.util.DateUtils;
 import xyz.sadli.util.IdWorker;
 import xyz.sadli.util.IpUtils;

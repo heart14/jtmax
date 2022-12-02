@@ -1,4 +1,4 @@
-package xyz.sadli.service.test;
+package xyz.sadli.service;
 
 import xyz.sadli.entity.JtPlayer;
 import xyz.sadli.vo.JtPlayerVO;
