@@ -68,9 +68,16 @@ public class JtSysController {
         return SysResponseUtils.success(result);
     }
 
-    @ApiOperation("获取验证码")
-    @RequestMapping(value = "/verify_code",method = RequestMethod.GET)
-    public SysResponse verifyCode(){
+    @ApiOperation("获取图片验证码")
+    @RequestMapping(value = "/verify_code/image",method = RequestMethod.GET)
+    public SysResponse imageVerifyCode(){
+
+        return SysResponseUtils.success();
+    }
+
+    @ApiOperation("获取短信验证码")
+    @RequestMapping(value = "/verify_code/sms",method = RequestMethod.GET)
+    public SysResponse smsVerifyCode(){
 
         return SysResponseUtils.success();
     }

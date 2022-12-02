@@ -1,7 +1,5 @@
 package xyz.sadli.query.sys;
 
-import org.springframework.validation.annotation.Validated;
-
 import javax.validation.constraints.NotEmpty;
 
 /**
