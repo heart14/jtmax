@@ -8,6 +8,9 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import xyz.sadli.common.Constants;
+
+import java.time.Duration;
 
 /**
  * About:
@@ -53,6 +56,7 @@ public class RedisConfig {
     @Bean
     public RedisCacheManager redisCacheManager(LettuceConnectionFactory factory) {
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofMillis(Constants.REDIS_CACHE_ENTRY_TTL))
                 .computePrefixWith(name -> name + ":")//redis2.x版本中，保存缓存时默认会在cacheNames后面加上双冒号，使用该配置改为单冒号
                 .disableCachingNullValues()//禁止缓存null值
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))

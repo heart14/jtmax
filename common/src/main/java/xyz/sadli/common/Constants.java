@@ -47,4 +47,9 @@ public class Constants {
      * refresh_token过期时间 30分钟
      */
     public static final long REDIS_REFRESH_TOKEN_TTL = 30 * 60 * 1000;
+
+    /**
+     * redis缓存的默认过期时间10分钟，单位毫秒
+     */
+    public static final long REDIS_CACHE_ENTRY_TTL = 10 * 60 * 1000;
 }
