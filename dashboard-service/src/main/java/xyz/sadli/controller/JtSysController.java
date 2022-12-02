@@ -17,6 +17,7 @@ import xyz.sadli.util.SysResponseUtils;
 import xyz.sadli.vo.JtPlayerVO;
 import xyz.sadli.vo.SysResponse;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -80,8 +81,15 @@ public class JtSysController {
 
     @ApiOperation("用户登出")
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public SysResponse logout() {
-
+    public SysResponse logout(HttpServletRequest request) {
+        String jwtToken = request.getHeader(Constants.FIELD_JWT_TOKEN);
+        if (JwtUtils.verify(jwtToken)) {
+            String uid = (String) JwtUtils.parseJwtToken(jwtToken).get("uid");
+            log.info("logout :uid = {}", uid);
+            //使token失效
+            redisTemplate.delete(Constants.ACCESS_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + uid);
+            redisTemplate.delete(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + uid);
+        }
         return SysResponseUtils.success();
     }
 
