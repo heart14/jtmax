@@ -101,9 +101,10 @@ public class JtSysController {
     }
 
     @ApiOperation("刷新Token")
-    @RequestMapping(value = "/access_token", method = RequestMethod.GET)
-    public SysResponse refreshToken() {
-
+    @RequestMapping(value = "/access_token/{refresh_token}", method = RequestMethod.GET)
+    public SysResponse refreshToken(@PathVariable("refresh_token")String refreshToken) {
+        log.info("refresh_token :{}", refreshToken);
+        //TODO
         return SysResponseUtils.success();
     }
 }
