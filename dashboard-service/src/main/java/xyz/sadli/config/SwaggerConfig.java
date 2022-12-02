@@ -20,7 +20,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 public class SwaggerConfig {
 
     //swagger接口文档地址
-    //http://localhost:8080/dashboard/swagger-ui/index.html
+    //http://localhost:28080/dashboard/swagger-ui/index.html
 
     @Bean
     public Docket createRestApi() {
