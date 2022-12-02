@@ -65,6 +65,13 @@ public class JtSysController {
         redisTemplate.opsForValue().set(Constants.ACCESS_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + jtPlayer.getUid(), jwtToken, Constants.REDIS_ACCESS_TOKEN_TTL, TimeUnit.MILLISECONDS);
         redisTemplate.opsForValue().set(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + jtPlayer.getUid(), refreshToken, Constants.REDIS_REFRESH_TOKEN_TTL, TimeUnit.MILLISECONDS);
 
+        return SysResponseUtils.success(result);
+    }
+
+    @ApiOperation("获取验证码")
+    @RequestMapping(value = "/verify_code",method = RequestMethod.GET)
+    public SysResponse verifyCode(){
+
         return SysResponseUtils.success();
     }
 
@@ -76,14 +83,14 @@ public class JtSysController {
     }
 
     @ApiOperation("获取用户信息")
-    @RequestMapping(value = "/getInfo",method = RequestMethod.GET)
+    @RequestMapping(value = "/player_info",method = RequestMethod.GET)
     public SysResponse getInfo(){
 
         return SysResponseUtils.success();
     }
 
     @ApiOperation("刷新Token")
-    @RequestMapping(value = "/refreshToken",method = RequestMethod.GET)
+    @RequestMapping(value = "/access_token",method = RequestMethod.GET)
     public SysResponse refreshToken(){
 
         return SysResponseUtils.success();
