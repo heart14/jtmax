@@ -1,6 +1,7 @@
 package xyz.sadli.service;
 
 import xyz.sadli.entity.JtPlayer;
+import xyz.sadli.query.sys.LoginQuery;
 import xyz.sadli.vo.JtPlayerVO;
 
 /**
@@ -14,11 +15,10 @@ public interface JtPlayerService {
     /**
      * 根据用户手机号密码查询用户，用于登录
      *
-     * @param phoneNumber
-     * @param password
+     * @param loginQuery
      * @return
      */
-    JtPlayer queryPlayerByPhoneNumberAndPassword(String phoneNumber, String password);
+    JtPlayer queryPlayerByPhoneNumberAndPassword(LoginQuery loginQuery);
 
     /**
      * 根据用户uid查询用户信息

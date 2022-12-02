@@ -13,6 +13,7 @@ import xyz.sadli.dao.JtRoleMapper;
 import xyz.sadli.entity.JtPlayer;
 import xyz.sadli.entity.JtRole;
 import xyz.sadli.exception.SysException;
+import xyz.sadli.query.sys.LoginQuery;
 import xyz.sadli.service.JtPlayerService;
 import xyz.sadli.util.BeanUtils;
 import xyz.sadli.vo.JtPlayerVO;
@@ -42,12 +43,12 @@ public class JtPlayerServiceImpl implements JtPlayerService {
     }
 
     @Override
-    public JtPlayer queryPlayerByPhoneNumberAndPassword(String phoneNumber, String password) {
+    public JtPlayer queryPlayerByPhoneNumberAndPassword(LoginQuery loginQuery) {
         log.info("根据手机号密码查询用户");
-        Assert.hasLength(phoneNumber, "参数异常");
-        Assert.hasLength(password, "参数异常");
+//        Assert.hasLength(phoneNumber, "参数异常");
+//        Assert.hasLength(password, "参数异常");
 
-        JtPlayer jtPlayer = playerMapper.selectPlayerByPhoneNumberAndPassword(phoneNumber, password);
+        JtPlayer jtPlayer = playerMapper.selectPlayerByPhoneNumberAndPassword(loginQuery.getPhoneNumber(), loginQuery.getPassword());
         if (jtPlayer == null) {
             throw new SysException(ErrCodeEnums.LOGIN_EXCEPTION.getCode(), ErrCodeEnums.LOGIN_EXCEPTION.getMsg());
         }

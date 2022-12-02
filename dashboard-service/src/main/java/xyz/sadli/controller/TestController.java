@@ -15,6 +15,7 @@ import xyz.sadli.common.Constants;
 import xyz.sadli.common.SysProperties;
 import xyz.sadli.entity.JtLog;
 import xyz.sadli.entity.JtPlayer;
+import xyz.sadli.query.sys.LoginQuery;
 import xyz.sadli.service.JtLogService;
 import xyz.sadli.service.JtPlayerService;
 import xyz.sadli.thread.pool.SysThreadPoolTaskExecutor;
@@ -130,7 +131,11 @@ public class TestController {
     public SysResponse login(@RequestBody SysRequest sysRequest) {
         log.info("test login :{}", sysRequest);
 
-        JtPlayer jtPlayer = playerService.queryPlayerByPhoneNumberAndPassword(JSONObject.parseObject(sysRequest.getBiz()).getString("phoneNumber"), JSONObject.parseObject(sysRequest.getBiz()).getString("password"));
+        LoginQuery loginQuery = new LoginQuery();
+        loginQuery.setPhoneNumber(JSONObject.parseObject(sysRequest.getBiz()).getString("phoneNumber"));
+        loginQuery.setPassword( JSONObject.parseObject(sysRequest.getBiz()).getString("password"));
+
+        JtPlayer jtPlayer = playerService.queryPlayerByPhoneNumberAndPassword(loginQuery);
 
         Map<String, Object> map = new HashMap<>();
         map.put("nickname", jtPlayer.getNickname());
