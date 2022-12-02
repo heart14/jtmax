@@ -94,15 +94,17 @@ public class JtSysController {
     }
 
     @ApiOperation("获取用户信息")
-    @RequestMapping(value = "/player_info/{uid}", method = RequestMethod.GET)
-    public SysResponse playerInfo(@PathVariable("uid") String uid) {
+    @RequestMapping(value = "/player_info", method = RequestMethod.GET)
+    public SysResponse playerInfo(HttpServletRequest request) {
+        String jwtToken = request.getHeader(Constants.FIELD_JWT_TOKEN);
+        String uid = (String) JwtUtils.parseJwtToken(jwtToken).get("uid");
         JtPlayerVO player = playerService.queryPlayerByUid(uid);
         return SysResponseUtils.success(player);
     }
 
     @ApiOperation("刷新Token")
     @RequestMapping(value = "/access_token/{refresh_token}", method = RequestMethod.GET)
-    public SysResponse refreshToken(@PathVariable("refresh_token")String refreshToken) {
+    public SysResponse refreshToken(@PathVariable("refresh_token") String refreshToken) {
         log.info("refresh_token :{}", refreshToken);
         //TODO
         return SysResponseUtils.success();
