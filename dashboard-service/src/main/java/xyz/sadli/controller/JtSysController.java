@@ -1,16 +1,12 @@
 package xyz.sadli.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xyz.sadli.common.Constants;
 import xyz.sadli.entity.JtPlayer;
 import xyz.sadli.query.sys.LoginQuery;
@@ -18,6 +14,7 @@ import xyz.sadli.service.JtPlayerService;
 import xyz.sadli.util.JwtUtils;
 import xyz.sadli.util.StringUtils;
 import xyz.sadli.util.SysResponseUtils;
+import xyz.sadli.vo.JtPlayerVO;
 import xyz.sadli.vo.SysResponse;
 
 import java.util.HashMap;
@@ -45,10 +42,9 @@ public class JtSysController {
         this.playerService = playerService;
     }
 
-
     @ApiOperation("用户登录")
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public SysResponse login(@RequestBody @Validated LoginQuery loginQuery){
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public SysResponse login(@RequestBody @Validated LoginQuery loginQuery) {
 
         JtPlayer jtPlayer = playerService.queryPlayerByPhoneNumberAndPassword(loginQuery);
 
@@ -69,36 +65,36 @@ public class JtSysController {
     }
 
     @ApiOperation("获取图片验证码")
-    @RequestMapping(value = "/verify_code/image",method = RequestMethod.GET)
-    public SysResponse imageVerifyCode(){
+    @RequestMapping(value = "/verify_code/image", method = RequestMethod.GET)
+    public SysResponse imageVerifyCode() {
 
         return SysResponseUtils.success();
     }
 
     @ApiOperation("获取短信验证码")
-    @RequestMapping(value = "/verify_code/sms",method = RequestMethod.GET)
-    public SysResponse smsVerifyCode(){
+    @RequestMapping(value = "/verify_code/sms", method = RequestMethod.GET)
+    public SysResponse smsVerifyCode() {
 
         return SysResponseUtils.success();
     }
 
     @ApiOperation("用户登出")
-    @RequestMapping(value = "/logout",method = RequestMethod.GET)
-    public SysResponse logout(){
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public SysResponse logout() {
 
         return SysResponseUtils.success();
     }
 
     @ApiOperation("获取用户信息")
-    @RequestMapping(value = "/player_info",method = RequestMethod.GET)
-    public SysResponse getInfo(){
-
-        return SysResponseUtils.success();
+    @RequestMapping(value = "/player_info/{uid}", method = RequestMethod.GET)
+    public SysResponse playerInfo(@PathVariable("uid") String uid) {
+        JtPlayerVO player = playerService.queryPlayerByUid(uid);
+        return SysResponseUtils.success(player);
     }
 
     @ApiOperation("刷新Token")
-    @RequestMapping(value = "/access_token",method = RequestMethod.GET)
-    public SysResponse refreshToken(){
+    @RequestMapping(value = "/access_token", method = RequestMethod.GET)
+    public SysResponse refreshToken() {
 
         return SysResponseUtils.success();
     }

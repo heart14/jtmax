@@ -43,29 +43,34 @@ public enum ErrCodeEnums {
     PARAMS_EXCEPTION(9005, "参数异常"),
 
     /**
+     * 查询异常
+     */
+    QUERY_EXCEPTION(9006, "查询异常"),
+
+    /**
      * 结果集异常
      */
-    RESULT_EXCEPTION(9006, "查询异常"),
+    RESULT_EXCEPTION(9007, "结果集异常"),
+
+    /**
+     * VO对象转换异常
+     */
+    VO_TRANSFORM_EXCEPTION(9008,"VO对象转换异常"),
 
     /**
      * 字符集异常
      */
-    CHARSET_EXCEPTION(9007, "字符集异常"),
+    CHARSET_EXCEPTION(9009, "字符集异常"),
 
     /**
      * 网络请求异常
      */
-    HTTP_EXCEPTION(9008, "网络请求异常"),
+    HTTP_EXCEPTION(9010, "网络请求异常"),
 
     /**
      * 不支持的媒体类型
      */
-    UNSUPPORT_MEDIA_TYPE(9009, "不支持的媒体类型"),
-
-    /**
-     * 装载VO对象异常
-     */
-    BEAN2VO_EXCEPTION(9010,"装载VO对象异常");
+    UNSUPPORT_MEDIA_TYPE(9011, "不支持的媒体类型");
 
     private Integer code;
 
