@@ -2,23 +2,21 @@ package xyz.sadli.exception;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import xyz.sadli.common.Constants;
 import xyz.sadli.common.ErrCodeEnums;
 import xyz.sadli.util.SysResponseUtils;
 import xyz.sadli.vo.SysResponse;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.ValidationException;
 import java.io.IOException;
+import java.net.BindException;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * About:
@@ -41,11 +39,18 @@ public class SysExceptionHandler {
         httpServletResponse.getWriter().write(JSON.toJSONString(sysResponse, SerializerFeature.WriteMapNullValue));
     }
 
+    @ExceptionHandler({BindException.class, ValidationException.class, MethodArgumentNotValidException.class})
+    public SysResponse validatedException(Exception e) {
+        //validation参数校验异常
+        log.error("参数校验异常 :{}", e.getMessage(), e);
+        return SysResponseUtils.fail(ErrCodeEnums.PARAMS_EXCEPTION.getCode(), ErrCodeEnums.PARAMS_EXCEPTION.getMsg(), null);
+    }
+
     @ExceptionHandler({SysException.class})
     public SysResponse sysExceptionHandler(SysException e) {
         //手动抛出自定异常
         log.error("手动抛出异常 :{}", e.getMessage(), e);
-        return SysResponseUtils.fail(e.getCode(), e.getMessage(),null);
+        return SysResponseUtils.fail(e.getCode(), e.getMessage(), null);
     }
 
     @ExceptionHandler({Exception.class})
