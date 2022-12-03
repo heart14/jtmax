@@ -23,6 +23,11 @@
               and pr.uid = #{uid,jdbcType=VARCHAR}
     </select>
 
+    <select id="selectRolesByStatus" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from jt_role r
+        where r.status = #{status,jdbcType=INTEGER}
+    </select>
 
 
 

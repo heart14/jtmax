@@ -15,7 +15,7 @@ public class Constants {
     public static final String STATE_FAIL = "FAIL";
 
     /**
-     * 状态值常量
+     * 状态值常量，0-无效 1-有效
      */
     public static final int STATUS_VALID = 1;
     public static final int STATUS_INVALID = 0;

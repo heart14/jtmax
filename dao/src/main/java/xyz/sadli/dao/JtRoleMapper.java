@@ -26,4 +26,6 @@ public interface JtRoleMapper {
      */
     List<JtRole> selectRolesByUid(String uid);
 
+    List<JtRole> selectRolesByStatus(int status);
+
 }
