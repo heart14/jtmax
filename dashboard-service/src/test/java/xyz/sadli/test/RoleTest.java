@@ -28,4 +28,9 @@ public class RoleTest {
         List<JtRoleVO> jtRoleVOList = roleService.queryRoleList();
         System.out.println(jtRoleVOList);
     }
+
+    @Test
+    public void deleteRole() {
+        roleService.removeRole("331231171285352448");
+    }
 }

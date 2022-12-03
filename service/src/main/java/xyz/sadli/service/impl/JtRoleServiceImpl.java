@@ -58,9 +58,17 @@ public class JtRoleServiceImpl implements JtRoleService {
         role.setCreateTime(new Date());
         int save = jtRoleMapper.insertSelective(role);
         if (save != 1) {
-            throw new SysException(ErrCodeEnums.SAVE_EXCEPTION.getCode(), ErrCodeEnums.SAVE_EXCEPTION.getMsg());
+            throw new SysException(ErrCodeEnums.DB_EXCEPTION.getCode(), ErrCodeEnums.DB_EXCEPTION.getMsg());
         }
         JtRoleVO o = (JtRoleVO) BeanUtils.beanToVO(jtRoleMapper.selectByPrimaryKey(nextIdStr));
         return o;
+    }
+
+    @Override
+    public void removeRole(String roleId) {
+        int remove = jtRoleMapper.deleteByPrimaryKey(roleId);
+        if (remove != 1) {
+            throw new SysException(ErrCodeEnums.DB_EXCEPTION.getCode(), ErrCodeEnums.DB_EXCEPTION.getMsg());
+        }
     }
 }

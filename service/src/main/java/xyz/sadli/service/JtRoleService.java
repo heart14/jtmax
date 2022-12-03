@@ -24,4 +24,6 @@ public interface JtRoleService {
      * 新增角色
      */
     JtRoleVO saveRole(SaveRoleQuery roleQuery);
+
+    void removeRole(String roleId);
 }

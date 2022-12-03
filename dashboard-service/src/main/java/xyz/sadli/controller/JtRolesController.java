@@ -5,10 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xyz.sadli.query.role.SaveRoleQuery;
 import xyz.sadli.service.JtRoleService;
 import xyz.sadli.util.SysResponseUtils;
@@ -25,7 +22,7 @@ import java.util.List;
  */
 @Api(tags = "角色")
 @RestController
-@RequestMapping("/role")
+@RequestMapping
 public class JtRolesController {
 
     public static final Logger log = LoggerFactory.getLogger(JtRolesController.class);
@@ -38,7 +35,7 @@ public class JtRolesController {
 
 
     @ApiOperation("查询角色列表")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/role/list", method = RequestMethod.GET)
     public SysResponse listRoles() {
         log.info("查询角色列表");
         List<JtRoleVO> jtRoleVOList = roleService.queryRoleList();
@@ -46,10 +43,18 @@ public class JtRolesController {
     }
 
     @ApiOperation("新增角色")
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/role/save", method = RequestMethod.POST)
     public SysResponse saveRole(@RequestBody @Validated SaveRoleQuery role) {
         log.info("新增角色");
         JtRoleVO jtRoleVO = roleService.saveRole(role);
         return SysResponseUtils.success(jtRoleVO);
+    }
+
+    @ApiOperation("删除角色")
+    @RequestMapping(value = "/role/{roleId}", method = RequestMethod.DELETE)
+    public SysResponse deleteRole(@PathVariable("roleId") String roleId) {
+        log.info("删除角色");
+        roleService.removeRole(roleId);
+        return SysResponseUtils.success();
     }
 }

@@ -48,9 +48,9 @@ public enum ErrCodeEnums {
     QUERY_EXCEPTION(9006, "查询异常"),
 
     /**
-     * 数据保存异常
+     * 数据库操作异常
      */
-    SAVE_EXCEPTION(9007, "数据保存异常"),
+    DB_EXCEPTION(9007, "数据库操作异常"),
 
     /**
      * 结果集异常
