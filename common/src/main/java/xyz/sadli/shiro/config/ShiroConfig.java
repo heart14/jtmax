@@ -88,13 +88,14 @@ public class ShiroConfig {
         Map<String, String> filterChainMap = new LinkedHashMap<>();
         //用户登录、获取验证码接口不进行认证拦截
         filterChainMap.put("/sys/login", "anon");
+        filterChainMap.put("/sys/logout", "anon");
         filterChainMap.put("/sys/verify_code", "anon");
         filterChainMap.put("/test/login", "anon");//https://blog.csdn.net/ght521/article/details/52355663
         filterChainMap.put("/test/verify_code", "anon");
         //swagger相关资源不进行认证拦截
-        filterChainMap.put("/swagger-ui/**", "anon");//
-        filterChainMap.put("/swagger-resources/**", "anon");//
-        filterChainMap.put("/v3/**", "anon");//
+        filterChainMap.put("/swagger-ui/**", "anon");
+        filterChainMap.put("/swagger-resources/**", "anon");
+        filterChainMap.put("/v3/**", "anon");
         //其它所有资源需要进行认证
         filterChainMap.put("/**", "jwt");
         shiroFilter.setFilterChainDefinitionMap(filterChainMap);

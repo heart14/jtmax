@@ -89,6 +89,8 @@ public class JtSysController {
             //使token失效
             redisTemplate.delete(Constants.ACCESS_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + uid);
             redisTemplate.delete(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + uid);
+        }else {
+            //token已经过期，直接登出
         }
         return SysResponseUtils.success();
     }
