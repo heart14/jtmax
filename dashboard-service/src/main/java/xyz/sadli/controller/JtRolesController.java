@@ -57,4 +57,11 @@ public class JtRolesController {
         roleService.removeRole(roleId);
         return SysResponseUtils.success();
     }
+
+    @ApiOperation("更新角色")
+    @RequestMapping(value = "/role/{roleId}", method = RequestMethod.PUT)
+    public SysResponse modifyRole(@PathVariable("roleId") String roleId,@RequestBody SaveRoleQuery role) {
+        log.info("更新角色");
+        return SysResponseUtils.success();
+    }
 }
