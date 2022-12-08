@@ -7,8 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import xyz.sadli.service.JtPermissionService;
 import xyz.sadli.util.SysResponseUtils;
+import xyz.sadli.vo.JtPermissionVO;
 import xyz.sadli.vo.SysResponse;
+
+import java.util.List;
 
 /**
  * About:
@@ -23,11 +27,17 @@ public class JtPermissionController {
 
     public static final Logger log = LoggerFactory.getLogger(JtPermissionController.class);
 
+    private final JtPermissionService permissionService;
+
+    public JtPermissionController(JtPermissionService permissionService) {
+        this.permissionService = permissionService;
+    }
+
     @ApiOperation("查询权限列表")
     @RequestMapping(value = "/permission/list", method = RequestMethod.GET)
     public SysResponse listRoles() {
         log.info("查询权限列表");
-//        List<JtRoleVO> jtRoleVOList = roleService.queryRoleList();
-        return SysResponseUtils.success();
+        List<JtPermissionVO> voList = permissionService.queryPermissionList();
+        return SysResponseUtils.success(voList);
     }
 }

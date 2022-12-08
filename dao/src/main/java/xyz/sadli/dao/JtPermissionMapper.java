@@ -21,8 +21,24 @@ public interface JtPermissionMapper {
 
     /**
      * 根据role_id关联查询该角色所有权限
+     *
      * @param roleId
      * @return
      */
     List<JtPermission> selectPermByRoleId(String roleId);
+
+    /**
+     * 查询所有父权限
+     *
+     * @return
+     */
+    List<JtPermission> selectAllParentPermission();
+
+    /**
+     * 根据perm_id查询该权限所有子权限
+     *
+     * @param parentId
+     * @return
+     */
+    List<JtPermission> selectPermsByParentId(String parentId);
 }

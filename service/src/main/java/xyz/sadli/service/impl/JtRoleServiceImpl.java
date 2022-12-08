@@ -5,18 +5,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import xyz.sadli.common.Constants;
 import xyz.sadli.common.ErrCodeEnums;
+import xyz.sadli.dao.JtPermissionMapper;
 import xyz.sadli.dao.JtRoleMapper;
+import xyz.sadli.entity.JtPermission;
 import xyz.sadli.entity.JtRole;
 import xyz.sadli.exception.SysException;
 import xyz.sadli.query.role.SaveRoleQuery;
 import xyz.sadli.service.JtRoleService;
 import xyz.sadli.util.BeanUtils;
 import xyz.sadli.util.IdWorker;
+import xyz.sadli.util.StringUtils;
+import xyz.sadli.vo.JtPermissionVO;
 import xyz.sadli.vo.JtRoleVO;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * About:
@@ -30,9 +32,11 @@ public class JtRoleServiceImpl implements JtRoleService {
     private static final Logger log = LoggerFactory.getLogger(JtRoleServiceImpl.class);
 
     private final JtRoleMapper jtRoleMapper;
+    private final JtPermissionMapper jtPermissionMapper;
 
-    public JtRoleServiceImpl(JtRoleMapper jtRoleMapper) {
+    public JtRoleServiceImpl(JtRoleMapper jtRoleMapper, JtPermissionMapper jtPermissionMapper) {
         this.jtRoleMapper = jtRoleMapper;
+        this.jtPermissionMapper = jtPermissionMapper;
     }
 
     @Override
@@ -40,6 +44,27 @@ public class JtRoleServiceImpl implements JtRoleService {
         List<JtRole> jtRoleList = jtRoleMapper.selectRolesByStatus(Constants.STATUS_VALID);
         if (jtRoleList != null) {
             List<JtRoleVO> jtRoleVOList = jtRoleList.stream().collect(ArrayList::new, (list, role) -> list.add((JtRoleVO) BeanUtils.beanToVO(role)), ArrayList::addAll);
+            jtRoleVOList.forEach(e->{
+                List<JtPermission> jtPermissions = jtPermissionMapper.selectPermByRoleId(e.getRoleId());
+                if (jtPermissions != null) {
+                    List<JtPermissionVO> list = new ArrayList<>();
+                    jtPermissions.forEach(p->{
+                        JtPermissionVO vo = new JtPermissionVO();
+                        vo.setPermId(p.getPermId());
+                        vo.setPath(p.getPermRoute());
+                        vo.setName(StringUtils.parseRoutePathToName(p.getPermRoute()));
+                        vo.setAlwaysShow(true);
+                        Map<String, String> meta = new HashMap<>();
+                        meta.put("title", p.getPermName());
+                        vo.setMeta(meta);
+                        vo.setHidden(true);
+                        vo.setRedirect("");
+
+                        list.add(vo);
+                    });
+                    e.setPermissionList(list);
+                }
+            });
             return jtRoleVOList;
         }
         return null;

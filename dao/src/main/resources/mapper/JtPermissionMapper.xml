@@ -26,6 +26,19 @@
               and rp.role_id = #{roleId,jdbcType=VARCHAR}
     </select>
 
+    <select id="selectAllParentPermission" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jt_permission p
+        where p.status = 1 and p.parent_id = 0
+    </select>
+
+    <select id="selectPermsByParentId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jt_permission p
+        where p.status = 1 and p.parent_id = #{parentId,jdbcType=VARCHAR}
+    </select>
 
 
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">

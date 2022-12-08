@@ -3,6 +3,7 @@ package xyz.sadli.vo;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * About:
@@ -14,9 +15,11 @@ public class JtPermissionVO implements Serializable {
 
     private static final long serialVersionUID = -4660310296402688830L;
 
+    private String permId;
+
     private String path;
 
-    private String component;
+//    private String component;
 
     private String redirect;
 
@@ -24,55 +27,21 @@ public class JtPermissionVO implements Serializable {
 
     private String name;
 
-    private Meta meta;
+    private boolean hidden;
+
+    private Map<String,String> meta;
 
     private List<JtPermissionVO> children;
 
-    private static class Meta {
-        private String title;
-
-        private String icon;
-
-        private String[] roles;
-
-        public Meta() {
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getIcon() {
-            return icon;
-        }
-
-        public void setIcon(String icon) {
-            this.icon = icon;
-        }
-
-        public String[] getRoles() {
-            return roles;
-        }
-
-        public void setRoles(String[] roles) {
-            this.roles = roles;
-        }
-
-        @Override
-        public String toString() {
-            return "Meta{" +
-                    "title='" + title + '\'' +
-                    ", icon='" + icon + '\'' +
-                    ", roles=" + Arrays.toString(roles) +
-                    '}';
-        }
+    public JtPermissionVO() {
     }
 
-    public JtPermissionVO() {
+    public String getPermId() {
+        return permId;
+    }
+
+    public void setPermId(String permId) {
+        this.permId = permId;
     }
 
     public String getPath() {
@@ -81,14 +50,6 @@ public class JtPermissionVO implements Serializable {
 
     public void setPath(String path) {
         this.path = path;
-    }
-
-    public String getComponent() {
-        return component;
-    }
-
-    public void setComponent(String component) {
-        this.component = component;
     }
 
     public String getRedirect() {
@@ -115,11 +76,11 @@ public class JtPermissionVO implements Serializable {
         this.name = name;
     }
 
-    public Meta getMeta() {
+    public Map<String, String> getMeta() {
         return meta;
     }
 
-    public void setMeta(Meta meta) {
+    public void setMeta(Map<String, String> meta) {
         this.meta = meta;
     }
 
@@ -131,14 +92,23 @@ public class JtPermissionVO implements Serializable {
         this.children = children;
     }
 
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
     @Override
     public String toString() {
         return "JtPermissionVO{" +
-                "path='" + path + '\'' +
-                ", component='" + component + '\'' +
+                "permId='" + permId + '\'' +
+                ", path='" + path + '\'' +
                 ", redirect='" + redirect + '\'' +
                 ", alwaysShow=" + alwaysShow +
                 ", name='" + name + '\'' +
+                ", hidden=" + hidden +
                 ", meta=" + meta +
                 ", children=" + children +
                 '}';

@@ -1,7 +1,5 @@
 package xyz.sadli.vo;
 
-import xyz.sadli.entity.JtPermission;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -27,7 +25,7 @@ public class JtRoleVO implements Serializable {
 
     private Integer status;
 
-    private List<JtPermission> permissionList;
+    private List<JtPermissionVO> permissionList;
 
     public JtRoleVO() {
     }
@@ -80,11 +78,11 @@ public class JtRoleVO implements Serializable {
         this.status = status;
     }
 
-    public List<JtPermission> getPermissionList() {
+    public List<JtPermissionVO> getPermissionList() {
         return permissionList;
     }
 
-    public void setPermissionList(List<JtPermission> permissionList) {
+    public void setPermissionList(List<JtPermissionVO> permissionList) {
         this.permissionList = permissionList;
     }
 

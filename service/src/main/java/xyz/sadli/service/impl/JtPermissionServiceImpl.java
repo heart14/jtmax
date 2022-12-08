@@ -4,10 +4,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import xyz.sadli.dao.JtPermissionMapper;
+import xyz.sadli.entity.JtPermission;
 import xyz.sadli.service.JtPermissionService;
+import xyz.sadli.util.BeanUtils;
+import xyz.sadli.util.StringUtils;
 import xyz.sadli.vo.JtPermissionVO;
+import xyz.sadli.vo.JtRoleVO;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Callable;
 
 /**
  * About:
@@ -28,7 +36,43 @@ public class JtPermissionServiceImpl implements JtPermissionService {
 
     @Override
     public List<JtPermissionVO> queryPermissionList() {
-        return null;
+        List<JtPermission> parentPermission = permissionMapper.selectAllParentPermission();
+
+        List<JtPermissionVO> voList = new ArrayList<>();
+        parentPermission.forEach(p->{
+
+            JtPermissionVO vo = new JtPermissionVO();
+            vo.setPermId(p.getPermId());
+            vo.setPath(p.getPermRoute());
+            vo.setName(StringUtils.parseRoutePathToName(p.getPermRoute()));
+            vo.setAlwaysShow(true);
+            Map<String, String> meta = new HashMap<>();
+            meta.put("title", p.getPermName());
+            vo.setMeta(meta);
+            vo.setHidden(false);
+
+            List<JtPermission> permissions = permissionMapper.selectPermsByParentId(p.getPermId());
+            List<JtPermissionVO> child = new ArrayList<>();
+            permissions.forEach(e->{
+                JtPermissionVO vo2 = new JtPermissionVO();
+                vo2.setPermId(e.getPermId());
+                vo2.setPath(e.getPermRoute());
+                vo2.setName(StringUtils.parseRoutePathToName(e.getPermRoute()));
+                vo2.setAlwaysShow(true);
+                Map<String, String> meta2 = new HashMap<>();
+                meta2.put("title", e.getPermName());
+                vo2.setMeta(meta2);
+                vo2.setHidden(true);
+                vo2.setRedirect("");
+
+                child.add(vo2);
+            });
+            vo.setChildren(child);
+            vo.setRedirect(child.get(0).getPath());
+
+            voList.add(vo);
+        });
+        return voList;
     }
 
 }
