@@ -8,6 +8,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import xyz.sadli.service.JtPlayerService;
 import xyz.sadli.vo.JtPlayerVO;
 
+import java.util.List;
+
 /**
  * About:
  * Other:
@@ -25,5 +27,11 @@ public class UserTest {
     public void getUserInfo() {
         JtPlayerVO jtPlayerVO = jtPlayerService.queryPlayerByUid("0x001");
         System.out.println(jtPlayerVO);
+    }
+
+    @Test
+    public void allUser(){
+        List<JtPlayerVO> voList = jtPlayerService.queryPlayerList();
+        System.out.println(voList);
     }
 }

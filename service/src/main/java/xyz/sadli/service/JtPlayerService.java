@@ -4,6 +4,8 @@ import xyz.sadli.entity.JtPlayer;
 import xyz.sadli.query.sys.LoginQuery;
 import xyz.sadli.vo.JtPlayerVO;
 
+import java.util.List;
+
 /**
  * About:
  * Other:
@@ -27,4 +29,11 @@ public interface JtPlayerService {
      * @return
      */
     JtPlayerVO queryPlayerByUid(String uid);
+
+    /**
+     * 查询所有用户列表
+     *
+     * @return
+     */
+    List<JtPlayerVO> queryPlayerList();
 }

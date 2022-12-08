@@ -18,6 +18,7 @@ import xyz.sadli.service.JtPlayerService;
 import xyz.sadli.util.BeanUtils;
 import xyz.sadli.vo.JtPlayerVO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,6 +75,13 @@ public class JtPlayerServiceImpl implements JtPlayerService {
             jtPlayerVO.setRoles(roleArray);
         }
         return jtPlayerVO;
+    }
+
+    @Override
+    public List<JtPlayerVO> queryPlayerList() {
+        List<JtPlayer> jtPlayers = playerMapper.selectAllPlayer();
+        List<JtPlayerVO> voList = jtPlayers.stream().collect(ArrayList::new, (list, player) -> list.add((JtPlayerVO) BeanUtils.beanToVO(player)), ArrayList::addAll);
+        return voList;
     }
 }
 

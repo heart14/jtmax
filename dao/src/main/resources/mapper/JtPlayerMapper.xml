@@ -40,6 +40,12 @@
             and password = #{password,jdbcType=VARCHAR}
     </select>
 
+    <select id="selectAllPlayer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jt_player
+    </select>
+
 
 
 
