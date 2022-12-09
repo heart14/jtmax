@@ -182,6 +182,6 @@ public class TestController {
     @RequestMapping(value = "/w", method = RequestMethod.GET)
     public SysResponse webhooks() {
         log.info("test github webhooks");
-        return SysResponseUtils.success("111");
+        return SysResponseUtils.success("222");
     }
 }
