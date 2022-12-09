@@ -178,4 +178,10 @@ public class TestController {
         log.info("test shiro requires permissions");
         return SysResponseUtils.success("perms ok");
     }
+
+    @RequestMapping(value = "/w", method = RequestMethod.GET)
+    public SysResponse webhooks() {
+        log.info("test github webhooks");
+        return SysResponseUtils.success("111");
+    }
 }
