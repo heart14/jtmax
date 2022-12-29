@@ -30,13 +30,10 @@ public class SysExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(SysExceptionHandler.class);
 
     @ExceptionHandler({UnauthorizedException.class})
-    public void unauthorizedException(UnauthorizedException e, HttpServletResponse httpServletResponse) throws IOException {
+    public SysResponse unauthorizedException(UnauthorizedException e, HttpServletResponse httpServletResponse) throws IOException {
         //Shiro鉴权异常
         log.error("Shiro鉴权异常 :{}", e.getMessage(), e);
-        httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
-        httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        SysResponse sysResponse = SysResponseUtils.fail(ErrCodeEnums.AUTHORIZATION_EXCEPTION.getCode(), ErrCodeEnums.AUTHORIZATION_EXCEPTION.getMsg(), null);
-        httpServletResponse.getWriter().write(JSON.toJSONString(sysResponse, SerializerFeature.WriteMapNullValue));
+        return SysResponseUtils.fail(ErrCodeEnums.AUTHORIZATION_EXCEPTION.getCode(), ErrCodeEnums.AUTHORIZATION_EXCEPTION.getMsg(), null);
     }
 
     @ExceptionHandler({BindException.class, ValidationException.class, MethodArgumentNotValidException.class})
