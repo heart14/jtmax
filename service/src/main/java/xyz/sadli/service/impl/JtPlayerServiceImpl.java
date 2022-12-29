@@ -57,7 +57,7 @@ public class JtPlayerServiceImpl implements JtPlayerService {
     }
 
     @Override
-    @Cacheable(key = "#uid")
+//    @Cacheable(key = "#uid")
     public JtPlayerVO queryPlayerByUid(String uid) {
         log.info("根据用户uid查询用户信息: uid={}", uid);
         Assert.hasLength(uid, "参数异常");

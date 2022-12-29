@@ -60,7 +60,7 @@ public class JtSysController {
         String refreshToken = StringUtils.UuidLowerCase();
         result.put("refresh_token", refreshToken);
         redisTemplate.opsForValue().set(Constants.ACCESS_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + jtPlayer.getUid(), jwtToken, Constants.REDIS_ACCESS_TOKEN_TTL, TimeUnit.MILLISECONDS);
-        redisTemplate.opsForValue().set(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + jtPlayer.getUid(), refreshToken, Constants.REDIS_REFRESH_TOKEN_TTL, TimeUnit.MILLISECONDS);
+        redisTemplate.opsForValue().set(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + refreshToken, jtPlayer.getUid(), Constants.REDIS_REFRESH_TOKEN_TTL, TimeUnit.MILLISECONDS);
 
         return SysResponseUtils.success(result);
     }
@@ -88,7 +88,7 @@ public class JtSysController {
             log.info("logout :uid = {}", uid);
             //使token失效
             redisTemplate.delete(Constants.ACCESS_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + uid);
-            redisTemplate.delete(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + uid);
+//            redisTemplate.delete(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + uid);
         }else {
             //token已经过期，直接登出
         }
@@ -108,7 +108,26 @@ public class JtSysController {
     @RequestMapping(value = "/access_token/{refresh_token}", method = RequestMethod.GET)
     public SysResponse refreshToken(@PathVariable("refresh_token") String refreshToken) {
         log.info("refresh_token :{}", refreshToken);
-        //TODO
-        return SysResponseUtils.success();
+        String uid = redisTemplate.opsForValue().get(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + refreshToken);
+        JtPlayerVO vo = playerService.queryPlayerByUid(uid);
+
+        redisTemplate.delete(Constants.ACCESS_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + uid);
+        redisTemplate.delete(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + refreshToken);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("nickname", vo.getNickname());
+        map.put("introduction", vo.getIntroduction());
+
+        String jwtToken = JwtUtils.createJwtToken(uid, map);
+
+        Map<String, String> result = new HashMap<>();
+        result.put("access_token", jwtToken);
+        refreshToken = StringUtils.UuidLowerCase();
+        result.put("refresh_token", refreshToken);
+
+        redisTemplate.opsForValue().set(Constants.ACCESS_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + uid, jwtToken, Constants.REDIS_ACCESS_TOKEN_TTL, TimeUnit.MILLISECONDS);
+        redisTemplate.opsForValue().set(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + refreshToken, uid, Constants.REDIS_REFRESH_TOKEN_TTL, TimeUnit.MILLISECONDS);
+
+        return SysResponseUtils.success(result);
     }
 }
