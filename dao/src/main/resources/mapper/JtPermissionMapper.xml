@@ -33,10 +33,18 @@
         where p.status = 1 and p.parent_id = 0
     </select>
 
-    <select id="selectAllPermission" resultMap="BaseResultMap">
+    <select id="selectAllPermission" resultMap="BaseResultMap" parameterType="xyz.sadli.query.permission.PermissionPageQuery">
         select
         <include refid="Base_Column_List"/>
         from jt_permission p
+        where 1=1
+        <if test="permType != null and permType != ''">
+            and perm_type = #{permType,jdbcType=VARCHAR}
+        </if>
+        <if test="permName != null and permName != ''">
+            <bind name="likeName" value="'%' + permName + '%'"/>
+            and perm_name like #{likeName,jdbcType=VARCHAR}
+        </if>
     </select>
 
     <select id="selectPermsByParentId" parameterType="java.lang.String" resultMap="BaseResultMap">

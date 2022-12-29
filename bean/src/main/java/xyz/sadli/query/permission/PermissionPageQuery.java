@@ -12,6 +12,10 @@ public class PermissionPageQuery {
 
     private int limit;
 
+    private String permType;
+
+    private String permName;
+
 
     public PermissionPageQuery() {
     }
@@ -32,11 +36,29 @@ public class PermissionPageQuery {
         this.limit = limit;
     }
 
+    public String getPermType() {
+        return permType;
+    }
+
+    public void setPermType(String permType) {
+        this.permType = permType;
+    }
+
+    public String getPermName() {
+        return permName;
+    }
+
+    public void setPermName(String permName) {
+        this.permName = permName;
+    }
+
     @Override
     public String toString() {
         return "PermissionPageQuery{" +
                 "page=" + page +
                 ", limit=" + limit +
+                ", permType='" + permType + '\'' +
+                ", permName='" + permName + '\'' +
                 '}';
     }
 }

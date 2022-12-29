@@ -82,7 +82,7 @@ public class JtPermissionServiceImpl implements JtPermissionService {
     @Override
     public PageInfo<JtPermission> queryPermissionPageList(PermissionPageQuery query) {
         PageHelper.startPage(query.getPage(), query.getLimit());
-        List<JtPermission> allPermission = permissionMapper.selectAllPermission();
+        List<JtPermission> allPermission = permissionMapper.selectAllPermission(query);
         return new PageInfo<>(allPermission);
     }
 }

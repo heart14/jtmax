@@ -2,6 +2,7 @@ package xyz.sadli.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import xyz.sadli.entity.JtPermission;
+import xyz.sadli.query.permission.PermissionPageQuery;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public interface JtPermissionMapper {
      *
      * @return
      */
-    List<JtPermission> selectAllPermission();
+    List<JtPermission> selectAllPermission(PermissionPageQuery query);
 
     /**
      * 查询所有父权限
