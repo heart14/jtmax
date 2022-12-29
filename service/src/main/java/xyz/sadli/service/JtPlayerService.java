@@ -36,4 +36,12 @@ public interface JtPlayerService {
      * @return
      */
     List<JtPlayerVO> queryPlayerList();
+
+    /**
+     * 更新用户状态
+     *
+     * @param status
+     * @return
+     */
+    void editPlayerStatus(String uid, int status);
 }

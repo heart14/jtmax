@@ -15,10 +15,19 @@ public class Constants {
     public static final String STATE_FAIL = "FAIL";
 
     /**
-     * 状态值常量，0-无效 1-有效
+     * 系统通用状态值常量，0-无效 1-有效
      */
     public static final int STATUS_VALID = 1;
     public static final int STATUS_INVALID = 0;
+
+    /**
+     * 用户状态值常量，0-正常,1-黑名单,2-退群,3-注销账号
+     */
+    public static final int USER_STATUS_NORMAL = 0;
+    public static final int USER_STATUS_FORBIDDEN = 1;
+    public static final int USER_STATUS_LEAVE_GROUP = 2;
+    public static final int USER_STATUS_DELETE = 3;
+
 
     /**
      * slf4j日志框架MDC常量字段名

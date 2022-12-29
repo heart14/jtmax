@@ -19,6 +19,7 @@ import xyz.sadli.util.BeanUtils;
 import xyz.sadli.vo.JtPlayerVO;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -82,6 +83,21 @@ public class JtPlayerServiceImpl implements JtPlayerService {
         List<JtPlayer> jtPlayers = playerMapper.selectAllPlayer();
         List<JtPlayerVO> voList = jtPlayers.stream().collect(ArrayList::new, (list, player) -> list.add((JtPlayerVO) BeanUtils.beanToVO(player)), ArrayList::addAll);
         return voList;
+    }
+
+    @Override
+    public void editPlayerStatus(String uid, int status) {
+        log.info("更新用户状态: uid={}, status={}", uid, status);
+        JtPlayer jtPlayer = playerMapper.selectByPrimaryKey(uid);
+        if (jtPlayer == null) {
+            throw new SysException(ErrCodeEnums.RESULT_EXCEPTION.getCode(), ErrCodeEnums.RESULT_EXCEPTION.getMsg());
+        }
+        jtPlayer.setStatus(status);
+        jtPlayer.setUpdateTime(new Date());
+        int update = playerMapper.updateByPrimaryKeySelective(jtPlayer);
+        if (update != 1) {
+            throw new SysException(ErrCodeEnums.DB_EXCEPTION.getCode(), ErrCodeEnums.DB_EXCEPTION.getMsg());
+        }
     }
 }
 
