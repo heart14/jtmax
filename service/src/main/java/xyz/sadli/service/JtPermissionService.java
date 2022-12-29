@@ -1,5 +1,9 @@
 package xyz.sadli.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
+import xyz.sadli.entity.JtPermission;
+import xyz.sadli.query.permission.PermissionPageQuery;
 import xyz.sadli.vo.JtPermissionVO;
 
 import java.util.List;
@@ -17,4 +21,11 @@ public interface JtPermissionService {
      * @return
      */
     List<JtPermissionVO> queryPermissionList();
+
+    /**
+     * 分页查询权限列表
+     * @param query
+     * @return
+     */
+    PageInfo<JtPermission> queryPermissionPageList(PermissionPageQuery query);
 }

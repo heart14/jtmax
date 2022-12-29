@@ -1,10 +1,14 @@
 package xyz.sadli.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import xyz.sadli.dao.JtPermissionMapper;
 import xyz.sadli.entity.JtPermission;
+import xyz.sadli.query.permission.PermissionPageQuery;
 import xyz.sadli.service.JtPermissionService;
 import xyz.sadli.util.BeanUtils;
 import xyz.sadli.util.StringUtils;
@@ -75,4 +79,10 @@ public class JtPermissionServiceImpl implements JtPermissionService {
         return voList;
     }
 
+    @Override
+    public PageInfo<JtPermission> queryPermissionPageList(PermissionPageQuery query) {
+        PageHelper.startPage(query.getPage(), query.getLimit());
+        List<JtPermission> allPermission = permissionMapper.selectAllPermission();
+        return new PageInfo<>(allPermission);
+    }
 }

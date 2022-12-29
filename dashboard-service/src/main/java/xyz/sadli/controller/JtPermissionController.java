@@ -1,12 +1,13 @@
 package xyz.sadli.controller;
 
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import xyz.sadli.entity.JtPermission;
+import xyz.sadli.query.permission.PermissionPageQuery;
 import xyz.sadli.service.JtPermissionService;
 import xyz.sadli.util.SysResponseUtils;
 import xyz.sadli.vo.JtPermissionVO;
@@ -33,11 +34,19 @@ public class JtPermissionController {
         this.permissionService = permissionService;
     }
 
-    @ApiOperation("查询权限列表")
+    @ApiOperation("查询路由权限列表")
     @RequestMapping(value = "/permission/list", method = RequestMethod.GET)
     public SysResponse listRoles() {
-        log.info("查询权限列表");
+        log.info("查询路由权限列表");
         List<JtPermissionVO> voList = permissionService.queryPermissionList();
         return SysResponseUtils.success(voList);
+    }
+
+    @ApiOperation("分页查询权限列表")
+    @RequestMapping(value = "/permission/page_list", method = RequestMethod.POST)
+    public SysResponse pageList(@RequestBody PermissionPageQuery query) {
+        log.info("分页查询权限列表: {}",query);
+        PageInfo<JtPermission> pageInfo = permissionService.queryPermissionPageList(query);
+        return SysResponseUtils.success(pageInfo);
     }
 }
