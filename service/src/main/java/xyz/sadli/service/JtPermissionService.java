@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import xyz.sadli.entity.JtPermission;
 import xyz.sadli.query.permission.PermissionPageQuery;
+import xyz.sadli.query.permission.SavePermissionQuery;
 import xyz.sadli.vo.JtPermissionVO;
 
 import java.util.List;
@@ -28,4 +29,24 @@ public interface JtPermissionService {
      * @return
      */
     PageInfo<JtPermission> queryPermissionPageList(PermissionPageQuery query);
+
+    /**
+     * 新增权限
+     * @param query
+     */
+    JtPermission savePermission(SavePermissionQuery query);
+
+    /**
+     * 更新权限
+     * @param permId
+     * @param query
+     * @return
+     */
+    void editPermission(String permId, SavePermissionQuery query);
+
+    /**
+     * (物理)删除权限
+     * @param permId
+     */
+    void removePermission(String permId);
 }

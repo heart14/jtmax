@@ -41,6 +41,9 @@
         <if test="permType != null and permType != ''">
             and perm_type = #{permType,jdbcType=VARCHAR}
         </if>
+        <if test="status != null">
+            and status = #{status,jdbcType=INTEGER}
+        </if>
         <if test="permName != null and permName != ''">
             <bind name="likeName" value="'%' + permName + '%'"/>
             and perm_name like #{likeName,jdbcType=VARCHAR}
@@ -53,6 +56,45 @@
         from jt_permission p
         where p.status = 1 and p.parent_id = #{parentId,jdbcType=VARCHAR}
     </select>
+
+    <update id="updatePermissionStatus">
+        update jt_permission
+        set update_time = now(),
+            status = #{status,jdbcType=INTEGER}
+        where perm_id = #{permId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKeyAndQueryParams">
+        update jt_permission
+        <set>
+            update_time = now(),
+            <if test="query.permName != null">
+                perm_name = #{query.permName,jdbcType=VARCHAR},
+            </if>
+            <if test="query.permDesc != null">
+                perm_desc = #{query.permDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="query.permType != null">
+                perm_type = #{query.permType,jdbcType=VARCHAR},
+            </if>
+            <if test="query.permRoute != null">
+                perm_route = #{query.permRoute,jdbcType=VARCHAR},
+            </if>
+            <if test="query.permIndex != null">
+                perm_index = #{query.permIndex,jdbcType=VARCHAR},
+            </if>
+            <if test="query.permKey != null">
+                perm_key = #{query.permKey,jdbcType=VARCHAR},
+            </if>
+            <if test="query.parentId != null">
+                parent_id = #{query.parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="query.status != null">
+                status = #{query.status,jdbcType=INTEGER},
+            </if>
+        </set>
+        where perm_id = #{permId,jdbcType=VARCHAR}
+    </update>
 
 
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">

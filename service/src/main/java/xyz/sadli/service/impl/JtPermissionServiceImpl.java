@@ -6,19 +6,21 @@ import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import xyz.sadli.common.Constants;
+import xyz.sadli.common.ErrCodeEnums;
 import xyz.sadli.dao.JtPermissionMapper;
 import xyz.sadli.entity.JtPermission;
+import xyz.sadli.exception.SysException;
 import xyz.sadli.query.permission.PermissionPageQuery;
+import xyz.sadli.query.permission.SavePermissionQuery;
 import xyz.sadli.service.JtPermissionService;
 import xyz.sadli.util.BeanUtils;
+import xyz.sadli.util.IdWorker;
 import xyz.sadli.util.StringUtils;
 import xyz.sadli.vo.JtPermissionVO;
 import xyz.sadli.vo.JtRoleVO;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Callable;
 
 /**
@@ -84,5 +86,47 @@ public class JtPermissionServiceImpl implements JtPermissionService {
         PageHelper.startPage(query.getPage(), query.getLimit());
         List<JtPermission> allPermission = permissionMapper.selectAllPermission(query);
         return new PageInfo<>(allPermission);
+    }
+
+    @Override
+    public JtPermission savePermission(SavePermissionQuery query) {
+        JtPermission permission = new JtPermission();
+        String idStr = IdWorker.nextIdStr();
+        permission.setPermId(idStr);
+        permission.setPermName(query.getPermName());
+        permission.setPermDesc(query.getPermDesc());
+        permission.setPermType(query.getPermType());
+        permission.setPermRoute(query.getPermRoute());
+        permission.setPermIndex(query.getPermIndex());
+        permission.setPermKey(query.getPermKey());
+        permission.setParentId(query.getParentId());
+        permission.setStatus(Constants.STATUS_VALID);
+        permission.setCreateTime(new Date());
+        int save = permissionMapper.insertSelective(permission);
+        if (save != 1) {
+            throw new SysException(ErrCodeEnums.DB_EXCEPTION.getCode(), ErrCodeEnums.DB_EXCEPTION.getMsg());
+        }
+        return permission;
+    }
+
+    @Override
+    public void editPermission(String permId, SavePermissionQuery query) {
+        JtPermission permission = permissionMapper.selectByPrimaryKey(permId);
+        if (permission == null) {
+            throw new SysException(ErrCodeEnums.RESULT_EXCEPTION.getCode(),ErrCodeEnums.RESULT_EXCEPTION.getMsg());
+        }
+        int update = permissionMapper.updateByPrimaryKeyAndQueryParams(permId, query);
+        if (update != 1) {
+            throw new SysException(ErrCodeEnums.DB_EXCEPTION.getCode(), ErrCodeEnums.DB_EXCEPTION.getMsg());
+        }
+    }
+
+    @Override
+    public void removePermission(String permId) {
+        // 物理删除
+        int i = permissionMapper.deleteByPrimaryKey(permId);
+        if (i != 1) {
+            throw new SysException(ErrCodeEnums.DB_EXCEPTION.getCode(), ErrCodeEnums.DB_EXCEPTION.getMsg());
+        }
     }
 }

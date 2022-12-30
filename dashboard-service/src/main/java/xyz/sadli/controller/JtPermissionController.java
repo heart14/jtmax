@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import xyz.sadli.entity.JtPermission;
 import xyz.sadli.query.permission.PermissionPageQuery;
+import xyz.sadli.query.permission.SavePermissionQuery;
 import xyz.sadli.service.JtPermissionService;
 import xyz.sadli.util.SysResponseUtils;
 import xyz.sadli.vo.JtPermissionVO;
@@ -45,8 +46,32 @@ public class JtPermissionController {
     @ApiOperation("分页查询权限列表")
     @RequestMapping(value = "/permission/page_list", method = RequestMethod.POST)
     public SysResponse pageList(@RequestBody PermissionPageQuery query) {
-        log.info("分页查询权限列表: {}",query);
+        log.info("分页查询权限列表: {}", query);
         PageInfo<JtPermission> pageInfo = permissionService.queryPermissionPageList(query);
         return SysResponseUtils.success(pageInfo);
+    }
+
+    @ApiOperation("新增权限")
+    @RequestMapping(value = "/permission/save", method = RequestMethod.POST)
+    public SysResponse savePermission(@RequestBody SavePermissionQuery query) {
+        log.info("新增权限: {}", query);
+        JtPermission jtPermission = permissionService.savePermission(query);
+        return SysResponseUtils.success(jtPermission);
+    }
+
+    @ApiOperation("更新权限")
+    @RequestMapping(value = "/permission/{permId}", method = RequestMethod.PUT)
+    public SysResponse editPermission(@PathVariable("permId") String permId, @RequestBody SavePermissionQuery query) {
+        log.info("更新权限: {}", query);
+        permissionService.editPermission(permId, query);
+        return SysResponseUtils.success();
+    }
+
+    @ApiOperation("删除权限")
+    @RequestMapping(value = "/permission/{permId}", method = RequestMethod.DELETE)
+    public SysResponse removePermission(@PathVariable("permId") String permId) {
+        log.info("删除权限");
+        permissionService.removePermission(permId);
+        return SysResponseUtils.success();
     }
 }
