@@ -96,4 +96,20 @@ public class JtRoleServiceImpl implements JtRoleService {
             throw new SysException(ErrCodeEnums.DB_EXCEPTION.getCode(), ErrCodeEnums.DB_EXCEPTION.getMsg());
         }
     }
+
+    @Override
+    public void editRole(String roleId, SaveRoleQuery query) {
+        JtRole role = jtRoleMapper.selectByPrimaryKey(roleId);
+        if (role == null) {
+            throw new SysException(ErrCodeEnums.RESULT_EXCEPTION.getCode(),ErrCodeEnums.RESULT_EXCEPTION.getMsg());
+        }
+        role.setRoleKey(query.getRoleKey());
+        role.setRoleName(query.getRoleName());
+        role.setRoleDesc(query.getRoleDesc());
+        role.setUpdateTime(new Date());
+        int update = jtRoleMapper.updateByPrimaryKeySelective(role);
+        if (update != 1) {
+            throw new SysException(ErrCodeEnums.DB_EXCEPTION.getCode(), ErrCodeEnums.DB_EXCEPTION.getMsg());
+        }
+    }
 }

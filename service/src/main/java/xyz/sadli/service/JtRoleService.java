@@ -22,8 +22,21 @@ public interface JtRoleService {
 
     /**
      * 新增角色
+     * @param roleQuery
+     * @return
      */
     JtRoleVO saveRole(SaveRoleQuery roleQuery);
 
+    /**
+     * 删除角色
+     * @param roleId
+     */
     void removeRole(String roleId);
+
+    /**
+     * 修改角色
+     * @param roleId
+     * @param query
+     */
+    void editRole(String roleId, SaveRoleQuery query);
 }
