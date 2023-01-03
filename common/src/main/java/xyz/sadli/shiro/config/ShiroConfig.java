@@ -89,6 +89,7 @@ public class ShiroConfig {
         //用户登录、获取验证码接口不进行认证拦截
         filterChainMap.put("/sys/login", "anon");
         filterChainMap.put("/sys/logout", "anon");
+        filterChainMap.put("/sys//access_token/*", "anon");
         filterChainMap.put("/sys/verify_code", "anon");
         filterChainMap.put("/test/login", "anon");//https://blog.csdn.net/ght521/article/details/52355663
         filterChainMap.put("/test/verify_code", "anon");
