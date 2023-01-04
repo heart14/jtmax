@@ -9,11 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * About: 请求过滤器
+ * About: 请求过滤器，已弃用，添加traceId的代码放在了corsFilter里面了
  * Other:
  * Created: lwf14 on 2022/11/27 15:42.
  * Editored:
  */
+@Deprecated
 public class RequestInterceptor extends HandlerInterceptorAdapter {
 
     @Override
