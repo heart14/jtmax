@@ -76,7 +76,8 @@ public class JwtFilter extends AccessControlFilter {
     private void onLoginFail(ServletResponse response) throws IOException {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-        httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        httpServletResponse.setContentType("application/json");
+        httpServletResponse.setCharacterEncoding("UTF-8");
         SysResponse sysResponse = SysResponseUtils.fail(ErrCodeEnums.AUTHENTICATION_EXCEPTION.getCode(), ErrCodeEnums.AUTHENTICATION_EXCEPTION.getMsg(), null);
         log.error("Shiro认证失败响应 :{}",sysResponse);
         httpServletResponse.getWriter().write(JSON.toJSONString(sysResponse, SerializerFeature.WriteMapNullValue));
