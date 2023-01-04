@@ -26,15 +26,16 @@ public class CorsFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         log.info("CorsFilter init");
-        //如果没有添加traceId，在这里进行设置traceId
-        if (MDC.get(Constants.FIELD_MDC_TRACE_ID) == null) {
-            MDC.put(Constants.FIELD_MDC_TRACE_ID, StringUtils.UuidLowerCase());
-        }
         Filter.super.init(filterConfig);
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        //如果没有添加traceId，在这里进行设置traceId
+        if (MDC.get(Constants.FIELD_MDC_TRACE_ID) == null) {
+            MDC.put(Constants.FIELD_MDC_TRACE_ID, StringUtils.UuidLowerCase());
+        }
+
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         log.info("CorsFilter doFilter, request METHOD = {}, request URL = {}",request.getMethod(), request.getRequestURL());
         HttpServletResponse response = (HttpServletResponse) servletResponse;
