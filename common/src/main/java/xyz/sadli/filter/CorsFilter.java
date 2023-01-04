@@ -28,9 +28,8 @@ public class CorsFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-
-        log.info("CorsFilter doFilter");
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+        log.info("CorsFilter doFilter, request METHOD = {}, request URL = {}",request.getMethod(), request.getRequestURL());
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Credentials","true");
