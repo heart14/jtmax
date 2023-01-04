@@ -22,10 +22,6 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
         if (MDC.get(Constants.FIELD_MDC_TRACE_ID) == null) {
             MDC.put(Constants.FIELD_MDC_TRACE_ID, StringUtils.UuidLowerCase());
         }
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS, PATCH, HEAD");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type, x-requested-with, X-Custom-Header, Authorization");
         return super.preHandle(request, response, handler);
     }
 
