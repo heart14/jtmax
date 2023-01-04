@@ -20,6 +20,8 @@ public class SysProperties {
     public static final String BUCKET_URL = propertyLoader.getSysProperty("bucket.url");
     public static final String JWT_SECRET = propertyLoader.getSysProperty("jwt.secret");
     public static final Long JWT_TTL = Long.valueOf(propertyLoader.getSysProperty("jwt.ttl"));
+    public static final Long REDIS_ACCESS_TOKEN_TTL = Long.valueOf(propertyLoader.getSysProperty("redis.access_token.ttl"));
+    public static final Long REDIS_REFRESH_TOKEN_TTL = Long.valueOf(propertyLoader.getSysProperty("redis.refresh_token.ttl"));
 
 
     public static void main(String[] args) {

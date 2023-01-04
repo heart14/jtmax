@@ -51,11 +51,11 @@ public class Constants {
     /**
      * access_token过期时间 10分钟(与配置文件中配置的JWT token过期时间保持一致)
      */
-    public static final long REDIS_ACCESS_TOKEN_TTL = 10 * 60 * 1000;
+    public static final long REDIS_ACCESS_TOKEN_TTL = SysProperties.REDIS_ACCESS_TOKEN_TTL;
     /**
      * refresh_token过期时间 30分钟
      */
-    public static final long REDIS_REFRESH_TOKEN_TTL = 30 * 60 * 1000;
+    public static final long REDIS_REFRESH_TOKEN_TTL = SysProperties.REDIS_REFRESH_TOKEN_TTL;
 
     /**
      * redis缓存的默认过期时间10分钟，单位毫秒

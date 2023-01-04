@@ -60,7 +60,7 @@ public class JwtFilter extends AccessControlFilter {
             getSubject(servletRequest, servletResponse).login(jwtToken);
         } catch (AuthenticationException e) {
             //抛出异常说明认证失败
-            log.error("Shiro鉴权异常 :{}",e.getMessage(),e);
+            log.error("Shiro认证失败 :{}",e.getMessage(),e);
             onLoginFail(servletResponse);
             return false;
         }
@@ -78,6 +78,7 @@ public class JwtFilter extends AccessControlFilter {
         httpServletResponse.setStatus(HttpServletResponse.SC_OK);
         httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
         SysResponse sysResponse = SysResponseUtils.fail(ErrCodeEnums.AUTHENTICATION_EXCEPTION.getCode(), ErrCodeEnums.AUTHENTICATION_EXCEPTION.getMsg(), null);
+        log.error("Shiro认证失败响应 :{}",sysResponse);
         httpServletResponse.getWriter().write(JSON.toJSONString(sysResponse, SerializerFeature.WriteMapNullValue));
     }
 }

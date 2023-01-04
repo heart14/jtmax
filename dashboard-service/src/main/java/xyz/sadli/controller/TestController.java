@@ -147,8 +147,8 @@ public class TestController {
         result.put("access_token", jwtToken);
         String refreshToken = StringUtils.UuidLowerCase();
         result.put("refresh_token", refreshToken);
-        redisTemplate.opsForValue().set(Constants.ACCESS_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + jtPlayer.getUid(), jwtToken, Constants.REDIS_ACCESS_TOKEN_TTL, TimeUnit.MILLISECONDS);
-        redisTemplate.opsForValue().set(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + jtPlayer.getUid(), refreshToken, Constants.REDIS_REFRESH_TOKEN_TTL, TimeUnit.MILLISECONDS);
+        redisTemplate.opsForValue().set(Constants.ACCESS_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + jtPlayer.getUid(), jwtToken, SysProperties.REDIS_ACCESS_TOKEN_TTL, TimeUnit.MILLISECONDS);
+        redisTemplate.opsForValue().set(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + jtPlayer.getUid(), refreshToken, SysProperties.REDIS_REFRESH_TOKEN_TTL, TimeUnit.MILLISECONDS);
         return SysResponseUtils.success(result);
     }
 

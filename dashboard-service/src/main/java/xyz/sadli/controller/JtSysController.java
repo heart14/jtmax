@@ -5,9 +5,12 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import xyz.sadli.common.Constants;
+import xyz.sadli.common.ErrCodeEnums;
+import xyz.sadli.common.SysProperties;
 import xyz.sadli.entity.JtPlayer;
 import xyz.sadli.query.sys.LoginQuery;
 import xyz.sadli.service.JtPlayerService;
@@ -59,8 +62,8 @@ public class JtSysController {
         result.put("access_token", jwtToken);
         String refreshToken = StringUtils.UuidLowerCase();
         result.put("refresh_token", refreshToken);
-        redisTemplate.opsForValue().set(Constants.ACCESS_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + jtPlayer.getUid(), jwtToken, Constants.REDIS_ACCESS_TOKEN_TTL, TimeUnit.MILLISECONDS);
-        redisTemplate.opsForValue().set(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + refreshToken, jtPlayer.getUid(), Constants.REDIS_REFRESH_TOKEN_TTL, TimeUnit.MILLISECONDS);
+        redisTemplate.opsForValue().set(Constants.ACCESS_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + jtPlayer.getUid(), jwtToken, SysProperties.REDIS_ACCESS_TOKEN_TTL, TimeUnit.MILLISECONDS);
+        redisTemplate.opsForValue().set(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + refreshToken, jtPlayer.getUid(), SysProperties.REDIS_REFRESH_TOKEN_TTL, TimeUnit.MILLISECONDS);
 
         return SysResponseUtils.success(result);
     }
@@ -109,6 +112,9 @@ public class JtSysController {
     public SysResponse refreshToken(@PathVariable("refresh_token") String refreshToken) {
         log.info("refresh_token :{}", refreshToken);
         String uid = redisTemplate.opsForValue().get(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + refreshToken);
+        //断言uid不为空，否则代表redis中缓存refresh_token已过期，无法刷新token，返回失败
+        Assert.hasLength(uid, ErrCodeEnums.RE_AUTH_EXCEPTION.getMsg());
+
         JtPlayerVO vo = playerService.queryPlayerByUid(uid);
 
         redisTemplate.delete(Constants.ACCESS_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + uid);
@@ -125,8 +131,8 @@ public class JtSysController {
         refreshToken = StringUtils.UuidLowerCase();
         result.put("refresh_token", refreshToken);
 
-        redisTemplate.opsForValue().set(Constants.ACCESS_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + uid, jwtToken, Constants.REDIS_ACCESS_TOKEN_TTL, TimeUnit.MILLISECONDS);
-        redisTemplate.opsForValue().set(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + refreshToken, uid, Constants.REDIS_REFRESH_TOKEN_TTL, TimeUnit.MILLISECONDS);
+        redisTemplate.opsForValue().set(Constants.ACCESS_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + uid, jwtToken, SysProperties.REDIS_ACCESS_TOKEN_TTL, TimeUnit.MILLISECONDS);
+        redisTemplate.opsForValue().set(Constants.REFRESH_TOKEN_PREFIX + Constants.REDIS_KEY_SEPARATOR + refreshToken, uid, SysProperties.REDIS_REFRESH_TOKEN_TTL, TimeUnit.MILLISECONDS);
 
         return SysResponseUtils.success(result);
     }
