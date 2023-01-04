@@ -12,12 +12,12 @@ import xyz.sadli.interceptor.RequestInterceptor;
  * Created: lwf14 on 2022/11/27 15:47.
  * Editored:
  */
-@Configuration
+//@Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //注册自定义过滤器
-        registry.addInterceptor(new RequestInterceptor());
+//        registry.addInterceptor(new RequestInterceptor());
     }
 }
