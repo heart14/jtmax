@@ -2,7 +2,10 @@ package xyz.sadli.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
+import xyz.sadli.common.Constants;
+import xyz.sadli.util.StringUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +26,10 @@ public class CorsFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         log.info("CorsFilter init");
+        //如果没有添加traceId，在这里进行设置traceId
+        if (MDC.get(Constants.FIELD_MDC_TRACE_ID) == null) {
+            MDC.put(Constants.FIELD_MDC_TRACE_ID, StringUtils.UuidLowerCase());
+        }
         Filter.super.init(filterConfig);
     }
 
