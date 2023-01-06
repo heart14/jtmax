@@ -22,6 +22,28 @@
     assemble_time, assemble_place, activity_place, activity_organizer, min_level, max_player, 
     deadline, status, remark
     </sql>
+
+    <select id="selectAllActivity" resultMap="BaseResultMap" parameterType="xyz.sadli.query.activity.ActivityPageQuery">
+        select
+        <include refid="Base_Column_List"/>
+        from jt_activity
+        where 1=1
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>

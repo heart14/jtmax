@@ -1,5 +1,9 @@
 package xyz.sadli.service;
 
+import com.github.pagehelper.PageInfo;
+import xyz.sadli.entity.JtActivity;
+import xyz.sadli.query.activity.ActivityPageQuery;
+
 /**
  * About:
  * Other:
@@ -7,4 +11,12 @@ package xyz.sadli.service;
  * Editored:
  */
 public interface JtActivityService {
+
+    /**
+     * 分页查询活动列表
+     *
+     * @param query
+     * @return
+     */
+    PageInfo<JtActivity> queryActivityPageList(ActivityPageQuery query);
 }

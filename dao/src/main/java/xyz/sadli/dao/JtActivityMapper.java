@@ -1,9 +1,12 @@
 package xyz.sadli.dao;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 import xyz.sadli.entity.JtActivity;
+import xyz.sadli.query.activity.ActivityPageQuery;
 
-@Repository
+import java.util.List;
+
+@Mapper
 public interface JtActivityMapper {
 
     int deleteByPrimaryKey(String activityId);
@@ -17,4 +20,12 @@ public interface JtActivityMapper {
     int updateByPrimaryKeySelective(JtActivity record);
 
     int updateByPrimaryKey(JtActivity record);
+
+    /**
+     * 查询所有活动信息
+     *
+     * @param query
+     * @return
+     */
+    List<JtActivity> selectAllActivity(ActivityPageQuery query);
 }
