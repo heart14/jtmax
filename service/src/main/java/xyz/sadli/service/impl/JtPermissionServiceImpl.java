@@ -59,22 +59,24 @@ public class JtPermissionServiceImpl implements JtPermissionService {
 
             List<JtPermission> permissions = permissionMapper.selectPermsByParentId(p.getPermId());
             List<JtPermissionVO> child = new ArrayList<>();
+            List<JtPermissionVO> emptyChild = new ArrayList<>();//只有二级菜单，给子权限的子权限字段置空
             permissions.forEach(e->{
                 JtPermissionVO vo2 = new JtPermissionVO();
                 vo2.setPermId(e.getPermId());
                 vo2.setPath(e.getPermRoute());
+                vo2.setRedirect(e.getPermRoute());
                 vo2.setName(StringUtils.parseRoutePathToName(e.getPermRoute()));
                 vo2.setAlwaysShow(true);
                 Map<String, String> meta2 = new HashMap<>();
                 meta2.put("title", e.getPermName());
                 vo2.setMeta(meta2);
                 vo2.setHidden(true);
-                vo2.setRedirect("");
+                vo2.setChildren(emptyChild);
 
                 child.add(vo2);
             });
             vo.setChildren(child);
-            vo.setRedirect(child.get(0).getPath());
+            vo.setRedirect(child.size() > 0 ? child.get(0).getPath() : p.getPermRoute());
 
             voList.add(vo);
         });
