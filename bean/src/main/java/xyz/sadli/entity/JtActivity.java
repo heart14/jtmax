@@ -37,9 +37,13 @@ public class JtActivity implements Serializable {
 
     private Date deadline;
 
-    private String status;
+    private Integer status;
 
     private String remark;
+
+    private Date createTime;
+
+    private Date updateTime;
 
     public JtActivity() {
     }
@@ -140,12 +144,12 @@ public class JtActivity implements Serializable {
         this.deadline = deadline;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getRemark() {
@@ -154,6 +158,22 @@ public class JtActivity implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     @Override
@@ -171,8 +191,10 @@ public class JtActivity implements Serializable {
                 ", minLevel=" + minLevel +
                 ", maxPlayer=" + maxPlayer +
                 ", deadline=" + deadline +
-                ", status='" + status + '\'' +
+                ", status='" + status +
                 ", remark='" + remark + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }
