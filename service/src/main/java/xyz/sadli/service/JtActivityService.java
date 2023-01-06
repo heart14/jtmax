@@ -3,6 +3,7 @@ package xyz.sadli.service;
 import com.github.pagehelper.PageInfo;
 import xyz.sadli.entity.JtActivity;
 import xyz.sadli.query.activity.ActivityPageQuery;
+import xyz.sadli.query.activity.SaveActivityQuery;
 
 /**
  * About:
@@ -19,4 +20,11 @@ public interface JtActivityService {
      * @return
      */
     PageInfo<JtActivity> queryActivityPageList(ActivityPageQuery query);
+
+    /**
+     * 新增活动
+     *
+     * @param query
+     */
+    JtActivity saveActivity(SaveActivityQuery query);
 }

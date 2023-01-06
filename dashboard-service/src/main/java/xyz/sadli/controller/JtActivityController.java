@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.sadli.entity.JtActivity;
 import xyz.sadli.query.activity.ActivityPageQuery;
+import xyz.sadli.query.activity.SaveActivityQuery;
 import xyz.sadli.service.JtActivityService;
 import xyz.sadli.util.SysResponseUtils;
 import xyz.sadli.vo.SysResponse;
@@ -40,6 +41,14 @@ public class JtActivityController {
         log.info("分页查询活动列表: {}", query);
         PageInfo<JtActivity> pageInfo = activityService.queryActivityPageList(query);
         return SysResponseUtils.success(pageInfo);
+    }
+
+    @ApiOperation("新增活动")
+    @RequestMapping(value = "/activity/save", method = RequestMethod.POST)
+    public SysResponse saveActivity(@RequestBody SaveActivityQuery query) {
+        log.info("新增活动: {}", query);
+        JtActivity jtActivity = activityService.saveActivity(query);
+        return SysResponseUtils.success(jtActivity);
     }
 
 }
