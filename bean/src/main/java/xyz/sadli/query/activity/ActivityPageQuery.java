@@ -12,6 +12,12 @@ public class ActivityPageQuery {
 
     private int limit;
 
+    private String activityName;
+
+    private String activityType;
+
+    private Integer status;
+
     public ActivityPageQuery() {
     }
 
@@ -31,11 +37,38 @@ public class ActivityPageQuery {
         this.limit = limit;
     }
 
+    public String getActivityName() {
+        return activityName;
+    }
+
+    public void setActivityName(String activityName) {
+        this.activityName = activityName;
+    }
+
+    public String getActivityType() {
+        return activityType;
+    }
+
+    public void setActivityType(String activityType) {
+        this.activityType = activityType;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "ActivityPageQuery{" +
                 "page=" + page +
                 ", limit=" + limit +
+                ", activityName='" + activityName + '\'' +
+                ", activityType='" + activityType + '\'' +
+                ", status=" + status +
                 '}';
     }
 }
