@@ -28,6 +28,14 @@ public class Constants {
     public static final int USER_STATUS_LEAVE_GROUP = 2;
     public static final int USER_STATUS_DELETE = 3;
 
+    /**
+     * 活动状态值常量，0-新建，待发布，1-发布中，2-已完成，3-已取消
+     */
+    public static final int ACTIVITY_STATUS_CREATE = 0;
+    public static final int ACTIVITY_STATUS_PUBLISH = 1;
+    public static final int ACTIVITY_STATUS_FINISH = 2;
+    public static final int ACTIVITY_STATUS_CANCEL = 3;
+
 
     /**
      * slf4j日志框架MDC常量字段名
