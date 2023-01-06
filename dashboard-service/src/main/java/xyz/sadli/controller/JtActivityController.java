@@ -55,4 +55,12 @@ public class JtActivityController {
         activityService.editActivity(activityId, query);
         return SysResponseUtils.success();
     }
+
+    @ApiOperation("删除活动")
+    @RequestMapping(value = "/activity/{activityId}", method = RequestMethod.DELETE)
+    public SysResponse removePermission(@PathVariable("activityId") String activityId) {
+        log.info("删除活动");
+        activityService.removeActivity(activityId);
+        return SysResponseUtils.success();
+    }
 }

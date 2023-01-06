@@ -36,4 +36,11 @@ public interface JtActivityService {
      * @return
      */
     void editActivity(String activityId, SaveActivityQuery query);
+
+    /**
+     * 删除活动（物理删除，若要逻辑删除，请使用更新状态接口）
+     *
+     * @param activityId
+     */
+    void removeActivity(String activityId);
 }

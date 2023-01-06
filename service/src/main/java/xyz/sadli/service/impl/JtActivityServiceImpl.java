@@ -83,6 +83,14 @@ public class JtActivityServiceImpl implements JtActivityService {
         if (update != 1) {
             throw new SysException(ErrCodeEnums.DB_EXCEPTION.getCode(), ErrCodeEnums.DB_EXCEPTION.getMsg());
         }
+    }
 
+    @Override
+    public void removeActivity(String activityId) {
+        // 物理删除，物理删除，若要逻辑删除，请使用更新状态接口
+        int i = activityMapper.deleteByPrimaryKey(activityId);
+        if (i != 1) {
+            throw new SysException(ErrCodeEnums.DB_EXCEPTION.getCode(), ErrCodeEnums.DB_EXCEPTION.getMsg());
+        }
     }
 }
