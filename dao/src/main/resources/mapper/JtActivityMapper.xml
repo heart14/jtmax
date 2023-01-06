@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.sadli.dao.JtActivityMapper">
+    <resultMap id="BaseResultMap" type="xyz.sadli.entity.JtActivity">
+        <id column="activity_id" jdbcType="VARCHAR" property="activityId"/>
+        <result column="activity_name" jdbcType="VARCHAR" property="activityName"/>
+        <result column="activity_desc" jdbcType="VARCHAR" property="activityDesc"/>
+        <result column="activity_time_start" jdbcType="TIMESTAMP" property="activityTimeStart"/>
+        <result column="activity_time_end" jdbcType="TIMESTAMP" property="activityTimeEnd"/>
+        <result column="assemble_time" jdbcType="TIMESTAMP" property="assembleTime"/>
+        <result column="assemble_place" jdbcType="VARCHAR" property="assemblePlace"/>
+        <result column="activity_place" jdbcType="VARCHAR" property="activityPlace"/>
+        <result column="activity_organizer" jdbcType="VARCHAR" property="activityOrganizer"/>
+        <result column="min_level" jdbcType="INTEGER" property="minLevel"/>
+        <result column="max_player" jdbcType="INTEGER" property="maxPlayer"/>
+        <result column="deadline" jdbcType="TIMESTAMP" property="deadline"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        activity_id, activity_name, activity_desc, activity_time_start, activity_time_end,
+    assemble_time, assemble_place, activity_place, activity_organizer, min_level, max_player, 
+    deadline, status, remark
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jt_activity
+        where activity_id = #{activityId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from jt_activity
+        where activity_id = #{activityId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="xyz.sadli.entity.JtActivity">
+        insert into jt_activity (activity_id, activity_name, activity_desc,
+                                 activity_time_start, activity_time_end,
+                                 assemble_time, assemble_place, activity_place,
+                                 activity_organizer, min_level, max_player,
+                                 deadline, status, remark)
+        values (#{activityId,jdbcType=VARCHAR}, #{activityName,jdbcType=VARCHAR}, #{activityDesc,jdbcType=VARCHAR},
+                #{activityTimeStart,jdbcType=TIMESTAMP}, #{activityTimeEnd,jdbcType=TIMESTAMP},
+                #{assembleTime,jdbcType=TIMESTAMP}, #{assemblePlace,jdbcType=VARCHAR},
+                #{activityPlace,jdbcType=VARCHAR},
+                #{activityOrganizer,jdbcType=VARCHAR}, #{minLevel,jdbcType=INTEGER}, #{maxPlayer,jdbcType=INTEGER},
+                #{deadline,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="xyz.sadli.entity.JtActivity">
+        insert into jt_activity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="activityId != null">
+                activity_id,
+            </if>
+            <if test="activityName != null">
+                activity_name,
+            </if>
+            <if test="activityDesc != null">
+                activity_desc,
+            </if>
+            <if test="activityTimeStart != null">
+                activity_time_start,
+            </if>
+            <if test="activityTimeEnd != null">
+                activity_time_end,
+            </if>
+            <if test="assembleTime != null">
+                assemble_time,
+            </if>
+            <if test="assemblePlace != null">
+                assemble_place,
+            </if>
+            <if test="activityPlace != null">
+                activity_place,
+            </if>
+            <if test="activityOrganizer != null">
+                activity_organizer,
+            </if>
+            <if test="minLevel != null">
+                min_level,
+            </if>
+            <if test="maxPlayer != null">
+                max_player,
+            </if>
+            <if test="deadline != null">
+                deadline,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="activityId != null">
+                #{activityId,jdbcType=VARCHAR},
+            </if>
+            <if test="activityName != null">
+                #{activityName,jdbcType=VARCHAR},
+            </if>
+            <if test="activityDesc != null">
+                #{activityDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="activityTimeStart != null">
+                #{activityTimeStart,jdbcType=TIMESTAMP},
+            </if>
+            <if test="activityTimeEnd != null">
+                #{activityTimeEnd,jdbcType=TIMESTAMP},
+            </if>
+            <if test="assembleTime != null">
+                #{assembleTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="assemblePlace != null">
+                #{assemblePlace,jdbcType=VARCHAR},
+            </if>
+            <if test="activityPlace != null">
+                #{activityPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="activityOrganizer != null">
+                #{activityOrganizer,jdbcType=VARCHAR},
+            </if>
+            <if test="minLevel != null">
+                #{minLevel,jdbcType=INTEGER},
+            </if>
+            <if test="maxPlayer != null">
+                #{maxPlayer,jdbcType=INTEGER},
+            </if>
+            <if test="deadline != null">
+                #{deadline,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="xyz.sadli.entity.JtActivity">
+        update jt_activity
+        <set>
+            <if test="activityName != null">
+                activity_name = #{activityName,jdbcType=VARCHAR},
+            </if>
+            <if test="activityDesc != null">
+                activity_desc = #{activityDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="activityTimeStart != null">
+                activity_time_start = #{activityTimeStart,jdbcType=TIMESTAMP},
+            </if>
+            <if test="activityTimeEnd != null">
+                activity_time_end = #{activityTimeEnd,jdbcType=TIMESTAMP},
+            </if>
+            <if test="assembleTime != null">
+                assemble_time = #{assembleTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="assemblePlace != null">
+                assemble_place = #{assemblePlace,jdbcType=VARCHAR},
+            </if>
+            <if test="activityPlace != null">
+                activity_place = #{activityPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="activityOrganizer != null">
+                activity_organizer = #{activityOrganizer,jdbcType=VARCHAR},
+            </if>
+            <if test="minLevel != null">
+                min_level = #{minLevel,jdbcType=INTEGER},
+            </if>
+            <if test="maxPlayer != null">
+                max_player = #{maxPlayer,jdbcType=INTEGER},
+            </if>
+            <if test="deadline != null">
+                deadline = #{deadline,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where activity_id = #{activityId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="xyz.sadli.entity.JtActivity">
+        update jt_activity
+        set activity_name       = #{activityName,jdbcType=VARCHAR},
+            activity_desc       = #{activityDesc,jdbcType=VARCHAR},
+            activity_time_start = #{activityTimeStart,jdbcType=TIMESTAMP},
+            activity_time_end   = #{activityTimeEnd,jdbcType=TIMESTAMP},
+            assemble_time       = #{assembleTime,jdbcType=TIMESTAMP},
+            assemble_place      = #{assemblePlace,jdbcType=VARCHAR},
+            activity_place      = #{activityPlace,jdbcType=VARCHAR},
+            activity_organizer  = #{activityOrganizer,jdbcType=VARCHAR},
+            min_level           = #{minLevel,jdbcType=INTEGER},
+            max_player          = #{maxPlayer,jdbcType=INTEGER},
+            deadline            = #{deadline,jdbcType=TIMESTAMP},
+            status              = #{status,jdbcType=VARCHAR},
+            remark              = #{remark,jdbcType=VARCHAR}
+        where activity_id = #{activityId,jdbcType=VARCHAR}
+    </update>
+</mapper>

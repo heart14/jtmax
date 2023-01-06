@@ -31,6 +31,9 @@ public class JtLog implements Serializable {
 
     private Date logTime;
 
+    public JtLog() {
+    }
+
     public String getLogId() {
         return logId;
     }

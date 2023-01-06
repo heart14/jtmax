@@ -26,6 +26,9 @@ public class JtRole {
 
     private Date updateTime;
 
+    public JtRole() {
+    }
+
     public String getRoleId() {
         return roleId;
     }
@@ -88,5 +91,19 @@ public class JtRole {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "JtRole{" +
+                "roleId='" + roleId + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", roleDesc='" + roleDesc + '\'' +
+                ", roleKey='" + roleKey + '\'' +
+                ", roleIndex='" + roleIndex + '\'' +
+                ", status=" + status +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

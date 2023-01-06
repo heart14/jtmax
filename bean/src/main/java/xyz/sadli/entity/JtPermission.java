@@ -32,6 +32,9 @@ public class JtPermission {
 
     private Date updateTime;
 
+    public JtPermission() {
+    }
+
     public String getPermId() {
         return permId;
     }
@@ -118,5 +121,22 @@ public class JtPermission {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "JtPermission{" +
+                "permId='" + permId + '\'' +
+                ", permName='" + permName + '\'' +
+                ", permDesc='" + permDesc + '\'' +
+                ", permType='" + permType + '\'' +
+                ", permRoute='" + permRoute + '\'' +
+                ", permIndex='" + permIndex + '\'' +
+                ", permKey='" + permKey + '\'' +
+                ", parentId='" + parentId + '\'' +
+                ", status=" + status +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

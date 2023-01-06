@@ -53,6 +53,9 @@ public class JtPlayer implements Serializable {
 
     private Date updateTime;
 
+    public JtPlayer() {
+    }
+
     public String getUid() {
         return uid;
     }
@@ -211,5 +214,31 @@ public class JtPlayer implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "JtPlayer{" +
+                "uid='" + uid + '\'' +
+                ", jtmaxNumber='" + jtmaxNumber + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", realName='" + realName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", sportId='" + sportId + '\'' +
+                ", levelId='" + levelId + '\'' +
+                ", playTime=" + playTime +
+                ", joinTime=" + joinTime +
+                ", regTime=" + regTime +
+                ", titleId='" + titleId + '\'' +
+                ", chatGroup='" + chatGroup + '\'' +
+                ", introduction='" + introduction + '\'' +
+                ", status=" + status +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

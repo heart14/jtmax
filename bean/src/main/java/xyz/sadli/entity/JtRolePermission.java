@@ -12,6 +12,9 @@ public class JtRolePermission {
 
     private String permId;
 
+    public JtRolePermission() {
+    }
+
     public String getRoleId() {
         return roleId;
     }
@@ -26,5 +29,13 @@ public class JtRolePermission {
 
     public void setPermId(String permId) {
         this.permId = permId == null ? null : permId.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "JtRolePermission{" +
+                "roleId='" + roleId + '\'' +
+                ", permId='" + permId + '\'' +
+                '}';
     }
 }
