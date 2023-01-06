@@ -43,6 +43,7 @@
         <shiro-spring.version>1.4.1</shiro-spring.version>
         <commons-pools.version>2.11.1</commons-pools.version>
         <pagehelper.version>1.4.1</pagehelper.version>
+        <jackson-databind.version>2.11.0</jackson-databind.version>
 
     </properties>
 
@@ -153,6 +154,12 @@
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>${pagehelper.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson-databind.version}</version>
             </dependency>
 
         </dependencies>
