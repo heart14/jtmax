@@ -1,8 +1,11 @@
 package xyz.sadli.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import xyz.sadli.entity.JtActivity;
 import xyz.sadli.query.activity.ActivityPageQuery;
+import xyz.sadli.query.activity.SaveActivityQuery;
+import xyz.sadli.query.permission.SavePermissionQuery;
 
 import java.util.List;
 
@@ -28,4 +31,11 @@ public interface JtActivityMapper {
      * @return
      */
     List<JtActivity> selectAllActivity(ActivityPageQuery query);
+
+    /**
+     * 根据主键更新SaveActivityQuery传递的参数
+     * @param query
+     * @return
+     */
+    int updateByPrimaryKeyAndQueryParams(@Param("activityId") String activityId, @Param("query") SaveActivityQuery query);
 }

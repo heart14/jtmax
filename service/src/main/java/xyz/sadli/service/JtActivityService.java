@@ -27,4 +27,13 @@ public interface JtActivityService {
      * @param query
      */
     JtActivity saveActivity(SaveActivityQuery query);
+
+    /**
+     * 更新活动
+     *
+     * @param activityId
+     * @param query
+     * @return
+     */
+    void editActivity(String activityId, SaveActivityQuery query);
 }

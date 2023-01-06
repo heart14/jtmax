@@ -72,4 +72,17 @@ public class JtActivityServiceImpl implements JtActivityService {
         }
         return activity;
     }
+
+    @Override
+    public void editActivity(String activityId, SaveActivityQuery query) {
+        JtActivity activity = activityMapper.selectByPrimaryKey(activityId);
+        if (activity == null) {
+            throw new SysException(ErrCodeEnums.RESULT_EXCEPTION.getCode(),ErrCodeEnums.RESULT_EXCEPTION.getMsg());
+        }
+        int update = activityMapper.updateByPrimaryKeyAndQueryParams(activityId,query);
+        if (update != 1) {
+            throw new SysException(ErrCodeEnums.DB_EXCEPTION.getCode(), ErrCodeEnums.DB_EXCEPTION.getMsg());
+        }
+
+    }
 }

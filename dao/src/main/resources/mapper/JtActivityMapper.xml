@@ -43,6 +43,55 @@
         </if>
     </select>
 
+    <update id="updateByPrimaryKeyAndQueryParams">
+        update jt_activity
+        <set>
+            update_time = now(),
+            <if test="query.activityName != null">
+                activity_name = #{query.activityName,jdbcType=VARCHAR},
+            </if>
+            <if test="query.activityDesc != null">
+                activity_desc = #{query.activityDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="query.activityType != null">
+                activity_type = #{query.activityType,jdbcType=VARCHAR},
+            </if>
+            <if test="query.activityTimeStart != null">
+                activity_time_start = #{query.activityTimeStart,jdbcType=TIMESTAMP},
+            </if>
+            <if test="query.activityTimeEnd != null">
+                activity_time_end = #{query.activityTimeEnd,jdbcType=TIMESTAMP},
+            </if>
+            <if test="query.assembleTime != null">
+                assemble_time = #{query.assembleTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="query.deadline != null">
+                deadline = #{query.deadline,jdbcType=TIMESTAMP},
+            </if>
+            <if test="query.assemblePlace != null">
+                assemble_place = #{query.assemblePlace,jdbcType=VARCHAR},
+            </if>
+            <if test="query.activityPlace != null">
+                activity_place = #{query.activityPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="query.activityOrganizer != null">
+                activity_organizer = #{query.activityOrganizer,jdbcType=VARCHAR},
+            </if>
+            <if test="query.remark != null">
+                remark = #{query.remark,jdbcType=VARCHAR},
+            </if>
+            <if test="query.minLevel != null">
+                min_level = #{query.minLevel,jdbcType=INTEGER},
+            </if>
+            <if test="query.maxPlayer != null">
+                max_player = #{query.maxPlayer,jdbcType=INTEGER},
+            </if>
+            <if test="query.status != null">
+                status = #{query.status,jdbcType=INTEGER},
+            </if>
+        </set>
+        where activity_id = #{activityId,jdbcType=VARCHAR}
+    </update>
 
 
 

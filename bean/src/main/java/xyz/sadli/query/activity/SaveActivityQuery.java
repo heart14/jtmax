@@ -36,6 +36,8 @@ public class SaveActivityQuery {
 
     private String remark;
 
+    private Integer status;
+
     public SaveActivityQuery() {
     }
 
@@ -143,6 +145,14 @@ public class SaveActivityQuery {
         this.remark = remark;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "SaveActivityQuery{" +
@@ -159,6 +169,7 @@ public class SaveActivityQuery {
                 ", maxPlayer=" + maxPlayer +
                 ", deadline=" + deadline +
                 ", remark='" + remark + '\'' +
+                ", status=" + status +
                 '}';
     }
 }

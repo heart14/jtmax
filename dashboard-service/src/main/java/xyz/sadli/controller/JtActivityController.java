@@ -5,10 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xyz.sadli.entity.JtActivity;
 import xyz.sadli.query.activity.ActivityPageQuery;
 import xyz.sadli.query.activity.SaveActivityQuery;
@@ -51,4 +48,11 @@ public class JtActivityController {
         return SysResponseUtils.success(jtActivity);
     }
 
+    @ApiOperation("更新活动")
+    @RequestMapping(value = "/activity/{activityId}", method = RequestMethod.PUT)
+    public SysResponse editActivity(@PathVariable("activityId") String activityId, @RequestBody SaveActivityQuery query) {
+        log.info("更新活动: {}", query);
+        activityService.editActivity(activityId, query);
+        return SysResponseUtils.success();
+    }
 }
