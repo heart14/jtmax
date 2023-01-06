@@ -19,6 +19,8 @@ public class JtActivity implements Serializable {
 
     private String activityDesc;
 
+    private String activityType;
+
     private Date activityTimeStart;
 
     private Date activityTimeEnd;
@@ -70,6 +72,14 @@ public class JtActivity implements Serializable {
 
     public void setActivityDesc(String activityDesc) {
         this.activityDesc = activityDesc == null ? null : activityDesc.trim();
+    }
+
+    public String getActivityType() {
+        return activityType;
+    }
+
+    public void setActivityType(String activityType) {
+        this.activityType = activityType == null ? null : activityType.trim();
     }
 
     public Date getActivityTimeStart() {
@@ -182,6 +192,7 @@ public class JtActivity implements Serializable {
                 "activityId='" + activityId + '\'' +
                 ", activityName='" + activityName + '\'' +
                 ", activityDesc='" + activityDesc + '\'' +
+                ", activityType='" + activityType + '\'' +
                 ", activityTimeStart=" + activityTimeStart +
                 ", activityTimeEnd=" + activityTimeEnd +
                 ", assembleTime=" + assembleTime +

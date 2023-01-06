@@ -5,6 +5,7 @@
         <id column="activity_id" jdbcType="VARCHAR" property="activityId"/>
         <result column="activity_name" jdbcType="VARCHAR" property="activityName"/>
         <result column="activity_desc" jdbcType="VARCHAR" property="activityDesc"/>
+        <result column="activity_type" jdbcType="VARCHAR" property="activityType"/>
         <result column="activity_time_start" jdbcType="TIMESTAMP" property="activityTimeStart"/>
         <result column="activity_time_end" jdbcType="TIMESTAMP" property="activityTimeEnd"/>
         <result column="assemble_time" jdbcType="TIMESTAMP" property="assembleTime"/>
@@ -20,7 +21,7 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-        activity_id, activity_name, activity_desc, activity_time_start, activity_time_end,
+        activity_id, activity_name, activity_desc, activity_type, activity_time_start, activity_time_end,
     assemble_time, assemble_place, activity_place, activity_organizer, min_level, max_player, 
     deadline, status, remark, create_time, update_time
     </sql>
@@ -50,13 +51,13 @@
         where activity_id = #{activityId,jdbcType=VARCHAR}
     </delete>
     <insert id="insert" parameterType="xyz.sadli.entity.JtActivity">
-        insert into jt_activity (activity_id, activity_name, activity_desc,
+        insert into jt_activity (activity_id, activity_name, activity_desc, activity_type,
                                  activity_time_start, activity_time_end,
                                  assemble_time, assemble_place, activity_place,
                                  activity_organizer, min_level, max_player,
                                  deadline, status, remark,
                                  create_time, update_time)
-        values (#{activityId,jdbcType=VARCHAR}, #{activityName,jdbcType=VARCHAR}, #{activityDesc,jdbcType=VARCHAR},
+        values (#{activityId,jdbcType=VARCHAR}, #{activityName,jdbcType=VARCHAR}, #{activityDesc,jdbcType=VARCHAR}, #{activityType,jdbcType=VARCHAR},
                 #{activityTimeStart,jdbcType=TIMESTAMP}, #{activityTimeEnd,jdbcType=TIMESTAMP},
                 #{assembleTime,jdbcType=TIMESTAMP}, #{assemblePlace,jdbcType=VARCHAR},
                 #{activityPlace,jdbcType=VARCHAR},
@@ -75,6 +76,9 @@
             </if>
             <if test="activityDesc != null">
                 activity_desc,
+            </if>
+            <if test="activityType != null">
+                activity_type,
             </if>
             <if test="activityTimeStart != null">
                 activity_time_start,
@@ -126,6 +130,9 @@
             <if test="activityDesc != null">
                 #{activityDesc,jdbcType=VARCHAR},
             </if>
+            <if test="activityType != null">
+                #{activityType,jdbcType=VARCHAR},
+            </if>
             <if test="activityTimeStart != null">
                 #{activityTimeStart,jdbcType=TIMESTAMP},
             </if>
@@ -176,6 +183,9 @@
             <if test="activityDesc != null">
                 activity_desc = #{activityDesc,jdbcType=VARCHAR},
             </if>
+            <if test="activityType != null">
+                activity_type = #{activityType,jdbcType=VARCHAR},
+            </if>
             <if test="activityTimeStart != null">
                 activity_time_start = #{activityTimeStart,jdbcType=TIMESTAMP},
             </if>
@@ -222,6 +232,7 @@
         update jt_activity
         set activity_name       = #{activityName,jdbcType=VARCHAR},
             activity_desc       = #{activityDesc,jdbcType=VARCHAR},
+            activity_type       = #{activityType,jdbcType=VARCHAR},
             activity_time_start = #{activityTimeStart,jdbcType=TIMESTAMP},
             activity_time_end   = #{activityTimeEnd,jdbcType=TIMESTAMP},
             assemble_time       = #{assembleTime,jdbcType=TIMESTAMP},

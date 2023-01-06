@@ -52,6 +52,7 @@ public class JtActivityServiceImpl implements JtActivityService {
         activity.setActivityId(id);
         activity.setActivityName(query.getActivityName());
         activity.setActivityDesc(query.getActivityDesc());
+        activity.setActivityType(query.getActivityType());
         activity.setActivityTimeStart(query.getActivityTimeStart());
         activity.setActivityTimeEnd(query.getActivityTimeEnd());
         activity.setActivityPlace(query.getActivityPlace());

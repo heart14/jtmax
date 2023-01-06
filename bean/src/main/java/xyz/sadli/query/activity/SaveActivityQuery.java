@@ -14,6 +14,8 @@ public class SaveActivityQuery {
 
     private String activityDesc;
 
+    private String activityType;
+
     private Date activityTimeStart;
 
     private Date activityTimeEnd;
@@ -51,6 +53,14 @@ public class SaveActivityQuery {
 
     public void setActivityDesc(String activityDesc) {
         this.activityDesc = activityDesc;
+    }
+
+    public String getActivityType() {
+        return activityType;
+    }
+
+    public void setActivityType(String activityType) {
+        this.activityType = activityType;
     }
 
     public Date getActivityTimeStart() {
@@ -138,6 +148,7 @@ public class SaveActivityQuery {
         return "SaveActivityQuery{" +
                 "activityName='" + activityName + '\'' +
                 ", activityDesc='" + activityDesc + '\'' +
+                ", activityType='" + activityType + '\'' +
                 ", activityTimeStart=" + activityTimeStart +
                 ", activityTimeEnd=" + activityTimeEnd +
                 ", assembleTime=" + assembleTime +
