@@ -1,5 +1,7 @@
 package xyz.sadli.query.activity;
 
+import java.util.Date;
+
 /**
  * About: 分页查询活动信息参数
  * Other:
@@ -17,6 +19,10 @@ public class ActivityPageQuery {
     private String activityType;
 
     private Integer status;
+
+    private Date activityDateStart;
+
+    private Date activityDateEnd;
 
     public ActivityPageQuery() {
     }
@@ -61,6 +67,22 @@ public class ActivityPageQuery {
         this.status = status;
     }
 
+    public Date getActivityDateStart() {
+        return activityDateStart;
+    }
+
+    public void setActivityDateStart(Date activityDateStart) {
+        this.activityDateStart = activityDateStart;
+    }
+
+    public Date getActivityDateEnd() {
+        return activityDateEnd;
+    }
+
+    public void setActivityDateEnd(Date activityDateEnd) {
+        this.activityDateEnd = activityDateEnd;
+    }
+
     @Override
     public String toString() {
         return "ActivityPageQuery{" +
@@ -69,6 +91,8 @@ public class ActivityPageQuery {
                 ", activityName='" + activityName + '\'' +
                 ", activityType='" + activityType + '\'' +
                 ", status=" + status +
+                ", activityDateStart=" + activityDateStart +
+                ", activityDateEnd=" + activityDateEnd +
                 '}';
     }
 }

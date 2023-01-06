@@ -41,6 +41,12 @@
         <if test="status != null">
             and status = #{status,jdbcType=INTEGER}
         </if>
+        <if test="activityDateStart != null">
+            and activity_time_start <![CDATA[ >= ]]> #{activityDateStart,jdbcType=TIMESTAMP}
+        </if>
+        <if test="activityDateEnd != null">
+            and activity_time_end <![CDATA[ < ]]> #{activityDateEnd,jdbcType=TIMESTAMP}
+        </if>
     </select>
 
     <update id="updateByPrimaryKeyAndQueryParams">
@@ -94,10 +100,6 @@
     </update>
 
 
-
-
-
-
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -116,7 +118,8 @@
                                  activity_organizer, min_level, max_player,
                                  deadline, status, remark,
                                  create_time, update_time)
-        values (#{activityId,jdbcType=VARCHAR}, #{activityName,jdbcType=VARCHAR}, #{activityDesc,jdbcType=VARCHAR}, #{activityType,jdbcType=VARCHAR},
+        values (#{activityId,jdbcType=VARCHAR}, #{activityName,jdbcType=VARCHAR}, #{activityDesc,jdbcType=VARCHAR},
+                #{activityType,jdbcType=VARCHAR},
                 #{activityTimeStart,jdbcType=TIMESTAMP}, #{activityTimeEnd,jdbcType=TIMESTAMP},
                 #{assembleTime,jdbcType=TIMESTAMP}, #{assemblePlace,jdbcType=VARCHAR},
                 #{activityPlace,jdbcType=VARCHAR},
