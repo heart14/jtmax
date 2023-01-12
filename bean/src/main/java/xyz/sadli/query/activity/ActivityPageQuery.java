@@ -20,9 +20,9 @@ public class ActivityPageQuery {
 
     private Integer status;
 
-    private Date activityDateStart;
+    private Date assembleDateStart;
 
-    private Date activityDateEnd;
+    private Date assembleDateEnd;
 
     public ActivityPageQuery() {
     }
@@ -67,20 +67,20 @@ public class ActivityPageQuery {
         this.status = status;
     }
 
-    public Date getActivityDateStart() {
-        return activityDateStart;
+    public Date getAssembleDateStart() {
+        return assembleDateStart;
     }
 
-    public void setActivityDateStart(Date activityDateStart) {
-        this.activityDateStart = activityDateStart;
+    public void setAssembleDateStart(Date assembleDateStart) {
+        this.assembleDateStart = assembleDateStart;
     }
 
-    public Date getActivityDateEnd() {
-        return activityDateEnd;
+    public Date getAssembleDateEnd() {
+        return assembleDateEnd;
     }
 
-    public void setActivityDateEnd(Date activityDateEnd) {
-        this.activityDateEnd = activityDateEnd;
+    public void setAssembleDateEnd(Date assembleDateEnd) {
+        this.assembleDateEnd = assembleDateEnd;
     }
 
     @Override
@@ -91,8 +91,8 @@ public class ActivityPageQuery {
                 ", activityName='" + activityName + '\'' +
                 ", activityType='" + activityType + '\'' +
                 ", status=" + status +
-                ", activityDateStart=" + activityDateStart +
-                ", activityDateEnd=" + activityDateEnd +
+                ", assembleDateStart=" + assembleDateStart +
+                ", assembleDateEnd=" + assembleDateEnd +
                 '}';
     }
 }

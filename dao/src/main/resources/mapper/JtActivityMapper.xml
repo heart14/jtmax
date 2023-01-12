@@ -41,11 +41,11 @@
         <if test="status != null">
             and status = #{status,jdbcType=INTEGER}
         </if>
-        <if test="activityDateStart != null">
-            and activity_time_start <![CDATA[ >= ]]> #{activityDateStart,jdbcType=TIMESTAMP}
+        <if test="assembleDateStart != null">
+            and assemble_time <![CDATA[ >= ]]> #{assembleDateStart,jdbcType=TIMESTAMP}
         </if>
-        <if test="activityDateEnd != null">
-            and activity_time_end <![CDATA[ < ]]> #{activityDateEnd,jdbcType=TIMESTAMP}
+        <if test="assembleDateEnd != null">
+            and assemble_time <![CDATA[ < ]]> #{assembleDateEnd,jdbcType=TIMESTAMP}
         </if>
     </select>
 
