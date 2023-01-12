@@ -38,6 +38,13 @@ public interface JtActivityService {
     void editActivity(String activityId, SaveActivityQuery query);
 
     /**
+     * 发布活动：将活动状态置为1
+     *
+     * @param activityId
+     */
+    void publishActivity(String activityId);
+
+    /**
      * 删除活动（物理删除，若要逻辑删除，请使用更新状态接口）
      *
      * @param activityId

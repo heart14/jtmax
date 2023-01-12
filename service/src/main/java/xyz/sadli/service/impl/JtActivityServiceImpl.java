@@ -86,6 +86,20 @@ public class JtActivityServiceImpl implements JtActivityService {
     }
 
     @Override
+    public void publishActivity(String activityId) {
+        JtActivity activity = activityMapper.selectByPrimaryKey(activityId);
+        if (activity == null) {
+            throw new SysException(ErrCodeEnums.RESULT_EXCEPTION.getCode(),ErrCodeEnums.RESULT_EXCEPTION.getMsg());
+        }
+        activity.setStatus(Constants.ACTIVITY_STATUS_PUBLISH);
+        activity.setUpdateTime(new Date());
+        int update = activityMapper.updateByPrimaryKeySelective(activity);
+        if (update != 1) {
+            throw new SysException(ErrCodeEnums.DB_EXCEPTION.getCode(), ErrCodeEnums.DB_EXCEPTION.getMsg());
+        }
+    }
+
+    @Override
     public void removeActivity(String activityId) {
         // 物理删除，物理删除，若要逻辑删除，请使用更新状态接口
         int i = activityMapper.deleteByPrimaryKey(activityId);

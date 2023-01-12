@@ -63,4 +63,12 @@ public class JtActivityController {
         activityService.removeActivity(activityId);
         return SysResponseUtils.success();
     }
+
+    @ApiOperation("发布活动")
+    @RequestMapping(value = "/activity/publish/{activityId}", method = RequestMethod.PATCH)
+    public SysResponse publishActivity(@PathVariable("activityId") String activityId) {
+        log.info("发布活动: {}", activityId);
+        activityService.publishActivity(activityId);
+        return SysResponseUtils.success();
+    }
 }
