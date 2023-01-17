@@ -9,9 +9,11 @@ import xyz.sadli.common.Constants;
 import xyz.sadli.common.ErrCodeEnums;
 import xyz.sadli.dao.JtActivityMapper;
 import xyz.sadli.dao.JtActivityPlayerMapper;
+import xyz.sadli.domain.JtActivityPlayerInfo;
 import xyz.sadli.entity.JtActivity;
 import xyz.sadli.exception.SysException;
 import xyz.sadli.query.activity.ActivityPageQuery;
+import xyz.sadli.query.activity.ActivityPlayerPageQuery;
 import xyz.sadli.query.activity.SaveActivityQuery;
 import xyz.sadli.service.JtActivityService;
 import xyz.sadli.util.IdWorker;
@@ -106,5 +108,12 @@ public class JtActivityServiceImpl implements JtActivityService {
         if (i != 1) {
             throw new SysException(ErrCodeEnums.DB_EXCEPTION.getCode(), ErrCodeEnums.DB_EXCEPTION.getMsg());
         }
+    }
+
+    @Override
+    public PageInfo<JtActivityPlayerInfo> queryActivityPlayerPageList(ActivityPlayerPageQuery query) {
+        PageHelper.startPage(query.getPage(), query.getLimit());
+        List<JtActivityPlayerInfo> playerInfos = activityPlayerMapper.selectAllActivityPlayerInfo(query);
+        return new PageInfo<>(playerInfos);
     }
 }

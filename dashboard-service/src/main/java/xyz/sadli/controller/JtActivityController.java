@@ -6,8 +6,10 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+import xyz.sadli.domain.JtActivityPlayerInfo;
 import xyz.sadli.entity.JtActivity;
 import xyz.sadli.query.activity.ActivityPageQuery;
+import xyz.sadli.query.activity.ActivityPlayerPageQuery;
 import xyz.sadli.query.activity.SaveActivityQuery;
 import xyz.sadli.service.JtActivityService;
 import xyz.sadli.util.SysResponseUtils;
@@ -70,5 +72,13 @@ public class JtActivityController {
         log.info("发布活动: {}", activityId);
         activityService.publishActivity(activityId);
         return SysResponseUtils.success();
+    }
+
+    @ApiOperation("分页查询活动报名信息列表")
+    @RequestMapping(value = "/activity_player/page_list", method = RequestMethod.POST)
+    public SysResponse activityPlayerPageList(@RequestBody ActivityPlayerPageQuery query) {
+        log.info("分页查询活动报名信息列表: {}", query);
+        PageInfo<JtActivityPlayerInfo> pageInfo = activityService.queryActivityPlayerPageList(query);
+        return SysResponseUtils.success(pageInfo);
     }
 }

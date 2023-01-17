@@ -1,8 +1,10 @@
 package xyz.sadli.service;
 
 import com.github.pagehelper.PageInfo;
+import xyz.sadli.domain.JtActivityPlayerInfo;
 import xyz.sadli.entity.JtActivity;
 import xyz.sadli.query.activity.ActivityPageQuery;
+import xyz.sadli.query.activity.ActivityPlayerPageQuery;
 import xyz.sadli.query.activity.SaveActivityQuery;
 
 /**
@@ -50,4 +52,12 @@ public interface JtActivityService {
      * @param activityId
      */
     void removeActivity(String activityId);
+
+    /**
+     * 分页查询活动报名信息列表
+     *
+     * @param query
+     * @return
+     */
+    PageInfo<JtActivityPlayerInfo> queryActivityPlayerPageList(ActivityPlayerPageQuery query);
 }

@@ -103,4 +103,45 @@
             update_time = #{updateTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=VARCHAR}
     </update>
+
+    <resultMap id="ExpandedResultMap" type="xyz.sadli.domain.JtActivityPlayerInfo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="activity_id" jdbcType="VARCHAR" property="activityId"/>
+        <result column="activity_name" jdbcType="VARCHAR" property="activityName"/>
+        <result column="uid" jdbcType="VARCHAR" property="uid"/>
+        <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Expanded_Column_List">
+        id, activity_id, activity_name, uid, phone_number, nickname, status, create_time, update_time
+    </sql>
+
+    <select id="selectAllActivityPlayerInfo" parameterType="xyz.sadli.query.activity.ActivityPlayerPageQuery" resultMap="ExpandedResultMap">
+        select
+        ap.id, ap.activity_id, a.activity_name, ap.uid, p.phone_number, p.nickname, ap.status, ap.create_time, ap.update_time
+        from jt_activity_player ap
+        left join jt_player p on p.uid = ap.uid
+        left join jt_activity a on a.activity_id = ap.activity_id
+        where 1 = 1
+        <if test="activityName != null and activityName != ''">
+            <bind name="likeNameA" value="'%' + activityName + '%'"/>
+            and a.activity_name like #{likeNameA,jdbcType=VARCHAR}
+        </if>
+        <if test="nickname != null and nickname != ''">
+            <bind name="likeNameP" value="'%' + nickname + '%'"/>
+            and p.nickname like #{likeNameP,jdbcType=VARCHAR}
+        </if>
+        <if test="activityId != null and activityId != ''">
+            and ap.activity_id = #{activityId,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null">
+            and status = #{status,jdbcType=INTEGER}
+        </if>
+        order by ap.create_time asc
+    </select>
+
 </mapper>
