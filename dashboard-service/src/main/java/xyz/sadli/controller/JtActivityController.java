@@ -47,7 +47,7 @@ public class JtActivityController {
     @ApiOperation("查询活动列表")
     @RequestMapping(value = "/activity/list", method = RequestMethod.GET)
     public SysResponse activityList() {
-        log.info("分页查询活动列表");
+        log.info("查询活动列表");
         List<JtActivity> list = activityService.queryAllActivity();
         return SysResponseUtils.success(list);
     }
