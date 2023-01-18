@@ -7,6 +7,8 @@ import xyz.sadli.query.activity.ActivityPageQuery;
 import xyz.sadli.query.activity.ActivityPlayerPageQuery;
 import xyz.sadli.query.activity.SaveActivityQuery;
 
+import java.util.List;
+
 /**
  * About:
  * Other:
@@ -22,6 +24,13 @@ public interface JtActivityService {
      * @return
      */
     PageInfo<JtActivity> queryActivityPageList(ActivityPageQuery query);
+
+    /**
+     * 查询所有活动信息
+     *
+     * @return
+     */
+    List<JtActivity> queryAllActivity();
 
     /**
      * 新增活动

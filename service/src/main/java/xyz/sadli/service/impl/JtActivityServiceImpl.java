@@ -48,6 +48,11 @@ public class JtActivityServiceImpl implements JtActivityService {
     }
 
     @Override
+    public List<JtActivity> queryAllActivity() {
+        return activityMapper.selectAllActivity(new ActivityPageQuery());
+    }
+
+    @Override
     public JtActivity saveActivity(SaveActivityQuery query) {
         JtActivity activity = new JtActivity();
         String id = IdWorker.nextIdStr();

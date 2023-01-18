@@ -139,7 +139,7 @@
             and ap.activity_id = #{activityId,jdbcType=VARCHAR}
         </if>
         <if test="status != null">
-            and status = #{status,jdbcType=INTEGER}
+            and ap.status = #{status,jdbcType=INTEGER}
         </if>
         order by ap.create_time asc
     </select>

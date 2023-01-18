@@ -15,6 +15,8 @@ import xyz.sadli.service.JtActivityService;
 import xyz.sadli.util.SysResponseUtils;
 import xyz.sadli.vo.SysResponse;
 
+import java.util.List;
+
 /**
  * About:
  * Other:
@@ -40,6 +42,14 @@ public class JtActivityController {
         log.info("分页查询活动列表: {}", query);
         PageInfo<JtActivity> pageInfo = activityService.queryActivityPageList(query);
         return SysResponseUtils.success(pageInfo);
+    }
+
+    @ApiOperation("查询活动列表")
+    @RequestMapping(value = "/activity/list", method = RequestMethod.GET)
+    public SysResponse activityList() {
+        log.info("分页查询活动列表");
+        List<JtActivity> list = activityService.queryAllActivity();
+        return SysResponseUtils.success(list);
     }
 
     @ApiOperation("新增活动")

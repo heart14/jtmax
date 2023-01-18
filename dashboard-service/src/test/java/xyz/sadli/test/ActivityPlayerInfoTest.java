@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import xyz.sadli.domain.JtActivityPlayerInfo;
+import xyz.sadli.entity.JtActivity;
 import xyz.sadli.query.activity.ActivityPlayerPageQuery;
 import xyz.sadli.service.JtActivityService;
+
+import java.util.List;
 
 /**
  * About:
@@ -22,6 +25,12 @@ public class ActivityPlayerInfoTest {
 
     @Autowired
     private JtActivityService activityService;
+
+    @Test
+    public void activityListTest(){
+        List<JtActivity> list = activityService.queryAllActivity();
+        System.out.println(list);
+    }
 
     @Test
     public void activityPlayerInfoTest() {
