@@ -26,7 +26,7 @@
 
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://www.sadli.xyz:3306/photo_bucket?characterEncoding=utf8"
+                        connectionURL="jdbc:mysql://110.40.192.87:3306/photo_bucket?characterEncoding=utf8"
                         userId="root"
                         password="$$mysql.0425">
         </jdbcConnection>
