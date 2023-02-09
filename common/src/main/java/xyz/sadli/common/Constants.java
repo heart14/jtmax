@@ -69,4 +69,9 @@ public class Constants {
      * redis缓存的默认过期时间10分钟，单位毫秒
      */
     public static final long REDIS_CACHE_ENTRY_TTL = 10 * 60 * 1000;
+
+    /**
+     * 路径、地址中的'/'分隔符
+     */
+    public static final String URL_SEPARATOR = "/";
 }
