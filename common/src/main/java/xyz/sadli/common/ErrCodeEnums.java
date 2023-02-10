@@ -85,7 +85,12 @@ public enum ErrCodeEnums {
     /**
      * 文件上传失败
      */
-    FAILED_UPLOAD_EXCEPTION(9014, "文件上传失败");
+    FAILED_UPLOAD_EXCEPTION(9014, "文件上传失败"),
+
+    /**
+     * 文件不存在
+     */
+    NON_FILE_EXCEPTION(9015, "文件不存在");
 
     private Integer code;
 

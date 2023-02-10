@@ -79,4 +79,14 @@ public class JtStorageServiceImpl implements JtStorageService {
             throw new SysException(ErrCodeEnums.MEDIA_TYPE_EXCEPTION.getCode(), ErrCodeEnums.MEDIA_TYPE_EXCEPTION.getMsg());
         }
     }
+
+    @Override
+    public void delete(String id) {
+        JtStorage storage = storageMapper.selectByPrimaryKey(id);
+        Assert.notNull(storage, ErrCodeEnums.NON_FILE_EXCEPTION.getMsg());
+        // 更新状态为无效
+        storage.setStatus(Constants.STATUS_INVALID);
+        storage.setUpdateTime(new Date());
+        storageMapper.updateByPrimaryKey(storage);
+    }
 }

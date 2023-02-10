@@ -19,4 +19,12 @@ public interface JtStorageService {
      * @return
      */
     JtStorage upload(MultipartFile file, String creatorUid);
+
+    /**
+     * 根据id删除文件(逻辑删除)
+     *
+     * @param id
+     * @return
+     */
+    void delete(String id);
 }
