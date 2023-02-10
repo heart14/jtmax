@@ -36,6 +36,16 @@ public class Constants {
     public static final int ACTIVITY_STATUS_FINISH = 2;
     public static final int ACTIVITY_STATUS_CANCEL = 3;
 
+    /**
+     * 上传资源类型常量，0-BANNER，1-图库，2-用户头像，3-二手市场，4-广告，5-其它
+     */
+    public static final int RESOURCE_TYPE_BANNER = 0;
+    public static final int RESOURCE_TYPE_LIBRARY = 1;
+    public static final int RESOURCE_TYPE_AVATAR = 2;
+    public static final int RESOURCE_TYPE_FLEA_MARKET = 3;
+    public static final int RESOURCE_TYPE_AD = 4;
+    public static final int RESOURCE_TYPE_OTHER = 5;
+
 
     /**
      * slf4j日志框架MDC常量字段名

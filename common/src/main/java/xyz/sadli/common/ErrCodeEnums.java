@@ -65,7 +65,7 @@ public enum ErrCodeEnums {
     /**
      * VO对象转换异常
      */
-    VO_TRANSFORM_EXCEPTION(9010,"VO对象转换异常"),
+    VO_TRANSFORM_EXCEPTION(9010, "VO对象转换异常"),
 
     /**
      * 字符集异常
@@ -80,7 +80,12 @@ public enum ErrCodeEnums {
     /**
      * 不支持的媒体类型
      */
-    UNSUPPORT_MEDIA_TYPE(9013, "不支持的媒体类型");
+    MEDIA_TYPE_EXCEPTION(9013, "不支持的媒体类型"),
+
+    /**
+     * 文件上传失败
+     */
+    FAILED_UPLOAD_EXCEPTION(9014, "文件上传失败");
 
     private Integer code;
 

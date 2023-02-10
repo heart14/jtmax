@@ -1,0 +1,82 @@
+package xyz.sadli.service.impl;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+import org.springframework.web.multipart.MultipartFile;
+import xyz.sadli.common.Constants;
+import xyz.sadli.common.ErrCodeEnums;
+import xyz.sadli.common.SysProperties;
+import xyz.sadli.dao.JtStorageMapper;
+import xyz.sadli.entity.JtStorage;
+import xyz.sadli.exception.SysException;
+import xyz.sadli.service.JtStorageService;
+import xyz.sadli.util.IdWorker;
+import xyz.sadli.util.StringUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+/**
+ * About:
+ * Other:
+ * Created: wfli on 2023/2/10 14:04.
+ * Editored:
+ */
+@Service
+public class JtStorageServiceImpl implements JtStorageService {
+
+    public static final Logger log = LoggerFactory.getLogger(JtStorageServiceImpl.class);
+
+    private final JtStorageMapper storageMapper;
+
+    public JtStorageServiceImpl(JtStorageMapper storageMapper) {
+        this.storageMapper = storageMapper;
+    }
+
+    @Override
+    public JtStorage upload(MultipartFile file, String creatorUid) {
+        Assert.notNull(file, ErrCodeEnums.PARAMS_EXCEPTION.getMsg());
+        Calendar calendar = Calendar.getInstance();
+        String root = calendar.get(Calendar.YEAR) + Constants.URL_SEPARATOR + (calendar.get(Calendar.MONTH) + 1) + Constants.URL_SEPARATOR + calendar.get(Calendar.DAY_OF_MONTH);
+        String targetDirPath = SysProperties.BUCKET_PATH + Constants.URL_SEPARATOR + root;
+        File targetDir = new File(targetDirPath);
+        if (!targetDir.exists()) {
+            targetDir.mkdirs();
+        }
+        if (MediaType.IMAGE_JPEG_VALUE.equalsIgnoreCase(file.getContentType()) || MediaType.IMAGE_PNG_VALUE.equalsIgnoreCase(file.getContentType()) || MediaType.IMAGE_GIF_VALUE.equalsIgnoreCase(file.getContentType())) {
+            String uuid = StringUtils.UuidLowerCase();
+            String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")).toLowerCase(Locale.ROOT);
+            String filePath = targetDirPath + Constants.URL_SEPARATOR + uuid + suffix;
+            try {
+                // 存储
+                file.transferTo(new File(filePath));
+            } catch (IOException e) {
+                throw new SysException(ErrCodeEnums.FAILED_UPLOAD_EXCEPTION.getCode(), ErrCodeEnums.FAILED_UPLOAD_EXCEPTION.getMsg());
+            }
+            String url = SysProperties.BUCKET_URL + Constants.URL_SEPARATOR + root + Constants.URL_SEPARATOR + uuid + suffix;
+            // 存储
+            JtStorage jtStorage = new JtStorage();
+            jtStorage.setId(IdWorker.nextIdStr());
+            jtStorage.setOriginName(file.getOriginalFilename());
+            jtStorage.setStorageName(uuid + suffix);
+            jtStorage.setSize(String.valueOf(file.getSize()));
+            jtStorage.setStoragePath(filePath);
+            jtStorage.setNetworkUrl(url);
+            jtStorage.setMediaType(file.getContentType());
+            jtStorage.setResourceType(Constants.RESOURCE_TYPE_LIBRARY);
+            jtStorage.setCreator(creatorUid);
+            jtStorage.setStatus(Constants.STATUS_VALID);
+            jtStorage.setCreateTime(new Date());
+            storageMapper.insertSelective(jtStorage);
+            return jtStorage;
+        } else {
+            throw new SysException(ErrCodeEnums.MEDIA_TYPE_EXCEPTION.getCode(), ErrCodeEnums.MEDIA_TYPE_EXCEPTION.getMsg());
+        }
+    }
+}
