@@ -20,6 +20,34 @@
         id, origin_name, storage_name, description, size, storage_path, network_url, media_type,
     resource_type, creator, status, create_time, update_time
     </sql>
+
+    <select id="selectStorageListByQuery" parameterType="xyz.sadli.query.storage.PhotoPageQuery" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jt_storage
+        where 1 = 1
+        <if test="status != null">
+            and status = #{status,jdbcType=INTEGER}
+        </if>
+        <if test="resourceType != null">
+            and resource_type = #{resourceType,jdbcType=INTEGER}
+        </if>
+        <if test="originName != null and originName != ''">
+            <bind name="likeOriginName" value="'%' + originName + '%'"/>
+            and origin_name like #{likeOriginName,jdbcType=VARCHAR}
+        </if>
+        <if test="description != null and description != ''">
+            <bind name="likeDescription" value="'%' + description + '%'"/>
+            and description like #{likeDescription}
+        </if>
+    </select>
+
+
+
+
+
+
+
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>

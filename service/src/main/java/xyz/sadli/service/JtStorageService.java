@@ -1,7 +1,9 @@
 package xyz.sadli.service;
 
+import com.github.pagehelper.PageInfo;
 import org.springframework.web.multipart.MultipartFile;
 import xyz.sadli.entity.JtStorage;
+import xyz.sadli.query.storage.PhotoPageQuery;
 
 /**
  * About:
@@ -27,4 +29,12 @@ public interface JtStorageService {
      * @return
      */
     void delete(String id);
+
+    /**
+     * 分页查询文件列表
+     *
+     * @param query
+     * @return
+     */
+    PageInfo<JtStorage> queryStoragePageList(PhotoPageQuery query);
 }

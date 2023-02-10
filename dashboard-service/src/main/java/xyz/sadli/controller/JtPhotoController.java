@@ -1,5 +1,6 @@
 package xyz.sadli.controller;
 
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import xyz.sadli.common.Constants;
 import xyz.sadli.entity.JtStorage;
+import xyz.sadli.query.storage.PhotoPageQuery;
 import xyz.sadli.service.JtStorageService;
 import xyz.sadli.util.JwtUtils;
 import xyz.sadli.util.SysResponseUtils;
@@ -21,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created: wfli on 2023/2/9 17:53.
  * Editored:
  */
-@Api(tags = "街头画廊")
+@Api(tags = "画廊")
 @RestController
 @RequestMapping
 public class JtPhotoController {
@@ -32,6 +34,14 @@ public class JtPhotoController {
 
     public JtPhotoController(JtStorageService storageService) {
         this.storageService = storageService;
+    }
+
+    @ApiOperation("分页查询画廊图片列表")
+    @RequestMapping(value = "/photo/page_list", method = RequestMethod.POST)
+    public SysResponse pageList(@RequestBody PhotoPageQuery query) {
+        log.info("分页查询画廊图片列表");
+        PageInfo<JtStorage> pageInfo = storageService.queryStoragePageList(query);
+        return SysResponseUtils.success(pageInfo);
     }
 
     @ApiOperation("上传图片")
