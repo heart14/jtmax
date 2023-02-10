@@ -94,7 +94,7 @@ public class ShiroConfig {
         filterChainMap.put("/test/login", "anon");//https://blog.csdn.net/ght521/article/details/52355663
         filterChainMap.put("/test/verify_code", "anon");
         //图片上传接口不拦截
-        filterChainMap.put("/photo/upload", "anon");
+        //filterChainMap.put("/photo/upload", "anon");
         //swagger相关资源不进行认证拦截
         filterChainMap.put("/swagger-ui/**", "anon");
         filterChainMap.put("/swagger-resources/**", "anon");

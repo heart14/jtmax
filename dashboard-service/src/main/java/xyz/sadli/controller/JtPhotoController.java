@@ -14,6 +14,7 @@ import xyz.sadli.common.Constants;
 import xyz.sadli.common.ErrCodeEnums;
 import xyz.sadli.common.SysProperties;
 import xyz.sadli.exception.SysException;
+import xyz.sadli.util.IdWorker;
 import xyz.sadli.util.SysResponseUtils;
 import xyz.sadli.vo.SysResponse;
 
@@ -63,6 +64,7 @@ public class JtPhotoController {
             String fileUrl = SysProperties.BUCKET_URL + Constants.URL_SEPARATOR + root + Constants.URL_SEPARATOR + multipartFile.getOriginalFilename();
 
             Map<String, String> map = new HashMap<>();
+            map.put("fileId", IdWorker.nextIdStr());
             map.put("fileName", multipartFile.getOriginalFilename());
             map.put("filePath", filePath);
             map.put("fileUrl", fileUrl);
@@ -71,7 +73,5 @@ public class JtPhotoController {
         } else {
             throw new SysException(ErrCodeEnums.UNSUPPORT_MEDIA_TYPE.getCode(), ErrCodeEnums.UNSUPPORT_MEDIA_TYPE.getMsg());
         }
-
-
     }
 }
