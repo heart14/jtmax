@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import xyz.sadli.common.Constants;
 import xyz.sadli.entity.JtStorage;
 import xyz.sadli.query.storage.PhotoPageQuery;
+import xyz.sadli.service.JtPhotoService;
 import xyz.sadli.service.JtStorageService;
 import xyz.sadli.util.JwtUtils;
 import xyz.sadli.util.SysResponseUtils;
@@ -32,8 +33,11 @@ public class JtPhotoController {
 
     private final JtStorageService storageService;
 
-    public JtPhotoController(JtStorageService storageService) {
+    private final JtPhotoService photoService;
+
+    public JtPhotoController(JtStorageService storageService, JtPhotoService photoService) {
         this.storageService = storageService;
+        this.photoService = photoService;
     }
 
     @ApiOperation("分页查询画廊图片列表")
@@ -50,13 +54,13 @@ public class JtPhotoController {
         log.info("上传图片 :{}", multipartFile);
         String jwtToken = request.getHeader(Constants.FIELD_JWT_TOKEN);
         String uid = (String) JwtUtils.parseJwtToken(jwtToken).get("uid");
-        JtStorage upload = storageService.upload(multipartFile, uid);
+        JtStorage upload = photoService.uploadPhoto(multipartFile, uid);
         return SysResponseUtils.success(upload);
     }
 
     @ApiOperation("删除图片")
-    @RequestMapping(value = "/photo/{id}",method = RequestMethod.DELETE)
-    public SysResponse delete(@PathVariable("id") String id){
+    @RequestMapping(value = "/photo/{id}", method = RequestMethod.DELETE)
+    public SysResponse delete(@PathVariable("id") String id) {
         log.info("删除图片");
         storageService.delete(id);
         return SysResponseUtils.success();
