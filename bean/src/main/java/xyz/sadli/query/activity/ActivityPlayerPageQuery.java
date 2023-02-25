@@ -1,16 +1,14 @@
 package xyz.sadli.query.activity;
 
+import xyz.sadli.query.BasePageQuery;
+
 /**
  * About:
  * Other:
  * Created: wfli on 2023/1/17 16:56.
  * Editored:
  */
-public class ActivityPlayerPageQuery {
-
-    private int page;
-
-    private int limit;
+public class ActivityPlayerPageQuery extends BasePageQuery {
 
     private String activityId;
 
@@ -21,22 +19,6 @@ public class ActivityPlayerPageQuery {
     private Integer status;
 
     public ActivityPlayerPageQuery() {
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public int getLimit() {
-        return limit;
-    }
-
-    public void setLimit(int limit) {
-        this.limit = limit;
     }
 
     public String getActivityId() {
@@ -74,9 +56,7 @@ public class ActivityPlayerPageQuery {
     @Override
     public String toString() {
         return "ActivityPlayerPageQuery{" +
-                "page=" + page +
-                ", limit=" + limit +
-                ", activityId='" + activityId + '\'' +
+                "activityId='" + activityId + '\'' +
                 ", activityName='" + activityName + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", status=" + status +

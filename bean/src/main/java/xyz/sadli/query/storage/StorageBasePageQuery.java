@@ -1,43 +1,22 @@
 package xyz.sadli.query.storage;
 
+import xyz.sadli.query.BasePageQuery;
+
 /**
  * About:
  * Other:
  * Created: wfli on 2023/2/10 16:11.
  * Editored:
  */
-public class PhotoPageQuery {
-
-    private int page;
-
-    private int limit;
+public class StorageBasePageQuery extends BasePageQuery {
 
     private Integer status;
-
-    // 图库的resourceType值固定为1
-    private Integer resourceType = 1;
 
     private String originName;
 
     private String description;
 
-    public PhotoPageQuery() {
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public int getLimit() {
-        return limit;
-    }
-
-    public void setLimit(int limit) {
-        this.limit = limit;
+    public StorageBasePageQuery() {
     }
 
     public Integer getStatus() {
@@ -48,13 +27,6 @@ public class PhotoPageQuery {
         this.status = status;
     }
 
-    public Integer getResourceType() {
-        return resourceType;
-    }
-
-    public void setResourceType(Integer resourceType) {
-        this.resourceType = resourceType;
-    }
 
     public String getOriginName() {
         return originName;
@@ -75,10 +47,7 @@ public class PhotoPageQuery {
     @Override
     public String toString() {
         return "PhotoPageQuery{" +
-                "page=" + page +
-                ", limit=" + limit +
-                ", status=" + status +
-                ", resourceType=" + resourceType +
+                "status=" + status +
                 ", originName='" + originName + '\'' +
                 ", description='" + description + '\'' +
                 '}';

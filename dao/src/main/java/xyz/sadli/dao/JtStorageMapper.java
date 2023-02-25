@@ -2,7 +2,7 @@ package xyz.sadli.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import xyz.sadli.entity.JtStorage;
-import xyz.sadli.query.storage.PhotoPageQuery;
+import xyz.sadli.query.storage.StorageBasePageQuery;
 
 import java.util.List;
 
@@ -27,5 +27,5 @@ public interface JtStorageMapper {
      * @param query
      * @return
      */
-    List<JtStorage> selectStorageListByQuery(PhotoPageQuery query);
+    List<JtStorage> selectStorageListByQuery(StorageBasePageQuery query);
 }

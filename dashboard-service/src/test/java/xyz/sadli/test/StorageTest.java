@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import xyz.sadli.entity.JtStorage;
-import xyz.sadli.query.storage.PhotoPageQuery;
+import xyz.sadli.query.storage.StorageBasePageQuery;
 import xyz.sadli.service.JtStorageService;
 
 /**
@@ -25,7 +25,7 @@ public class StorageTest {
 
     @Test
     public void pageList(){
-        PhotoPageQuery photoPageQuery = new PhotoPageQuery();
+        StorageBasePageQuery photoPageQuery = new StorageBasePageQuery();
         photoPageQuery.setPage(1);
         photoPageQuery.setLimit(5);
 

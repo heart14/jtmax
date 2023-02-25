@@ -14,7 +14,7 @@ import xyz.sadli.common.SysProperties;
 import xyz.sadli.dao.JtStorageMapper;
 import xyz.sadli.entity.JtStorage;
 import xyz.sadli.exception.SysException;
-import xyz.sadli.query.storage.PhotoPageQuery;
+import xyz.sadli.query.storage.StorageBasePageQuery;
 import xyz.sadli.service.JtStorageService;
 import xyz.sadli.util.IdWorker;
 import xyz.sadli.util.StringUtils;
@@ -44,12 +44,13 @@ public class JtStorageServiceImpl implements JtStorageService {
     }
 
     @Override
-    public JtStorage upload(MultipartFile file, String creatorUid) {
+    public JtStorage upload(MultipartFile file, String creatorUid,int resourceType) {
         Assert.notNull(file, ErrCodeEnums.PARAMS_EXCEPTION.getMsg());
         typeCheck(file.getContentType());
         Calendar calendar = Calendar.getInstance();
         String root = calendar.get(Calendar.YEAR) + Constants.URL_SEPARATOR + (calendar.get(Calendar.MONTH) + 1) + Constants.URL_SEPARATOR + calendar.get(Calendar.DAY_OF_MONTH);
-        String targetDirPath = SysProperties.BUCKET_PATH + file.getContentType().split("/")[0] + Constants.URL_SEPARATOR + root;
+        String fileType = file.getContentType().split("/")[0];
+        String targetDirPath = SysProperties.BUCKET_PATH + fileType + Constants.URL_SEPARATOR + root;
         File targetDir = new File(targetDirPath);
         if (!targetDir.exists()) {
             targetDir.mkdirs();
@@ -63,7 +64,7 @@ public class JtStorageServiceImpl implements JtStorageService {
         } catch (IOException e) {
             throw new SysException(ErrCodeEnums.FAILED_UPLOAD_EXCEPTION.getCode(), ErrCodeEnums.FAILED_UPLOAD_EXCEPTION.getMsg());
         }
-        String url = SysProperties.BUCKET_URL + file.getContentType().split("/")[0] + Constants.URL_SEPARATOR + root + Constants.URL_SEPARATOR + uuid + suffix;
+        String url = SysProperties.BUCKET_URL + fileType + Constants.URL_SEPARATOR + root + Constants.URL_SEPARATOR + uuid + suffix;
 
         // 存储
         JtStorage jtStorage = new JtStorage();
@@ -74,7 +75,7 @@ public class JtStorageServiceImpl implements JtStorageService {
         jtStorage.setStoragePath(filePath);
         jtStorage.setNetworkUrl(url);
         jtStorage.setMediaType(file.getContentType());
-        jtStorage.setResourceType(Constants.RESOURCE_TYPE_LIBRARY);
+        jtStorage.setResourceType(resourceType);
         jtStorage.setCreator(creatorUid);
         jtStorage.setStatus(Constants.STATUS_VALID);
         jtStorage.setCreateTime(new Date());
@@ -93,7 +94,7 @@ public class JtStorageServiceImpl implements JtStorageService {
     }
 
     @Override
-    public PageInfo<JtStorage> queryStoragePageList(PhotoPageQuery query) {
+    public <T extends StorageBasePageQuery> PageInfo<JtStorage> queryStoragePageList(T query) {
         PageHelper.startPage(query.getPage(), query.getLimit());
         List<JtStorage> storageList = storageMapper.selectStorageListByQuery(query);
         return new PageInfo<>(storageList);

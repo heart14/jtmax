@@ -21,7 +21,7 @@
     resource_type, creator, status, create_time, update_time
     </sql>
 
-    <select id="selectStorageListByQuery" parameterType="xyz.sadli.query.storage.PhotoPageQuery" resultMap="BaseResultMap">
+    <select id="selectStorageListByQuery" parameterType="xyz.sadli.query.storage.StorageBasePageQuery" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from jt_storage

@@ -1,5 +1,7 @@
 package xyz.sadli.query.activity;
 
+import xyz.sadli.query.BasePageQuery;
+
 import java.util.Date;
 
 /**
@@ -8,11 +10,7 @@ import java.util.Date;
  * Created: wfli on 2023/1/6 11:28.
  * Editored:
  */
-public class ActivityPageQuery {
-
-    private int page;
-
-    private int limit;
+public class ActivityPageQuery extends BasePageQuery {
 
     private String activityName;
 
@@ -25,22 +23,6 @@ public class ActivityPageQuery {
     private Date assembleDateEnd;
 
     public ActivityPageQuery() {
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public int getLimit() {
-        return limit;
-    }
-
-    public void setLimit(int limit) {
-        this.limit = limit;
     }
 
     public String getActivityName() {
@@ -86,9 +68,7 @@ public class ActivityPageQuery {
     @Override
     public String toString() {
         return "ActivityPageQuery{" +
-                "page=" + page +
-                ", limit=" + limit +
-                ", activityName='" + activityName + '\'' +
+                "activityName='" + activityName + '\'' +
                 ", activityType='" + activityType + '\'' +
                 ", status=" + status +
                 ", assembleDateStart=" + assembleDateStart +

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import xyz.sadli.common.Constants;
 import xyz.sadli.entity.JtStorage;
-import xyz.sadli.query.storage.PhotoPageQuery;
+import xyz.sadli.query.photo.PhotoPageQuery;
 import xyz.sadli.service.JtPhotoService;
 import xyz.sadli.service.JtStorageService;
 import xyz.sadli.util.JwtUtils;
