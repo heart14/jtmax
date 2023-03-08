@@ -1,4 +1,4 @@
-package xyz.sadli.query.photo;
+package xyz.sadli.query.banner;
 
 import xyz.sadli.query.storage.StorageBasePageQuery;
 
@@ -13,6 +13,8 @@ public class BannerPageQuery extends StorageBasePageQuery {
     // banner的resourceType值固定为0
     private Integer resourceType = 0;
 
+    private Integer showStatus;
+
     public BannerPageQuery() {
     }
 
@@ -24,10 +26,19 @@ public class BannerPageQuery extends StorageBasePageQuery {
         this.resourceType = resourceType;
     }
 
+    public Integer getShowStatus() {
+        return showStatus;
+    }
+
+    public void setShowStatus(Integer showStatus) {
+        this.showStatus = showStatus;
+    }
+
     @Override
     public String toString() {
         return "BannerPageQuery{" +
                 "resourceType=" + resourceType +
+                ", showStatus=" + showStatus +
                 '}';
     }
 }

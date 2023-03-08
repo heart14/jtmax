@@ -3,6 +3,7 @@ package xyz.sadli.entity;
 import java.util.Date;
 
 public class JtBanner {
+
     private String bannerId;
 
     private String storageId;

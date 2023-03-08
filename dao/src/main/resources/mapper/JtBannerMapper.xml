@@ -10,9 +10,69 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
+    <resultMap id="BannerVOResultMap" type="xyz.sadli.vo.JtBannerVO">
+        <id column="banner_id" jdbcType="VARCHAR" property="bannerId"/>
+        <result column="storage_id" jdbcType="VARCHAR" property="storageId"/>
+        <result column="origin_name" jdbcType="VARCHAR" property="originName"/>
+        <result column="show_status" jdbcType="INTEGER" property="showStatus"/>
+        <result column="storage_name" jdbcType="VARCHAR" property="storageName"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="size" jdbcType="VARCHAR" property="size"/>
+        <result column="storage_path" jdbcType="VARCHAR" property="storagePath"/>
+        <result column="network_url" jdbcType="VARCHAR" property="networkUrl"/>
+        <result column="media_type" jdbcType="VARCHAR" property="mediaType"/>
+        <result column="resource_type" jdbcType="INTEGER" property="resourceType"/>
+        <result column="creator" jdbcType="VARCHAR" property="creator"/>
+        <result column="status" jdbcType="INTEGER" property="fileStatus"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
     <sql id="Base_Column_List">
         banner_id, storage_id, origin_name, description, show_status, create_time, update_time
     </sql>
+
+    <!--查询当前生效展示的banner-->
+    <select id="selectCurrentShowedBanner" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jt_banner
+        where show_status = 1
+    </select>
+
+    <select id="selectBannerVOListByQuery" parameterType="xyz.sadli.query.banner.BannerPageQuery" resultMap="BannerVOResultMap">
+        select
+            b.banner_id, b.storage_id, b.origin_name, b.description, b.show_status, b.create_time, b.update_time,
+            s.storage_name, s.size, s.storage_path, s.network_url, s.media_type, s.resource_type, s.creator, s.status
+        from jt_banner b, jt_storage s
+        where s.id = b.storage_id
+        <if test="originName != null and originName != ''">
+            <bind name="likeName" value="'%' + originName + '%'"/>
+            and s.origin_name like #{likeName,jdbcType=VARCHAR}
+        </if>
+        <if test="resourceType != null">
+            and s.resource_type = #{resourceType,jdbcType=INTEGER}
+        </if>
+        <if test="mediaType != null and mediaType != ''">
+            and s.media_type = #{mediaType,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null">
+            and s.status = #{status,jdbcType=INTEGER}
+        </if>
+        <if test="description != null and description != ''">
+            <bind name="likeDesc" value="'%' + description + '%'"/>
+            and b.description like #{likeDesc,jdbcType=VARCHAR}
+        </if>
+        <if test="showStatus != null">
+            and b.show_status = #{showStatus,jdbcType=INTEGER}
+        </if>
+        <if test="createTimeStart != null">
+            and b.create_time <![CDATA[ >= ]]> #{createTimeStart,jdbcType=TIMESTAMP}
+        </if>
+        <if test="createTimeEnd != null">
+            and b.create_time <![CDATA[ < ]]> #{createTimeEnd,jdbcType=TIMESTAMP}
+        </if>
+    </select>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
