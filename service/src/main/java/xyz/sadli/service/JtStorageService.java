@@ -18,6 +18,7 @@ public interface JtStorageService {
      *
      * @param file
      * @param creatorUid
+     * @param resourceType
      * @return
      */
     JtStorage upload(MultipartFile file, String creatorUid,int resourceType);
