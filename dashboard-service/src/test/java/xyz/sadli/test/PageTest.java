@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import xyz.sadli.query.photo.BannerPageQuery;
+import xyz.sadli.query.banner.BannerPageQuery;
 import xyz.sadli.query.photo.PhotoPageQuery;
 import xyz.sadli.service.JtStorageService;
 
