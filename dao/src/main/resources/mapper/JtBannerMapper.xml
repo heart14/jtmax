@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.sadli.dao.JtBannerMapper">
+    <resultMap id="BaseResultMap" type="xyz.sadli.entity.JtBanner">
+        <id column="banner_id" jdbcType="VARCHAR" property="bannerId"/>
+        <result column="storage_id" jdbcType="VARCHAR" property="storageId"/>
+        <result column="origin_name" jdbcType="VARCHAR" property="originName"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="show_status" jdbcType="INTEGER" property="showStatus"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        banner_id, storage_id, origin_name, description, show_status, create_time, update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jt_banner
+        where banner_id = #{bannerId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from jt_banner
+        where banner_id = #{bannerId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="xyz.sadli.entity.JtBanner">
+        insert into jt_banner (banner_id, storage_id, origin_name,
+                               description, show_status, create_time,
+                               update_time)
+        values (#{bannerId,jdbcType=VARCHAR}, #{storageId,jdbcType=VARCHAR}, #{originName,jdbcType=VARCHAR},
+                #{description,jdbcType=VARCHAR}, #{showStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+                #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="xyz.sadli.entity.JtBanner">
+        insert into jt_banner
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bannerId != null">
+                banner_id,
+            </if>
+            <if test="storageId != null">
+                storage_id,
+            </if>
+            <if test="originName != null">
+                origin_name,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="showStatus != null">
+                show_status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bannerId != null">
+                #{bannerId,jdbcType=VARCHAR},
+            </if>
+            <if test="storageId != null">
+                #{storageId,jdbcType=VARCHAR},
+            </if>
+            <if test="originName != null">
+                #{originName,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="showStatus != null">
+                #{showStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="xyz.sadli.entity.JtBanner">
+        update jt_banner
+        <set>
+            <if test="storageId != null">
+                storage_id = #{storageId,jdbcType=VARCHAR},
+            </if>
+            <if test="originName != null">
+                origin_name = #{originName,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="showStatus != null">
+                show_status = #{showStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where banner_id = #{bannerId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="xyz.sadli.entity.JtBanner">
+        update jt_banner
+        set storage_id  = #{storageId,jdbcType=VARCHAR},
+            origin_name = #{originName,jdbcType=VARCHAR},
+            description = #{description,jdbcType=VARCHAR},
+            show_status = #{showStatus,jdbcType=INTEGER},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where banner_id = #{bannerId,jdbcType=VARCHAR}
+    </update>
+</mapper>
