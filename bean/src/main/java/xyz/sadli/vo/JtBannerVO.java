@@ -1,5 +1,6 @@
 package xyz.sadli.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import xyz.sadli.entity.JtBanner;
 import xyz.sadli.entity.JtStorage;
 
@@ -42,8 +43,10 @@ public class JtBannerVO implements Serializable {
 
     private Integer fileStatus;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateTime;
 
     public JtBannerVO() {
