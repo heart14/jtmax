@@ -167,6 +167,7 @@
         s.storage_name, s.storage_path, s.size, s.network_url, s.media_type, s.resource_type, s.creator, s.status
         from jt_photo p, jt_storage s
         where s.id = p.storage_id
+            and p.delete_status = 1
         <if test="originName != null and originName != ''">
             <bind name="likeName" value="'%' + originName + '%'"/>
             and p.origin_name like #{likeName,jdbcType=VARCHAR}
