@@ -1,7 +1,5 @@
 package xyz.sadli.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -14,7 +12,6 @@ import xyz.sadli.common.SysProperties;
 import xyz.sadli.dao.JtStorageMapper;
 import xyz.sadli.entity.JtStorage;
 import xyz.sadli.exception.SysException;
-import xyz.sadli.query.storage.StorageBasePageQuery;
 import xyz.sadli.service.JtStorageService;
 import xyz.sadli.util.IdWorker;
 import xyz.sadli.util.StringUtils;
@@ -23,7 +20,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -44,7 +40,7 @@ public class JtStorageServiceImpl implements JtStorageService {
     }
 
     @Override
-    public JtStorage upload(MultipartFile file, String creatorUid,int resourceType) {
+    public JtStorage upload(MultipartFile file, String creatorUid, int resourceType) {
         Assert.notNull(file, ErrCodeEnums.PARAMS_EXCEPTION.getMsg());
         typeCheck(file.getContentType());
         Calendar calendar = Calendar.getInstance();
@@ -91,13 +87,6 @@ public class JtStorageServiceImpl implements JtStorageService {
         storage.setStatus(Constants.STATUS_INVALID);
         storage.setUpdateTime(new Date());
         storageMapper.updateByPrimaryKey(storage);
-    }
-
-    @Override
-    public <T extends StorageBasePageQuery> PageInfo<JtStorage> queryStoragePageList(T query) {
-        PageHelper.startPage(query.getPage(), query.getLimit());
-        List<JtStorage> storageList = storageMapper.selectStorageListByQuery(query);
-        return new PageInfo<>(storageList);
     }
 
     /**
