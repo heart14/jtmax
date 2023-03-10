@@ -5,8 +5,10 @@ import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 import xyz.sadli.common.Constants;
+import xyz.sadli.common.ErrCodeEnums;
 import xyz.sadli.dao.JtPhotoMapper;
 import xyz.sadli.entity.JtPhoto;
 import xyz.sadli.entity.JtStorage;
@@ -16,6 +18,7 @@ import xyz.sadli.service.JtStorageService;
 import xyz.sadli.util.IdWorker;
 import xyz.sadli.vo.JtPhotoVO;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,5 +67,15 @@ public class JtPhotoServiceImpl implements JtPhotoService {
         PageHelper.startPage(query.getPage(), query.getLimit());
         List<JtPhotoVO> voList = photoMapper.selectPhotoVOListByQuery(query);
         return new PageInfo<>(voList);
+    }
+
+    @Override
+    public void deletePhoto(String photoId) {
+        JtPhoto photo = photoMapper.selectByPrimaryKey(photoId);
+        Assert.notNull(photo, ErrCodeEnums.NON_FILE_EXCEPTION.getMsg());
+        // 更新状态为已删除（逻辑删除）
+        photo.setDeleteStatus(Constants.STATUS_INVALID);
+        photo.setUpdateTime(new Date());
+        photoMapper.updateByPrimaryKey(photo);
     }
 }

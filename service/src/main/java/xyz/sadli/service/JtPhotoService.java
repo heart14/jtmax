@@ -2,7 +2,6 @@ package xyz.sadli.service;
 
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.multipart.MultipartFile;
-import xyz.sadli.entity.JtStorage;
 import xyz.sadli.query.photo.PhotoPageQuery;
 import xyz.sadli.vo.JtPhotoVO;
 
@@ -30,4 +29,11 @@ public interface JtPhotoService {
      * @return
      */
     PageInfo<JtPhotoVO> queryPhotoPageList(PhotoPageQuery query);
+
+    /**
+     * 删除图片
+     *
+     * @param photoId
+     */
+    void deletePhoto(String photoId);
 }

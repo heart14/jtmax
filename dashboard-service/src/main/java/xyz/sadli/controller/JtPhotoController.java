@@ -55,10 +55,10 @@ public class JtPhotoController {
     }
 
     @ApiOperation("删除图片")
-    @RequestMapping(value = "/photo/{id}", method = RequestMethod.DELETE)
-    public SysResponse delete(@PathVariable("id") String id) {
+    @RequestMapping(value = "/photo/{photoId}", method = RequestMethod.DELETE)
+    public SysResponse delete(@PathVariable("photoId") String photoId) {
         log.info("删除图片");
-//        storageService.delete(id);
+        photoService.deletePhoto(photoId);
         return SysResponseUtils.success();
     }
 }
