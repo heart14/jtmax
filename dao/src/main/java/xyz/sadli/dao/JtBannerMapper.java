@@ -29,5 +29,11 @@ public interface JtBannerMapper {
      */
     JtBanner selectCurrentShowedBanner();
 
+    /**
+     * 根据query查询bannerVo集合
+     *
+     * @param query
+     * @return
+     */
     List<JtBannerVO> selectBannerVOListByQuery(BannerPageQuery query);
 }
