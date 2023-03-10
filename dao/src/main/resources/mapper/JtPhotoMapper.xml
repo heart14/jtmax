@@ -163,7 +163,7 @@
     <!--根据query查询photoVo集合-->
     <select id="selectPhotoVOListByQuery" parameterType="xyz.sadli.query.photo.PhotoPageQuery" resultMap="PhotoVOResultMap">
         select
-        p.photo_id, p.storage_id, p.origin_name, p.description, p.delete_status, p.likes_number, p.dl_number, p.create_time, p.update_time
+        p.photo_id, p.storage_id, p.origin_name, p.description, p.delete_status, p.likes_number, p.dl_number, p.create_time, p.update_time,
         s.storage_name, s.storage_path, s.size, s.network_url, s.media_type, s.resource_type, s.creator, s.status
         from jt_photo p, jt_storage s
         where s.id = p.storage_id
