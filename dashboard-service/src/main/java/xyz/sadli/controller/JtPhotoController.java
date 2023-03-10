@@ -8,12 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import xyz.sadli.common.Constants;
-import xyz.sadli.entity.JtStorage;
 import xyz.sadli.query.photo.PhotoPageQuery;
 import xyz.sadli.service.JtPhotoService;
-import xyz.sadli.service.JtStorageService;
 import xyz.sadli.util.JwtUtils;
 import xyz.sadli.util.SysResponseUtils;
+import xyz.sadli.vo.JtPhotoVO;
 import xyz.sadli.vo.SysResponse;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,12 +30,9 @@ public class JtPhotoController {
 
     public static final Logger log = LoggerFactory.getLogger(JtPhotoController.class);
 
-    private final JtStorageService storageService;
-
     private final JtPhotoService photoService;
 
-    public JtPhotoController(JtStorageService storageService, JtPhotoService photoService) {
-        this.storageService = storageService;
+    public JtPhotoController(JtPhotoService photoService) {
         this.photoService = photoService;
     }
 
@@ -44,7 +40,7 @@ public class JtPhotoController {
     @RequestMapping(value = "/photo/page_list", method = RequestMethod.POST)
     public SysResponse pageList(@RequestBody PhotoPageQuery query) {
         log.info("分页查询画廊图片列表");
-        PageInfo<JtStorage> pageInfo = storageService.queryStoragePageList(query);
+        PageInfo<JtPhotoVO> pageInfo = photoService.queryPhotoPageList(query);
         return SysResponseUtils.success(pageInfo);
     }
 
@@ -54,15 +50,15 @@ public class JtPhotoController {
         log.info("上传图片 :{}", multipartFile);
         String jwtToken = request.getHeader(Constants.FIELD_JWT_TOKEN);
         String uid = (String) JwtUtils.parseJwtToken(jwtToken).get("uid");
-        JtStorage upload = photoService.uploadPhoto(multipartFile, uid);
-        return SysResponseUtils.success(upload);
+        JtPhotoVO photoVO = photoService.uploadPhoto(multipartFile, uid);
+        return SysResponseUtils.success(photoVO);
     }
 
     @ApiOperation("删除图片")
     @RequestMapping(value = "/photo/{id}", method = RequestMethod.DELETE)
     public SysResponse delete(@PathVariable("id") String id) {
         log.info("删除图片");
-        storageService.delete(id);
+//        storageService.delete(id);
         return SysResponseUtils.success();
     }
 }

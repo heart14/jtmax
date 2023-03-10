@@ -1,7 +1,10 @@
 package xyz.sadli.service;
 
+import com.github.pagehelper.PageInfo;
 import org.springframework.web.multipart.MultipartFile;
 import xyz.sadli.entity.JtStorage;
+import xyz.sadli.query.photo.PhotoPageQuery;
+import xyz.sadli.vo.JtPhotoVO;
 
 /**
  * About:
@@ -18,5 +21,13 @@ public interface JtPhotoService {
      * @param creator
      * @return
      */
-    JtStorage uploadPhoto(MultipartFile file, String creator);
+    JtPhotoVO uploadPhoto(MultipartFile file, String creator);
+
+    /**
+     * 分页查询图片信息
+     *
+     * @param query
+     * @return
+     */
+    PageInfo<JtPhotoVO> queryPhotoPageList(PhotoPageQuery query);
 }

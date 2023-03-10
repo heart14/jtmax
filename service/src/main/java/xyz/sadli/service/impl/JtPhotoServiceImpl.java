@@ -1,13 +1,22 @@
 package xyz.sadli.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import xyz.sadli.common.Constants;
+import xyz.sadli.dao.JtPhotoMapper;
+import xyz.sadli.entity.JtPhoto;
 import xyz.sadli.entity.JtStorage;
+import xyz.sadli.query.photo.PhotoPageQuery;
 import xyz.sadli.service.JtPhotoService;
 import xyz.sadli.service.JtStorageService;
+import xyz.sadli.util.IdWorker;
+import xyz.sadli.vo.JtPhotoVO;
+
+import java.util.List;
 
 /**
  * About:
@@ -22,14 +31,38 @@ public class JtPhotoServiceImpl implements JtPhotoService {
 
     private final JtStorageService storageService;
 
-    public JtPhotoServiceImpl(JtStorageService storageService) {
+    private final JtPhotoMapper photoMapper;
+
+    public JtPhotoServiceImpl(JtStorageService storageService, JtPhotoMapper photoMapper) {
         this.storageService = storageService;
+        this.photoMapper = photoMapper;
     }
 
     @Override
-    public JtStorage uploadPhoto(MultipartFile file, String creator) {
-        //TODO 校验是否是系统支持的图片格式
-        //为什么要加这一步，因为storageService里面的upload方法供整个系统使用，支持很多类型的文件上传，所以要前置处理一下
-        return storageService.upload(file, creator, Constants.RESOURCE_TYPE_LIBRARY);
+    public JtPhotoVO uploadPhoto(MultipartFile file, String creator) {
+        // TODO 校验是否是系统支持的图片格式
+        // 为什么要加这一步，因为storageService里面的upload方法供整个系统使用，支持很多类型的文件上传，所以要前置处理一下
+        JtStorage storage = storageService.upload(file, creator, Constants.RESOURCE_TYPE_LIBRARY);
+
+        // 保存photo表
+        JtPhoto photo = new JtPhoto();
+        String nextIdStr = IdWorker.nextIdStr();
+        photo.setPhotoId(nextIdStr);
+        photo.setStorageId(storage.getId());
+        photo.setOriginName(file.getOriginalFilename());
+        photo.setDescription("");
+        photo.setDeleteStatus(Constants.STATUS_VALID);
+        photo.setLikesNumber(0);
+        photo.setDlNumber(0);
+        photo.setCreateTime(storage.getCreateTime());
+        photoMapper.insert(photo);
+        return new JtPhotoVO(photo, storage);
+    }
+
+    @Override
+    public PageInfo<JtPhotoVO> queryPhotoPageList(PhotoPageQuery query) {
+        PageHelper.startPage(query.getPage(), query.getLimit());
+        List<JtPhotoVO> voList = photoMapper.selectPhotoVOListByQuery(query);
+        return new PageInfo<>(voList);
     }
 }
