@@ -60,6 +60,7 @@ public class JtBannerController {
     @RequestMapping(value = "/banner/{bannerId}", method = RequestMethod.DELETE)
     public SysResponse deleteBanner(@PathVariable("bannerId") String bannerId) {
         log.info("删除Banner视频");
+        bannerService.removeBanner(bannerId);
         return SysResponseUtils.success();
     }
 
@@ -68,9 +69,7 @@ public class JtBannerController {
     @RequestMapping(value = "/banner/show/{bannerId}", method = RequestMethod.PATCH)
     public SysResponse showBanner(@PathVariable("bannerId") String bannerId) {
         log.info("设置Banner视频为首页展示");
-        /*
-         * 将一个视频设置为首页展示时，需要同时把其它的更新为不展示
-         */
+        bannerService.editBannerShow(bannerId);
         return SysResponseUtils.success();
     }
 

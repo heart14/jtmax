@@ -46,6 +46,11 @@ public class Constants {
     public static final int RESOURCE_TYPE_AD = 4;
     public static final int RESOURCE_TYPE_OTHER = 5;
 
+    /**
+     * banner视频删除状态
+     */
+    public static final int BANNER_DELETED = -1;
+
 
     /**
      * slf4j日志框架MDC常量字段名

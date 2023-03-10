@@ -29,4 +29,18 @@ public interface JtBannerService {
      * @return
      */
     JtBannerVO uploadBanner(MultipartFile file, String creator);
+
+    /**
+     * 删除banner
+     *
+     * @param bannerId
+     */
+    void removeBanner(String bannerId);
+
+    /**
+     * 修改banner状态为首页展示
+     *
+     * @param bannerId
+     */
+    void editBannerShow(String bannerId);
 }

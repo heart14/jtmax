@@ -2,12 +2,14 @@ package xyz.sadli.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.jsonwebtoken.lang.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import xyz.sadli.common.Constants;
+import xyz.sadli.common.ErrCodeEnums;
 import xyz.sadli.dao.JtBannerMapper;
 import xyz.sadli.entity.JtBanner;
 import xyz.sadli.entity.JtStorage;
@@ -17,6 +19,7 @@ import xyz.sadli.service.JtStorageService;
 import xyz.sadli.util.IdWorker;
 import xyz.sadli.vo.JtBannerVO;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,5 +66,34 @@ public class JtBannerServiceImpl implements JtBannerService {
         banner.setCreateTime(storage.getCreateTime());
         bannerMapper.insert(banner);
         return new JtBannerVO(banner, storage);
+    }
+
+    @Override
+    public void removeBanner(String bannerId) {
+        JtBanner b = bannerMapper.selectByPrimaryKey(bannerId);
+        Assert.notNull(b, ErrCodeEnums.NON_FILE_EXCEPTION.getMsg());
+        b.setShowStatus(Constants.BANNER_DELETED);
+        b.setUpdateTime(new Date());
+        bannerMapper.updateByPrimaryKey(b);
+    }
+
+    @Override
+    @Transactional
+    public void editBannerShow(String bannerId) {
+        JtBanner banner = bannerMapper.selectByPrimaryKey(bannerId);
+        Assert.notNull(banner, ErrCodeEnums.NON_FILE_EXCEPTION.getMsg());
+        Date date = new Date();
+        banner.setShowStatus(Constants.STATUS_VALID);
+        banner.setUpdateTime(date);
+        // 更新要展示的banner状态为1
+        bannerMapper.updateByPrimaryKey(banner);
+        JtBanner showedBanner = bannerMapper.selectCurrentShowedBanner();
+        if (showedBanner != null) {
+            showedBanner.setShowStatus(Constants.STATUS_INVALID);
+            showedBanner.setUpdateTime(date);
+            // 更新当前展示的banner状态为0
+            // 两个更新操作必须是原子性的
+            bannerMapper.updateByPrimaryKeySelective(showedBanner);
+        }
     }
 }
