@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.sadli.dao.JtPhotoMapper">
+    <resultMap id="BaseResultMap" type="xyz.sadli.entity.JtPhoto">
+        <id column="photo_id" jdbcType="VARCHAR" property="photoId"/>
+        <result column="storage_id" jdbcType="VARCHAR" property="storageId"/>
+        <result column="origin_name" jdbcType="VARCHAR" property="originName"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="delete_status" jdbcType="INTEGER" property="deleteStatus"/>
+        <result column="likes_number" jdbcType="INTEGER" property="likesNumber"/>
+        <result column="dl_number" jdbcType="INTEGER" property="dlNumber"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        photo_id, storage_id, origin_name, description, delete_status, likes_number, dl_number, create_time, update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jt_photo
+        where photo_id = #{photoId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from jt_photo
+        where photo_id = #{photoId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="xyz.sadli.entity.JtPhoto">
+        insert into jt_photo (photo_id, storage_id, origin_name,
+                              description, delete_status, likes_number,
+                              dl_number, create_time, update_time)
+        values (#{photoId,jdbcType=VARCHAR}, #{storageId,jdbcType=VARCHAR}, #{originName,jdbcType=VARCHAR},
+                #{description,jdbcType=VARCHAR}, #{deleteStatus,jdbcType=INTEGER}, #{likesNumber,jdbcType=INTEGER},
+                #{dlNumber,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="xyz.sadli.entity.JtPhoto">
+        insert into jt_photo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="photoId != null">
+                photo_id,
+            </if>
+            <if test="storageId != null">
+                storage_id,
+            </if>
+            <if test="originName != null">
+                origin_name,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="deleteStatus != null">
+                delete_status,
+            </if>
+            <if test="likesNumber != null">
+                likes_number,
+            </if>
+            <if test="dlNumber != null">
+                dl_number,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="photoId != null">
+                #{photoId,jdbcType=VARCHAR},
+            </if>
+            <if test="storageId != null">
+                #{storageId,jdbcType=VARCHAR},
+            </if>
+            <if test="originName != null">
+                #{originName,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteStatus != null">
+                #{deleteStatus,jdbcType=INTEGER},
+            </if>
+            <if test="likesNumber != null">
+                #{likesNumber,jdbcType=INTEGER},
+            </if>
+            <if test="dlNumber != null">
+                #{dlNumber,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="xyz.sadli.entity.JtPhoto">
+        update jt_photo
+        <set>
+            <if test="storageId != null">
+                storage_id = #{storageId,jdbcType=VARCHAR},
+            </if>
+            <if test="originName != null">
+                origin_name = #{originName,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteStatus != null">
+                delete_status = #{deleteStatus,jdbcType=INTEGER},
+            </if>
+            <if test="likesNumber != null">
+                likes_number = #{likesNumber,jdbcType=INTEGER},
+            </if>
+            <if test="dlNumber != null">
+                dl_number = #{dlNumber,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where photo_id = #{photoId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="xyz.sadli.entity.JtPhoto">
+        update jt_photo
+        set storage_id    = #{storageId,jdbcType=VARCHAR},
+            origin_name   = #{originName,jdbcType=VARCHAR},
+            description   = #{description,jdbcType=VARCHAR},
+            delete_status = #{deleteStatus,jdbcType=INTEGER},
+            likes_number  = #{likesNumber,jdbcType=INTEGER},
+            dl_number     = #{dlNumber,jdbcType=INTEGER},
+            create_time   = #{createTime,jdbcType=TIMESTAMP},
+            update_time   = #{updateTime,jdbcType=TIMESTAMP}
+        where photo_id = #{photoId,jdbcType=VARCHAR}
+    </update>
+
+
+    <resultMap id="PhotoVOResultMap" type="xyz.sadli.vo.JtPhotoVO">
+        <id column="photo_id" jdbcType="VARCHAR" property="photoId"/>
+        <result column="storage_id" jdbcType="VARCHAR" property="storageId"/>
+        <result column="origin_name" jdbcType="VARCHAR" property="originName"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="delete_status" jdbcType="INTEGER" property="deleteStatus"/>
+        <result column="likes_number" jdbcType="INTEGER" property="likesNumber"/>
+        <result column="dl_number" jdbcType="INTEGER" property="dlNumber"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+
+        <result column="storage_name" jdbcType="VARCHAR" property="storageName"/>
+        <result column="storage_path" jdbcType="VARCHAR" property="storagePath"/>
+        <result column="size" jdbcType="VARCHAR" property="size"/>
+        <result column="network_url" jdbcType="VARCHAR" property="networkUrl"/>
+        <result column="media_type" jdbcType="VARCHAR" property="mediaType"/>
+        <result column="resource_type" jdbcType="INTEGER" property="resourceType"/>
+        <result column="creator" jdbcType="VARCHAR" property="creator"/>
+        <result column="status" jdbcType="INTEGER" property="fileStatus"/>
+    </resultMap>
+
+    <!--根据query查询photoVo集合-->
+    <select id="selectPhotoVOListByQuery" parameterType="xyz.sadli.query.photo.PhotoPageQuery" resultMap="PhotoVOResultMap">
+        select
+        p.photo_id, p.storage_id, p.origin_name, p.description, p.delete_status, p.likes_number, p.dl_number, p.create_time, p.update_time
+        s.storage_name, s.storage_path, s.size, s.network_url, s.media_type, s.resource_type, s.creator, s.status
+        from jt_photo p, jt_storage s
+        where s.id = p.storage_id
+        <if test="originName != null and originName != ''">
+            <bind name="likeName" value="'%' + originName + '%'"/>
+            and p.origin_name like #{likeName,jdbcType=VARCHAR}
+        </if>
+        <if test="resourceType != null">
+            and s.resource_type = #{resourceType,jdbcType=INTEGER}
+        </if>
+        <if test="mediaType != null and mediaType != ''">
+            and s.media_type = #{mediaType,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null">
+            and s.status = #{status,jdbcType=INTEGER}
+        </if>
+        <if test="description != null and description != ''">
+            <bind name="likeDesc" value="'%' + description + '%'"/>
+            and p.description like #{likeDesc,jdbcType=VARCHAR}
+        </if>
+        <if test="deleteStatus != null">
+            and p.delete_status = #{deleteStatus,jdbcType=INTEGER}
+        </if>
+        <if test="likesNumber != null">
+            and p.likes_number <![CDATA[ >= ]]> #{likesNumber,jdbcType=INTEGER}
+        </if>
+        <if test="dlNumber != null">
+            and p.dl_number <![CDATA[ >= ]]> #{dlNumber,jdbcType=INTEGER}
+        </if>
+        <if test="createTimeStart != null">
+            and p.create_time <![CDATA[ >= ]]> #{createTimeStart,jdbcType=TIMESTAMP}
+        </if>
+        <if test="createTimeEnd != null">
+            and p.create_time <![CDATA[ < ]]> #{createTimeEnd,jdbcType=TIMESTAMP}
+        </if>
+    </select>
+</mapper>
