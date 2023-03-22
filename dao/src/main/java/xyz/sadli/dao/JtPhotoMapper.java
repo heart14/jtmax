@@ -2,9 +2,7 @@ package xyz.sadli.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import xyz.sadli.entity.JtPhoto;
-import xyz.sadli.query.banner.BannerPageQuery;
 import xyz.sadli.query.photo.PhotoPageQuery;
-import xyz.sadli.vo.JtBannerVO;
 import xyz.sadli.vo.JtPhotoVO;
 
 import java.util.List;
@@ -31,4 +29,12 @@ public interface JtPhotoMapper {
      * @return
      */
     List<JtPhotoVO> selectPhotoVOListByQuery(PhotoPageQuery query);
+
+    /**
+     * 根据photoId查询photoVo
+     *
+     * @param photoId
+     * @return
+     */
+    JtPhotoVO selectPhotoVOById(String photoId);
 }

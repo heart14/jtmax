@@ -16,6 +16,8 @@ import xyz.sadli.vo.JtPhotoVO;
 import xyz.sadli.vo.SysResponse;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 
 /**
  * About:
@@ -60,5 +62,52 @@ public class JtPhotoController {
         log.info("删除图片");
         photoService.deletePhoto(photoId);
         return SysResponseUtils.success();
+    }
+
+    @ApiOperation("下载图片")
+    @RequestMapping(value = "/photo/{photoId}", method = RequestMethod.GET)
+    public SysResponse download(@PathVariable("photoId") String photoId, HttpServletRequest request, HttpServletResponse response) {
+        log.info("下载图片");
+        JtPhotoVO photo = photoService.downloadPhoto(photoId);
+        //设置文件路径
+        String realPath = photo.getStoragePath();
+        File file = new File(realPath);
+        if (file.exists()) {
+            response.setContentType("application/octet-stream");
+            response.setHeader("content-type", "application/octet-stream");
+            response.setHeader("Content-Disposition", "attachment;fileName=" + photo.getOriginName());// 设置文件名
+            byte[] buffer = new byte[1024];
+            FileInputStream fis = null;
+            BufferedInputStream bis = null;
+            try {
+                fis = new FileInputStream(file);
+                bis = new BufferedInputStream(fis);
+                OutputStream os = response.getOutputStream();
+                int i = bis.read(buffer);
+                while (i != -1) {
+                    os.write(buffer, 0, i);
+                    i = bis.read(buffer);
+                }
+            } catch (Exception e) {
+                log.error("图片下载失败: {}", e.getMessage(), e);
+                return SysResponseUtils.fail(photo);
+            } finally {
+                if (bis != null) {
+                    try {
+                        bis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return SysResponseUtils.success(photo);
     }
 }

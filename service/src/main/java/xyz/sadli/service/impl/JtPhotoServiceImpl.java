@@ -78,4 +78,11 @@ public class JtPhotoServiceImpl implements JtPhotoService {
         photo.setUpdateTime(new Date());
         photoMapper.updateByPrimaryKey(photo);
     }
+
+    @Override
+    public JtPhotoVO downloadPhoto(String photoId) {
+        JtPhotoVO photo = photoMapper.selectPhotoVOById(photoId);
+        Assert.notNull(photo, ErrCodeEnums.NON_FILE_EXCEPTION.getMsg());
+        return photo;
+    }
 }

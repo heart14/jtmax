@@ -201,4 +201,15 @@
             and p.create_time <![CDATA[ < ]]> #{createTimeEnd,jdbcType=TIMESTAMP}
         </if>
     </select>
+
+    <!--根据photoId查询photoVo-->
+    <select id="selectPhotoVOById" parameterType="java.lang.String" resultMap="PhotoVOResultMap">
+        select
+        p.photo_id, p.storage_id, p.origin_name, p.description, p.delete_status, p.likes_number, p.dl_number, p.create_time, p.update_time,
+        s.storage_name, s.storage_path, s.size, s.network_url, s.media_type, s.resource_type, s.creator, s.status
+        from jt_photo p, jt_storage s
+        where s.id = p.storage_id
+        and p.delete_status = 1
+        and p.photo_id = #{photoId,jdbcType=VARCHAR}
+    </select>
 </mapper>

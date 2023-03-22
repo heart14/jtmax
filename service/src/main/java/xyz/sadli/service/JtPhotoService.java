@@ -36,4 +36,12 @@ public interface JtPhotoService {
      * @param photoId
      */
     void deletePhoto(String photoId);
+
+    /**
+     * 下载图片
+     *
+     * @param photoId
+     * @return
+     */
+    JtPhotoVO downloadPhoto(String photoId);
 }
