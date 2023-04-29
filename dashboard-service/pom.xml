@@ -46,17 +46,48 @@
 
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>macli</id>
+            <properties>
+                <package.environment>macli</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>wfli</id>
+            <properties>
+                <package.environment>wfli</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <package.environment>test</package.environment>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <package.environment>prod</package.environment>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <resources>
             <resource>
-                <directory>src/main/java</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
+                <directory>${basedir}/src/main/resources/profiles/${package.environment}</directory><!--动态配置当前生效配置文件的目录-->
+                <filtering>true</filtering><!--这个是过滤什么的呢？-->
             </resource>
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>${basedir}/src/main/java</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.**</include>
+                </includes>
             </resource>
         </resources>
         <plugins>
@@ -64,6 +95,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <!--<version>2.18.1</version>-->
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
             </plugin>
         </plugins>
     </build>
