@@ -66,7 +66,7 @@ public class JtPhotoController {
 
     @ApiOperation("下载图片")
     @RequestMapping(value = "/photo/{photoId}", method = RequestMethod.GET)
-    public SysResponse download(@PathVariable("photoId") String photoId, HttpServletRequest request, HttpServletResponse response) {
+    public SysResponse download(@PathVariable("photoId") String photoId, HttpServletResponse response) {
         log.info("下载图片");
         JtPhotoVO photo = photoService.downloadPhoto(photoId);
         //设置文件路径
@@ -75,7 +75,8 @@ public class JtPhotoController {
         if (file.exists()) {
             response.setContentType("application/octet-stream");
             response.setHeader("content-type", "application/octet-stream");
-            response.setHeader("Content-Disposition", "attachment;fileName=" + photo.getOriginName());// 设置文件名
+            // 设置文件名
+            response.setHeader("Content-Disposition", "attachment;fileName=" + photo.getOriginName());
             byte[] buffer = new byte[1024];
             FileInputStream fis = null;
             BufferedInputStream bis = null;
