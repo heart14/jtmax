@@ -6,7 +6,7 @@
 </p>
 <p align="center">
 <a target="_blank" href="https://github.com/heart14/jtmax">
-    	<img src="https://img.shields.io/hexpm/l/plug.svg" ></img>
+    	<img src="https://img.shields.io/badge/license-MIT-blue" ></img>
 		<img src="https://img.shields.io/badge/JDK-1.8+-green.svg" ></img>
         <img src="https://img.shields.io/badge/nodejs-14.x-green" ></img>
         <img src="https://img.shields.io/badge/springboot-2.2.2.RELEASE-green" ></img>
