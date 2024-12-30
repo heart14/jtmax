@@ -1,4 +1,4 @@
-package utils;
+package com.sadli.utils;
 
 import java.lang.management.ManagementFactory;
 import java.text.ParseException;

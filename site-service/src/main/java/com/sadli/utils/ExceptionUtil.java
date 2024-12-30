@@ -1,4 +1,4 @@
-package utils;
+package com.sadli.utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

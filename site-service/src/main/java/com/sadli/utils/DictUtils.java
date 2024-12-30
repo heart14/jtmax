@@ -1,4 +1,4 @@
-package utils;
+package com.sadli.utils;
 
 import java.util.Collection;
 import java.util.List;
